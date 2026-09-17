@@ -7,10 +7,28 @@
     @for (tree of pinnedTreeData(); track trackByTreeId($index, tree)) {
       <div class="pin-area__card">
         <button
+          class="pin-area__reset-btn"
+          (click)="resetTree(tree.id)"
+          [attr.aria-label]="'Reset ' + tree.name"
+          appTooltip
+          [tooltipText]="'Reset ' + tree.name"
+          tooltipPlacement="top"
+        >
+          <img
+            src="assets/icons/reset_ability_tree.png"
+            alt="Reset"
+            width="16"
+            height="16"
+            draggable="false"
+          />
+        </button>
+        <button
           class="pin-area__unpin-btn"
           (click)="unpinTree(tree.id)"
           [attr.aria-label]="'Unpin ' + tree.name"
-          title="Unpin tree"
+          appTooltip
+          [tooltipText]="'Unpin ' + tree.name"
+          tooltipPlacement="top"
         >
           <img
             src="assets/icons/close_menu_x.png"

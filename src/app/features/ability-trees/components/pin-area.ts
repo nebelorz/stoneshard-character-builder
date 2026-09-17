@@ -4,10 +4,11 @@ import { AbilityDataService } from '@features/ability-trees/services';
 import { AbilityTree } from '@models';
 import { AbilityTreeComponent } from './ability-tree/ability-tree';
 import { TreeSelectorComponent } from './tree-selector/tree-selector';
+import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
 
 @Component({
   selector: 'app-pin-area',
-  imports: [AbilityTreeComponent, TreeSelectorComponent],
+  imports: [AbilityTreeComponent, TreeSelectorComponent, TooltipDirective],
   templateUrl: './pin-area.html',
   styleUrl: './pin-area.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,5 +31,9 @@ export class PinAreaComponent {
 
   unpinTree(treeId: string): void {
     this.buildStore.unpinTree(treeId);
+  }
+
+  resetTree(treeId: string): void {
+    this.buildStore.resetTree(treeId);
   }
 }
