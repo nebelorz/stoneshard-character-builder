@@ -8,9 +8,11 @@ $bg-dark: #1b1926;
 $bg-panel: #20202a;
 $bg-hover: #252531;
 
-// ── Purples (core UI tone) ────────────────────────────────────────────────
-$purple-mid: #3d3060;
-$purple-light: #5a4a80;
+// ── Buttons ───────────────────────────────────────────────────────────────
+$button-purple: #3d3060;
+$button-purple-hover: #5a4a80;
+$button-red: #ac0202cb;
+$button-red-hover: #c01212;
 
 // ── Accents (gold/bronze) ─────────────────────────────────────────────────
 $gold-accent: #d3bc72;
@@ -25,10 +27,6 @@ $border-dim: #3a3a3e;
 $text-primary: #e0dcd0;
 $text-secondary: #9a9688;
 $text-disabled: #555558;
-
-// ── Semantic (action-specific colors) ──────────────────────────────────────
-$rust: #8b4040;
-$rust-hover: #4a2020;
 
 // ── Stat Colors ───────────────────────────────────────────────────────────
 $stat-str: #ffae00;
