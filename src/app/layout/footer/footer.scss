@@ -1,0 +1,52 @@
+@use 'variables' as *;
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  color: $text-secondary;
+  font-size: $font-size-sm;
+}
+
+.footer__version {
+  font-weight: $font-weight-bold;
+}
+
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer__link {
+  color: $text-secondary;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $text-primary;
+  }
+
+  ng-icon {
+    font-size: 14px;
+  }
+}
+
+.footer__info {
+  display: flex;
+  align-items: center;
+  cursor: help;
+  color: $text-secondary;
+  transition: color 0.15s;
+
+  &:hover {
+    color: $text-primary;
+  }
+
+  ng-icon {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,39 @@
+<div class="footer">
+  <span class="footer__version">{{ version }}</span>
+  <div class="footer__links">
+    <a
+      class="footer__link"
+      [href]="discordUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      appTooltip
+      [tooltipText]="'Discord'"
+      tooltipPlacement="top"
+      aria-label="Discord profile"
+    >
+      <ng-icon name="phosphorDiscordLogo" />
+    </a>
+    <a
+      class="footer__link"
+      [href]="githubUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      appTooltip
+      [tooltipText]="'GitHub'"
+      tooltipPlacement="top"
+      aria-label="GitHub repository"
+    >
+      <ng-icon name="phosphorGithubLogo" />
+    </a>
+    <span
+      class="footer__info"
+      appTooltip
+      [tooltipText]="stonesshardDataVersion"
+      tooltipPlacement="top"
+      aria-label="Stoneshard game data version"
+      role="img"
+    >
+      <ng-icon name="phosphorInfo" />
+    </span>
+  </div>
+</div>
