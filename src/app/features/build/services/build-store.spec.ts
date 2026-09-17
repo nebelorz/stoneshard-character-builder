@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { BuildStore } from './build-store';
 import { CharacterDataService } from '@features/character/services';
 import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildState } from '@models';
+import { BuildState, DEFAULT_ABILITY_IDS } from '@models';
 
 function getReadyState(s: BuildStore): BuildState {
   const snapshot = s.stateSnapshot();
@@ -115,6 +115,40 @@ const MOCK_ABILITIES = [
     requires: ['warfare-2'],
     unlockConditions: [],
     description: 'Master of war',
+    requiredBy: [],
+  },
+  {
+    id: 'survival-1',
+    name: 'Butchering',
+    treeId: 'survival',
+    x: 0,
+    y: 0,
+    type: 'passive',
+    target: 'No Target',
+    range: 1,
+    energy: 0,
+    cooldown: 0,
+    modifiedByLabel: 'PER',
+    requires: [],
+    unlockConditions: [],
+    description: 'Harvest resources',
+    requiredBy: ['survival-2'],
+  },
+  {
+    id: 'survival-2',
+    name: 'Skinning',
+    treeId: 'survival',
+    x: 0,
+    y: 0,
+    type: 'passive',
+    target: 'No Target',
+    range: 1,
+    energy: 0,
+    cooldown: 0,
+    modifiedByLabel: 'PER',
+    requires: ['survival-1'],
+    unlockConditions: [],
+    description: 'Improved skinning',
     requiredBy: [],
   },
 ];
@@ -314,6 +348,54 @@ describe('BuildStore', () => {
       store.pinTree('warfare');
       store.pinTree('warfare');
       expect(getReadyState(store).pinnedTrees.filter((t) => t === 'warfare').length).toBe(1);
+    });
+  });
+
+  describe('resetTree', () => {
+    it('should remove only the specified tree abilities and restore AP', () => {
+      store.obtainAbility('warfare-1');
+      store.obtainAbility('warfare-2');
+      store.obtainAbility('survival-2');
+      const before = getReadyState(store);
+      expect(before.ap).toBe(28);
+      expect(before.obtainedAbilities.length).toBe(3);
+
+      store.resetTree('warfare');
+      const after = getReadyState(store);
+      expect(after.obtainedAbilities.length).toBe(1);
+      expect(after.obtainedAbilities[0].abilityId).toBe('survival-2');
+      expect(after.ap).toBe(30);
+    });
+
+    it('should be a no-op when no abilities from that tree are obtained', () => {
+      store.obtainAbility('warfare-1');
+      const before = getReadyState(store);
+      store.resetTree('survival');
+      expect(getReadyState(store)).toEqual(before);
+    });
+
+    it('should not affect other trees abilities', () => {
+      store.obtainAbility('warfare-1');
+      store.obtainAbility('warfare-2');
+      store.obtainAbility('survival-2');
+      store.resetTree('survival');
+      const after = getReadyState(store);
+      expect(after.obtainedAbilities.length).toBe(2);
+      expect(after.obtainedAbilities.map((a) => a.abilityId)).toEqual(['warfare-1', 'warfare-2']);
+    });
+
+    it('should preserve pin state after reset', () => {
+      store.pinTree('warfare');
+      store.obtainAbility('warfare-1');
+      store.resetTree('warfare');
+      expect(getReadyState(store).pinnedTrees).toContain('warfare');
+    });
+
+    it('should not include DEFAULT_ABILITY_IDS in obtainedAbilities', () => {
+      const state = getReadyState(store);
+      for (const id of DEFAULT_ABILITY_IDS) {
+        expect(state.obtainedAbilities.some((a) => a.abilityId === id)).toBe(false);
+      }
     });
   });
 
