@@ -8,8 +8,14 @@
 
 .build-options__buttons {
   display: flex;
-  gap: 8px;
+  gap: 16px;
   justify-content: center;
+  align-items: center;
+}
+
+.build-options__group {
+  display: flex;
+  gap: 8px;
 }
 
 .build-options__btn {
@@ -17,8 +23,28 @@
   width: 36px;
   height: 36px;
   border-radius: 6px;
+  background: $button-purple;
+  border: 1px solid transparent;
 
   ng-icon {
     font-size: 18px;
+  }
+
+  &:hover {
+    background: $button-purple-hover;
+    border-color: $gold-accent;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &--danger {
+    background: $button-red;
+
+    &:hover {
+      background: $button-red-hover;
+      border-color: transparent;
+    }
   }
 }
