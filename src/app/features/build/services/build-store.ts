@@ -207,6 +207,13 @@ export class BuildStore {
     if (newState) this.pushState(newState);
   }
 
+  resetTree(treeId: string): void {
+    const state = this._state();
+    if (!state) return;
+    const newState = this.applyResetTree(state, treeId);
+    if (newState) this.pushState(newState);
+  }
+
   canIncrementStat1(stat: StatKey): boolean {
     const state = this._state();
     if (!state) return false;
@@ -247,6 +254,19 @@ export class BuildStore {
     return {
       ...state,
       pinnedTrees: state.pinnedTrees.filter((id) => id !== treeId),
+    };
+  }
+
+  private applyResetTree(state: BuildState, treeId: string): BuildState | null {
+    const prefix = `${treeId}-`;
+    const removedCount = state.obtainedAbilities.filter((a) =>
+      a.abilityId.startsWith(prefix),
+    ).length;
+    if (removedCount === 0) return null;
+    return {
+      ...state,
+      ap: state.ap + removedCount,
+      obtainedAbilities: state.obtainedAbilities.filter((a) => !a.abilityId.startsWith(prefix)),
     };
   }
 
