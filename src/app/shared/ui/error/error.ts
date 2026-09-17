@@ -29,12 +29,12 @@ import { Component, input } from '@angular/core';
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba($rust, 0.2);
-        border: 2px solid $rust;
+        background: rgba($button-red, 0.2);
+        border: 2px solid $button-red;
         border-radius: 50%;
         font-size: 24px;
         font-weight: 700;
-        color: $rust;
+        color: $button-red;
       }
 
       .error__message {

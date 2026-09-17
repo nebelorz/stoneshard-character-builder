@@ -16,9 +16,6 @@ import { PopoverComponent } from '@shared/ui/popover/popover';
         <button class="confirm-popup__btn confirm-popup__btn--confirm" (click)="onConfirm()">
           Confirm
         </button>
-        <button class="confirm-popup__btn confirm-popup__btn--cancel" (click)="onCancel()">
-          Cancel
-        </button>
       </div>
     </app-popover>
   `,
@@ -40,7 +37,7 @@ import { PopoverComponent } from '@shared/ui/popover/popover';
     .confirm-popup__actions {
       display: flex;
       gap: 8px;
-      justify-content: flex-end;
+      justify-content: flex-start;
     }
 
     .confirm-popup__btn {
@@ -59,20 +56,11 @@ import { PopoverComponent } from '@shared/ui/popover/popover';
     }
 
     .confirm-popup__btn--confirm {
-      background: $rust;
+      background: $button-red;
       color: $text-primary;
 
       &:hover {
-        background: $rust-hover;
-      }
-    }
-
-    .confirm-popup__btn--cancel {
-      background: $btn-bg;
-      color: $text-primary;
-
-      &:hover {
-        background: $btn-hover;
+        background: $button-red-hover;
       }
     }
   `,
@@ -85,10 +73,6 @@ export class ConfirmPopupComponent {
 
   onConfirm(): void {
     this.confirm.emit();
-    this.isOpen.set(false);
-  }
-
-  onCancel(): void {
     this.isOpen.set(false);
   }
 }

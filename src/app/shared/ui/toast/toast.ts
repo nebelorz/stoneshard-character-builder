@@ -36,8 +36,8 @@ import { ToastService } from '@shared/services/toast.service';
         animation: slide-in 0.2s ease-out;
 
         &--error {
-          background: rgba($rust, 0.9);
-          border: 1px solid $rust;
+          background: rgba($button-red, 0.9);
+          border: 1px solid $button-red;
         }
 
         &--warning {
@@ -46,8 +46,8 @@ import { ToastService } from '@shared/services/toast.service';
         }
 
         &--info {
-          background: rgba($purple-mid, 0.9);
-          border: 1px solid $purple-light;
+          background: rgba($button-purple, 0.9);
+          border: 1px solid $button-purple-hover;
         }
       }
 
