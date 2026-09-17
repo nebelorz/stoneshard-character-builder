@@ -8,7 +8,7 @@ Describes the composition of the left side nav and the main content boundary rel
 
 ### Requirement: Build action buttons in side nav
 
-The system SHALL display the Reset, Share, and AI Prompt build action buttons in a build options area at the bottom of the left side nav, below the character info panel.
+The system SHALL display the Reset, Share, and AI Prompt build action buttons in a build options area at the bottom of the left side nav, below the character info panel. Below the build options area, the system SHALL display an informational footer with app version, author links, and game data version.
 
 #### Scenario: Build options at bottom of side nav
 
@@ -19,6 +19,11 @@ The system SHALL display the Reset, Share, and AI Prompt build action buttons in
 
 - **WHEN** the user clicks a build action button in the side nav
 - **THEN** the same Reset, Share, and AI Prompt behavior is triggered as before
+
+#### Scenario: Footer below build options
+
+- **WHEN** the left side nav renders
+- **THEN** the informational footer appears below the build action buttons at the very bottom of the sidenav
 
 ### Requirement: Build action tooltips to the right
 
