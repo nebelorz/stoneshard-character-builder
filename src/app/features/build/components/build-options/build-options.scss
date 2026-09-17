@@ -32,7 +32,6 @@
 
   &:hover {
     background: $button-purple-hover;
-    border-color: $gold-accent;
   }
 
   &:active {
@@ -44,7 +43,6 @@
 
     &:hover {
       background: $button-red-hover;
-      border-color: transparent;
     }
   }
 }
