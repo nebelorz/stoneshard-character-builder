@@ -1,0 +1,55 @@
+<div class="left-sidenav__stats">
+  @for (stat of statKeys; track trackByStat($index, stat)) {
+    <div class="left-sidenav__stat">
+      <span class="left-sidenav__stat-label font-ui">{{ stat }}</span>
+      <div class="left-sidenav__stat-controls">
+        <button
+          class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
+          (click)="onDecrementStat5(stat)"
+          [disabled]="!canDecrementStat5(stat)"
+          title="-5"
+          [attr.aria-label]="'Decrease ' + getStatName(stat) + ' by 5'"
+        >
+          -5
+        </button>
+        <button
+          class="left-sidenav__btn left-sidenav__btn--sm"
+          (click)="onDecrementStat(stat)"
+          [disabled]="!canDecrementStat(stat)"
+          [attr.aria-label]="'Decrease ' + getStatName(stat)"
+        >
+          -
+        </button>
+        <span class="left-sidenav__stat-value font-ui-semibold">{{ getStatValue(stat) }}</span>
+        <button
+          class="left-sidenav__btn left-sidenav__btn--sm"
+          (click)="onIncrementStat(stat)"
+          [disabled]="!canIncrementStat(stat)"
+          [attr.aria-label]="'Increase ' + getStatName(stat)"
+        >
+          +
+        </button>
+        <button
+          class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
+          (click)="onIncrementStat5(stat)"
+          [disabled]="!canIncrementStat5(stat)"
+          title="+5"
+          [attr.aria-label]="'Increase ' + getStatName(stat) + ' by 5'"
+        >
+          +5
+        </button>
+      </div>
+    </div>
+  }
+
+  <div class="left-sidenav__resources">
+    <div class="left-sidenav__resource">
+      <span class="left-sidenav__resource-label font-ui">AP</span>
+      <span class="left-sidenav__resource-value font-ui-semibold">{{ ap() }}</span>
+    </div>
+    <div class="left-sidenav__resource">
+      <span class="left-sidenav__resource-label font-ui">SP</span>
+      <span class="left-sidenav__resource-value font-ui-semibold">{{ sp() }}</span>
+    </div>
+  </div>
+</div>

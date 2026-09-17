@@ -1,0 +1,22 @@
+@use 'variables' as *;
+
+:host {
+  display: block;
+}
+
+.app-tooltip {
+  position: relative;
+  z-index: 10000;
+  background: $bg-panel;
+  color: $text-primary;
+  padding: 6px 10px;
+  border-radius: $radius-sm;
+  font-size: $font-size-xs;
+  line-height: 1.4;
+  pointer-events: none;
+  box-shadow: $shadow-tooltip;
+  white-space: nowrap;
+  max-width: 280px;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}

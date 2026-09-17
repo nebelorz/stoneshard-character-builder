@@ -1,0 +1,5158 @@
+{
+  "abilities": [
+    {
+      "id": "swords-1",
+      "name": "Cleaving Strike",
+      "treeId": "swords",
+      "x": 68,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 10,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Delivers a strike to three adjacent tiles with +(15 + 2 * AGL)% Bodypart Damage and +(35 + 2 * STR)% Bleed Chance. Grants +(0.75 * PRC)% Counter Chance for 5 turns for each enemy hit by the strike. The effect stacks up to 3 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "swords-4"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "swords-2",
+      "name": "Blade Maintenance",
+      "treeId": "swords",
+      "x": 168,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants sword strikes +7% Bleed Chance if the equipped sword's Durability is above 80%, +5% Weapon Damage if it's above 90%, and +3% Crit Chance if it's above 95%. Reduces swords' Durability loss by 50% when blocking with them and by 25% when delivering strikes.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "swords-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "swords-3",
+      "name": "Keeping Distance",
+      "treeId": "swords",
+      "x": 268,
+      "y": 116,
+      "type": "maneuver",
+      "target": "Target Tile",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Repositions to an adjacent tile. Next turn delivers a free strike to a random adjacent enemy with +(40 + 2 * STR)% Stagger Chance and +(5 + 0.5 * AGL + 0.5 * PRC)% Crit Chance.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "swords-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "swords-4",
+      "name": "Gloat",
+      "treeId": "swords",
+      "x": 68,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "swords-1"
+      ],
+      "description": "Grants sword strikes +1.5% Crit Chance, +3% Weapon Damage, and +3% Energy Drain for each negative effect affecting the target. Doubles the bonuses if the negative effect is Bleeding.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR PER VIT"
+      ],
+      "requiredBy": [
+        "swords-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "swords-5",
+      "name": "Fencer's Stance",
+      "treeId": "swords",
+      "x": 168,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "swords-2"
+      ],
+      "description": "Activates \"Fencer Stance\" for 10 turns: +5% Counter Chance +5% Block Chance +5% Dodge Chance +8% Bleed Chance Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic sword strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "swords-7",
+        "swords-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "swords-6",
+      "name": "Steady Tempo",
+      "treeId": "swords",
+      "x": 268,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "swords-3"
+      ],
+      "description": "Using the ability tree's skills grants +15% Energy Restoration for 5 turns and reduces the cooldown of the ability tree's random Attack skill by 1 turn. The effect stacks up to 4 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI VIT"
+      ],
+      "requiredBy": [
+        "swords-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "swords-7",
+      "name": "Honed Edge",
+      "treeId": "swords",
+      "x": 118,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "swords-4",
+        "swords-5"
+      ],
+      "description": "Sword hits grant +6% Bleed Chance and +4% Armor Penetration for 5 turns. The effect stacks up to 5 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "swords-8",
+      "name": "Onrush",
+      "treeId": "swords",
+      "x": 220,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 4,
+      "energy": 20,
+      "cooldown": 14,
+      "requires": [
+        "swords-5",
+        "swords-6"
+      ],
+      "description": "Performs a charge towards the target and delivers a strike with +(10 + PRC + AGL)% Weapon Damage and +(5 + 0.5 * AGL + 0.5 * STR)% Armor Penetration. If the target takes damage, applies it with -(1.5 * AGL)% Bleed Resistance and +PRC% Damage Taken for 4 turns. The effect doesn't stack.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "axes-1",
+      "name": "Mutilating Lunge",
+      "treeId": "axes",
+      "x": 54,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 2,
+      "energy": 16,
+      "cooldown": 12,
+      "requires": [],
+      "description": "Performs a charge towards the target and delivers a strike to its most damaged body part with +(35 + 1.5 * STR)% Stagger Chance, +(15 + 2.5 * PRC)% Bodypart Damage, and +(30 + STR + AGL)% Bleed Chance. If the strike doesn't cause an Injury, reduces the skill's cooldown by 4 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "axes-5",
+        "axes-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "axes-2",
+      "name": "Ferocity",
+      "treeId": "axes",
+      "x": 131,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Causing Injuries with axe strikes reduces the ability tree's cooldowns by 2 turns and replenishes (-6 + WIL)% Max Energy.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "axes-5",
+        "axes-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "axes-3",
+      "name": "Cut Through",
+      "treeId": "axes",
+      "x": 207,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 10,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Applies the target with (-2 * AGL)% Block Chance and (-2 * STR)% Max Block Power for 3 turns (the effect doesn't stack). Then delivers a strike with +(5 + 1.5 * STR)% Weapon Damage, +(5 + STR + AGL)% Armor Penetration, and +(20 + 3 * PRC)% Armor Damage. Each Bleeding and degree of Injury affecting the target grants the strike additional +(5 + 0.5 * PRC + 0.5 * AGL)% Weapon Damage.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "axes-5",
+        "axes-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "axes-4",
+      "name": "No Mercy",
+      "treeId": "axes",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants axe strikes +12% Weapon Damage if the target's Health is either above 90% or below 50%.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "axes-5",
+        "axes-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "axes-5",
+      "name": "Reprisal",
+      "treeId": "axes",
+      "x": 117,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "axes-1",
+        "axes-2",
+        "axes-3",
+        "axes-4"
+      ],
+      "description": "If the target isn't Injured, axe strikes against it grant +8% Bodypart Damage for 5 turns. The effect stacks up to 3 times. Grants axe strikes +4% Accuracy and -4% Fumble Chance for each degree of Injury affecting the target.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "axes-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "axes-6",
+      "name": "Massacre",
+      "treeId": "axes",
+      "x": 222,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "axes-1",
+        "axes-2",
+        "axes-3",
+        "axes-4"
+      ],
+      "description": "Activates \"Massacre\" for 10 turns: +5% Armor Penetration +12% Bodypart Damage +7% Bleed Chance +3% Crit Chance Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic axe strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "axes-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "axes-7",
+      "name": "Execution",
+      "treeId": "axes",
+      "x": 117,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 20,
+      "requires": [
+        "axes-5"
+      ],
+      "description": "Delivers a strike to the target's head with +(1 + 0.05 * STR + 0.025 * AGL + 0.025 * PRC)% Weapon Damage for each missing percent of the target's Health. Grants the strike +5% Crit Chance for each degree of Injury affecting the target and +20% Crit Efficiency for each Bleeding. If the strike kills its target, replenishes (WIL * 2.5)% Max Energy.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception, Willpower"
+    },
+    {
+      "id": "axes-8",
+      "name": "Tormenting Swings",
+      "treeId": "axes",
+      "x": 223,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "axes-6"
+      ],
+      "description": "Damaging axe strikes apply their target with -7% Bleed Resistance and -5% Max Health for 5 turns. The effect stacks up to 5 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "maces-1",
+      "name": "Onslaught",
+      "treeId": "maces",
+      "x": 54,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Applies the target with -AGL% Control Resistance for 3 turns (the effect doesn't stack). Then delivers a strike with +(40 + 3 * STR)% Knockback Chance. If the strike knocks the target back, repositions to the emptied tile and delivers an additional strike with +(20 + STR + PRC)% Daze Chance. If the first strike doesn't knock the target back, reduces the skill's cooldown by 3 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "maces-5"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "maces-2",
+      "name": "Dazing Strikes",
+      "treeId": "maces",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Damaging mace strikes against Dazed, Stunned, or Staggered targets apply them with -5% Accuracy, +5% Fumble Chance and -5% Weapon Damage for 6 turns. The effect stacks up to 3 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "maces-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "maces-3",
+      "name": "Armor Break",
+      "treeId": "maces",
+      "x": 206,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 10,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Delivers a strike with +(20 + 2 * AGL + 2 * STR)% Stagger Chance, +(5 + 2 * STR)% Armor Penetration, and +100% Armor Damage. Grants the strike additional +PRC% Armor Damage for each turn of Daze affecting the target and +(5 * PRC)% Armor Damage for each turn of Stun. If the target takes damage, applies it with +(5 + 0.5 * PRC)% Damage Taken and (-((5 + 0.5 * AGL)))% Move Resistance for 3 turns (the effect doesn't stack). Reduces the ability tree's cooldowns by 2 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "maces-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "maces-4",
+      "name": "Moment of Weakness",
+      "treeId": "maces",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants mace strikes against Dazed, Stunned, or Staggered targets +25% Bodypart Damage and +5% Crit Chance. Grants mace strikes +5% Daze Chance and +10% Stagger Chance for each degree of Injury affecting the target.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "maces-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "maces-5",
+      "name": "Respite",
+      "treeId": "maces",
+      "x": 92,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "maces-1",
+        "maces-2"
+      ],
+      "description": "Dazing, Stunning, or Staggering targets with mace strikes replenishes (-3 + WIL)% Max Energy.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "maces-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "maces-6",
+      "name": "Hammer and Anvil",
+      "treeId": "maces",
+      "x": 244,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "maces-3",
+        "maces-4"
+      ],
+      "description": "Activates \"Hammer and Anvil\" for 10 turns: -3% Fumble Chance +25% Armor Damage +10% Daze Chance +10% Stagger Chance Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic mace strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "maces-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "maces-7",
+      "name": "Knock Out",
+      "treeId": "maces",
+      "x": 92,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 16,
+      "requires": [
+        "maces-5"
+      ],
+      "description": "Delivers a strike to the target's head with +25% Weapon Damage, +(40 + 2 * STR + 2 * AGL)% Stagger Chance, and +(5 + 0.5 * AGL)% Crit Chance. Grants the strike additional +PRC% Weapon Damage for each turn of Daze affecting the target and +(5 * PRC)% Weapon Damage for each turn of Stun. If the target takes damage, puts all its abilities on cooldown and prolongs its Daze by 4 turns and Stun by 1 turn.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "maces-8",
+      "name": "Concussion",
+      "treeId": "maces",
+      "x": 244,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "maces-6"
+      ],
+      "description": "Using the ability tree's Attack skills applies the target with -5% Control Resistance, -5% Move Resistance, and -7% Crit Avoidance for 3 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-1",
+      "name": "Quick Hands",
+      "treeId": "daggers",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Successful, damaging dagger strikes reduce the ability tree's cooldowns by 1 turn. When no dagger is equipped, switching to a loadout with one grants +15% Counter Chance and +5% Crit Chance for 3 turns. The effect doesn't stack.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "daggers-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-2",
+      "name": "Double Lunge",
+      "treeId": "daggers",
+      "x": 130,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 10,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Delivers two strikes with +(AGL + PRC)% Weapon Damage and +STR% Bodypart Damage. If the skill kills its target or both strikes deal damage, reduces the skill's cooldown by 3 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "daggers-5",
+        "daggers-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "daggers-3",
+      "name": "Gaping Wound",
+      "treeId": "daggers",
+      "x": 206,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 16,
+      "requires": [],
+      "description": "Delivers a strike with +(AGL + STR)% Armor Penetration and +(30 + 2 * PRC)% Bleed Chance. If the target is Injured or Bleeding, applies it with \"Gaping Wound\" for 10 turns: +33% Abilities Energy Cost +33% Cooldowns Duration +10% Damage Taken (40 + PRC)% chance to start Bleeding after using an ability. Strikes, shots, moving to other tiles, and using abilities causes Bleedings to trigger twice per turn.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "daggers-6",
+        "daggers-7"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "daggers-4",
+      "name": "From the Shadows",
+      "treeId": "daggers",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Hitting targets with a dagger for the first time applies them with +33% Damage Taken for 3 turns. The effect doesn't stack. Grants dagger strikes against Unaware or Confused targets +25% Weapon Damage and +25% Armor Penetration. Thrown daggers deal 50% more damage.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "daggers-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-5",
+      "name": "Deadly Trick",
+      "treeId": "daggers",
+      "x": 92,
+      "y": 262,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 16,
+      "cooldown": 14,
+      "requires": [
+        "daggers-1",
+        "daggers-2"
+      ],
+      "description": "With (100 + 2 * AGL)% chance swaps places with the target. If the swap is successful, grants +15% Counter Chance and +25% Bleed Chance for 2 turns. Then delivers a strike with +(AGL + PRC)% Weapon Damage, +(55 + AGL + STR)% Stagger Chance, +STR% Crit Chance, and +100% Energy Drain.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "daggers-8",
+        "daggers-9"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "daggers-6",
+      "name": "Weakening Jabs",
+      "treeId": "daggers",
+      "x": 168,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "daggers-2",
+        "daggers-3"
+      ],
+      "description": "Damaging dagger strikes apply their targets with -5% Weapon Damage and +7.5% Cooldowns Duration for 6 turns. The effect stacks up to 4 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "daggers-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-7",
+      "name": "Painful Stabs",
+      "treeId": "daggers",
+      "x": 244,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "daggers-3",
+        "daggers-4"
+      ],
+      "description": "Activates \"Painful Stabs\" for 10 turns: +4% Crit Chance +10% Crit Efficiency +5% Weapon Damage +12% Bleed Chance Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic dagger strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "daggers-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-8",
+      "name": "Counterattack Mastery",
+      "treeId": "daggers",
+      "x": 54,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "daggers-5"
+      ],
+      "description": "Dagger strikes grant +5% Counter Chance for 6 turns. The effect stacks up to 4 times. Grants dagger counters +33% Weapon Damage.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-9",
+      "name": "Danse Macabre",
+      "treeId": "daggers",
+      "x": 130,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "daggers-5"
+      ],
+      "description": "Critical dagger strikes grant +4% Dodge Chance for 8 turns and apply their target with +5% Damage Taken and -5% Bleed Resistance for 8 turns. The effect stacks up to 4 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "daggers-10",
+      "name": "Coup de Grace",
+      "treeId": "daggers",
+      "x": 244,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 20,
+      "requires": [
+        "daggers-6",
+        "daggers-7"
+      ],
+      "description": "Delivers a strike to the target's body or head with +(2 * STR)% Armor Penetration, +(2 * PRC)% Bodypart Damage for each Bleeding affecting the target, and +(1 + (0.025 * AGL + 0.025 * PRC))% Weapon Damage for each missing percent of its Health. If the strike kills its target, it doesn't take a turn and grants +25% Crit Chance for 4 turns.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_swords-1",
+      "name": "Hewing Strike",
+      "treeId": "two-handed_swords",
+      "x": 92,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 10,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Delivers a strike to one of the target's hands with +(30 + 1.5 * AGL + 1.5 * STR)% Bleed Chance and +(3 * PRC)% Bodypart Damage. If the target takes damage, applies it with (-((STR + PRC)))% Move Resistance and (-((AGL + PRC)))% Bleed Resistance for 4 turns (the effect doesn't stack). Doubles the skill's effects if the target is Staggered. Successful two-handed sword counters reduce the skill's cooldown by 1 turn.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_swords-4"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_swords-2",
+      "name": "Revanche",
+      "treeId": "two-handed_swords",
+      "x": 168,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Two-handed sword counters replenish (-6 + WIL)% Max Energy and grant -10% Skills Energy Cost for 2 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_swords-5",
+        "two-handed_swords-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_swords-3",
+      "name": "Parry",
+      "treeId": "two-handed_swords",
+      "x": 244,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Activates \"Parry\" for 3 turns: +(AGL + PRC)% Block Chance +STR% Max Block Power +(10 + PRC)% Counter Chance Fully replenishes Block Power. While affected by \"Parry\", each blocked strike reduces the skill's cooldown by 2 turns and grants +10% Block Power Recovery for 3 turns, and each counter grants +2% Crit Chance for 5 turns. The effect stacks up to 4 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_swords-7"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_swords-4",
+      "name": "Recklessness",
+      "treeId": "two-handed_swords",
+      "x": 54,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_swords-1"
+      ],
+      "description": "Grants +3% Crit Chance, +5% Counter Chance, and -5% Damage Taken for each adjacent enemy if there's more than one. The effect stacks up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER VIT WIL"
+      ],
+      "requiredBy": [
+        "two-handed_swords-8",
+        "two-handed_swords-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_swords-5",
+      "name": "Feast of Steel",
+      "treeId": "two-handed_swords",
+      "x": 130,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "two-handed_swords-2"
+      ],
+      "description": "Activates \"Feast of Steel\" for 10 turns: +5% Counter Chance -4% Fumble Chance +5% Accuracy +3% Crit Chance Grants +100% Stagger Chance to every third strike. Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic two-handed sword strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_swords-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_swords-6",
+      "name": "Arc Cleave",
+      "treeId": "two-handed_swords",
+      "x": 206,
+      "y": 262,
+      "type": "attack",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 20,
+      "requires": [
+        "two-handed_swords-2"
+      ],
+      "description": "Delivers a strike to five adjacent tiles with +(10 + PRC)% Weapon Damage, +(50 + STR)% Stagger Chance, and +(20 + 2 * AGL)% Bleed Chance. Reduces the ability tree's cooldowns by 1 turn for each enemy hit by the strike and replenishes (-5 + WIL)% Max Energy for each enemy Staggered by the strike.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_swords-9"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception, Willpower"
+    },
+    {
+      "id": "two-handed_swords-7",
+      "name": "Fight to the Death",
+      "treeId": "two-handed_swords",
+      "x": 282,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_swords-3"
+      ],
+      "description": "Consecutive two-handed sword hits against the same target grant +7% Stagger Chance and +3% Counter Chance for 5 turns. Each received strike grants +3% Block Chance and +5% Block Power Recovery for 5 turns. Both effects stack up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR PER VIT"
+      ],
+      "requiredBy": [
+        "two-handed_swords-9",
+        "two-handed_swords-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_swords-8",
+      "name": "Taste of Victory",
+      "treeId": "two-handed_swords",
+      "x": 54,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_swords-4"
+      ],
+      "description": "Two-handed sword hits against Staggered targets grant +10% Bodypart Damage and +10% Bleed Chance for 5 turns. The effect stacks up to 3 times. Killing enemies with two-handed swords prolongs the duration of \"Feast of Steel\" and \"Parry\" by 1 turn.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_swords-9",
+      "name": "Heroic Charge",
+      "treeId": "two-handed_swords",
+      "x": 168,
+      "y": 408,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 3,
+      "energy": 26,
+      "cooldown": 24,
+      "requires": [
+        "two-handed_swords-4",
+        "two-handed_swords-5",
+        "two-handed_swords-6",
+        "two-handed_swords-7"
+      ],
+      "description": "Performs a charge towards the target and delivers a strike with +(70 + AGL + STR)% Stagger Chance. Each traveled tile grants the strike +PRC% Weapon Damage and +(0.25 * STR + 0.25 * AGL)% Crit Chance.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_swords-10",
+      "name": "Courage",
+      "treeId": "two-handed_swords",
+      "x": 282,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_swords-7"
+      ],
+      "description": "If the ability tree's skill kills its target, instantly refreshes its cooldown. If the target survives, grants +5% Weapon Damage for 4 turns for each adjacent enemy. The effect stacks up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_axes-1",
+      "name": "Hooking Chop",
+      "treeId": "two-handed_axes",
+      "x": 92,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 2,
+      "energy": 12,
+      "cooldown": 12,
+      "requires": [],
+      "description": "Delivers a strike with math_round(-30 + PRC)% Weapon Damage, +math_round(60 + STR + PRC)% Bleed Chance, and +math_round(5 + STR + AGL)% Armor Penetration. Grants the strike a math_round(80 + STR + AGL + Knockback_Chance)% chance to pull the target if it's 1 tile away. Deals damage to an additional body part besides the one hit by the strike.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_axes-4",
+        "two-handed_axes-5",
+        "two-handed_axes-6",
+        "two-handed_axes-7"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception, Knockback Chance"
+    },
+    {
+      "id": "two-handed_axes-2",
+      "name": "Shieldbreaker",
+      "treeId": "two-handed_axes",
+      "x": 168,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Two-handed axe hits apply their targets with -10% Block Chance, -10% Block Power Recovery, and -15% Max Block Power for 6 turns. If the target's Block Chance is 0%, two-handed axe strikes against it grant -4% Fumble Chance for 6 turns. Both effects stack up to 5 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_axes-4",
+        "two-handed_axes-5",
+        "two-handed_axes-6",
+        "two-handed_axes-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_axes-3",
+      "name": "Dismember",
+      "treeId": "two-handed_axes",
+      "x": 244,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 16,
+      "requires": [],
+      "description": "Delivers a strike with +math_round(20 + 3 * PRC)% Bodypart Damage and +math_round(0.5 * AGL + 0.5 * STR)% Crit Chance to one of the target's body parts with a Minor or Moderate Injury. If the target has no Injuries, delivers the strike to its most damaged limb. If the strike worsens an Injury or causes a new one, the target loses math_round(7.5 + 0.25 * STR)% Max Health (but no more than (15 + STR)), and the affected body part has math_round(100 + 2 * PRC)% chance to start Bleeding.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_axes-4",
+        "two-handed_axes-5",
+        "two-handed_axes-6",
+        "two-handed_axes-7"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_axes-4",
+      "name": "Rampage",
+      "treeId": "two-handed_axes",
+      "x": 54,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "two-handed_axes-1",
+        "two-handed_axes-2",
+        "two-handed_axes-3"
+      ],
+      "description": "Activates \"Rampage\" for 10 turns: -10% Skills Energy Cost +4% Crit Chance +15% Bleed Chance -3% Fumble Chance Every third strike deals additional damage equal to 15% of the target's Max Health (but no more than math_round(20 + STR * 0.5)). Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic two-handed axe strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_axes-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_axes-5",
+      "name": "Fatal Strike",
+      "treeId": "two-handed_axes",
+      "x": 130,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_axes-1",
+        "two-handed_axes-2",
+        "two-handed_axes-3"
+      ],
+      "description": "Critical two-handed axe strikes grant -15% Skills Energy Cost for 3 turns and apply their target with +10% Damage Taken for 3 turns. Both effects stack up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR PER"
+      ],
+      "requiredBy": [
+        "two-handed_axes-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_axes-6",
+      "name": "Finish 'Em!",
+      "treeId": "two-handed_axes",
+      "x": 206,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_axes-1",
+        "two-handed_axes-2",
+        "two-handed_axes-3"
+      ],
+      "description": "Grants two-handed axe strikes +15% Bodypart Damage and +4% Accuracy if the target's Health is above 50%. Grants two-handed axe strikes +10% Weapon Damage and -4% Fumble Chance if the target's Health is below 50%.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_axes-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_axes-7",
+      "name": "Reign in Blood",
+      "treeId": "two-handed_axes",
+      "x": 282,
+      "y": 262,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 14,
+      "requires": [
+        "two-handed_axes-1",
+        "two-handed_axes-2",
+        "two-handed_axes-3"
+      ],
+      "description": "Delivers a strike with +math_round(40 + 2 * STR)% Knockback Chance and +math_round(2 * AGL + 2 * PRC)% Bodypart Damage for each Bleeding affecting the target and each missing 20% of its Health. With math_round(40 + PRC + STR)% chance causes the target's Injured body parts to start Bleeding. Then replenishes math_round(0.5 * WIL)% Max Energy for each Bleeding and degree of Injury affecting the target.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_axes-10"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception, Willpower"
+    },
+    {
+      "id": "two-handed_axes-8",
+      "name": "Tool of Execution",
+      "treeId": "two-handed_axes",
+      "x": 54,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_axes-4"
+      ],
+      "description": "Using \"Rampage\" grants +10% Bodypart Damage, +10% Crit Efficiency, and -5% to the ability tree's Cooldowns Duration for 8 turns for each enemy within 5 tiles. The effect stacks up to 5 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_axes-9",
+      "name": "Make Space",
+      "treeId": "two-handed_axes",
+      "x": 168,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Area",
+      "range": 2,
+      "energy": 20,
+      "cooldown": 20,
+      "requires": [
+        "two-handed_axes-5",
+        "two-handed_axes-6"
+      ],
+      "description": "Delivers a strike to a 3x2 tile area with -200% Knockback Chance as well as +math_round(1.5 * PRC)% Weapon Damage and +math_round(STR + AGL)% Armor Penetration for each degree of Injury affecting the targets within the skill's area of effect. This strike can't knock back its targets. Hitting a target applies it with -5% Bleed Resistance for 6 turns for each enemy within the skill's area of effect. The effect stacks up to 6 times. If the strike kills at least one target, delivers it again to the same area (but no more than once).",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_axes-10",
+      "name": "Maim and Kill",
+      "treeId": "two-handed_axes",
+      "x": 282,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_axes-7"
+      ],
+      "description": "Causing Injuries and Bleeding with two-handed axe strikes grants +5% Weapon Damage and +4% Crit Chance for 5 turns. The effect stacks up to 3 times. Two-handed axe hits against targets affected by two or more Injuries replenish math_round(-5 + WIL)% Max Energy.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-1",
+      "name": "Keep Them Coming",
+      "treeId": "two-handed_maces",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Killing enemies with the ability tree's skills or critical two-handed mace strikes activates \"Mighty Swing\" for 1 turn and grants +15% Energy Restoration for 4 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_maces-5",
+        "two-handed_maces-6",
+        "two-handed_maces-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-2",
+      "name": "Mighty Swing",
+      "treeId": "two-handed_maces",
+      "x": 130,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 4,
+      "cooldown": 1,
+      "requires": [],
+      "description": "Activates \"Mighty Swing\" for 1 turn: +40% Weapon Damage +40% Stagger Chance +20% Stun Chance +40% Bodypart Damage +40% Armor Damage -200% Counter Chance",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_maces-5",
+        "two-handed_maces-6",
+        "two-handed_maces-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-3",
+      "name": "Unstoppable Force",
+      "treeId": "two-handed_maces",
+      "x": 206,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [],
+      "description": "Delivers a strike to three adjacent tiles with +math_round(50 + 2 * STR)% Knockback Chance and +math_round(30 + 3 * PRC)% Armor Damage. Grants -10% Skills Energy Cost for 3 turns for each target that is knocked back by the strike. The effect stacks up to 3 times. If affected by \"Mighty Swing\", and the strike knocked the target back, puts its abilities on a 2 turn cooldown.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_maces-5",
+        "two-handed_maces-6",
+        "two-handed_maces-7"
+      ],
+      "modifiedByLabel": "Strength, Perception"
+    },
+    {
+      "id": "two-handed_maces-4",
+      "name": "Unbalance",
+      "treeId": "two-handed_maces",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Staggering or knocking targets back with two-handed mace strikes applies them with -5% Control Resistance, +5% Fumble Chance, and -10% Dodge Chance for 4 turns. The effect stacks up to 3 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "two-handed_maces-5",
+        "two-handed_maces-6",
+        "two-handed_maces-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-5",
+      "name": "Striker Stance",
+      "treeId": "two-handed_maces",
+      "x": 92,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "two-handed_maces-1",
+        "two-handed_maces-2",
+        "two-handed_maces-3",
+        "two-handed_maces-4"
+      ],
+      "description": "Activates \"Striker Stance\" for 10 turns: +3% Crit Chance +10% Knockback Chance +10% Armor Penetration +15% Stagger Chance Grants +100% Daze Chance to every third strike. Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic two-handed mace strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time. If affected by \"Mighty Swing\", using the skill delivers a strike to a random adjacent enemy.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_maces-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-6",
+      "name": "Bonebreaker",
+      "treeId": "two-handed_maces",
+      "x": 168,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_maces-1",
+        "two-handed_maces-2",
+        "two-handed_maces-3",
+        "two-handed_maces-4"
+      ],
+      "description": "Grants two-handed mace strikes +35% Armor Damage if the target's Armor Durability is above 50%. Grants two-handed mace strikes +20% Bodypart Damage if the target has no Armor or its Armor Durability is below 50%.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR PER"
+      ],
+      "requiredBy": [
+        "two-handed_maces-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-7",
+      "name": "Forceful Slam",
+      "treeId": "two-handed_maces",
+      "x": 244,
+      "y": 262,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 16,
+      "requires": [
+        "two-handed_maces-1",
+        "two-handed_maces-2",
+        "two-handed_maces-3",
+        "two-handed_maces-4"
+      ],
+      "description": "Delivers a strike with -50% Weapon Damage and +75% Immobilization Chance and also prolongs the target's Daze, Stun, and Stagger by 1 turn. This strike can't knock back its targets. If the next turn the target is adjacent, delivers a free strike to it with +math_round(0.5 * AGL + 0.5 * STR)% Crit Chance. If the target is Immobilized, Stunned, Dazed, or Staggered, grants this strike +math_round(25 + PRC)% Weapon Damage. If the target is Stunned, also doubles the bonus to Crit Chance. If affected by \"Mighty Swing\", prolongs its duration by 1 turn, and the first strike applies the target with -10% Crushing Resistance for 3 turns (the effect doesn't stack).",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "two-handed_maces-10"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_maces-8",
+      "name": "Revel in Battle",
+      "treeId": "two-handed_maces",
+      "x": 92,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_maces-5"
+      ],
+      "description": "While affected by \"Striker Stance\", killing enemies with two-handed maces replenishes math_round(10 + WIL)% Max Energy. If affected by both \"Striker Stance\" and \"Mighty Swing\" at the same time, killing enemies with two-handed maces reduces the ability tree's cooldowns by 4 turns and grants +20% Stun Chance for 3 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "two-handed_maces-9",
+      "name": "Skull Crusher",
+      "treeId": "two-handed_maces",
+      "x": 168,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 2,
+      "energy": 26,
+      "cooldown": 20,
+      "requires": [
+        "two-handed_maces-6"
+      ],
+      "description": "Performs a charge towards the target and delivers a strike to its head with +math_round(10 + 2 * STR + 2 * PRC)% Stun Chance and +math_round(5 + PRC + AGL)% Bodypart Damage. If affected by \"Mighty Swing\", grants the skill +1 Range, +50% Stagger Chance, and +50% Immobilization Chance.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "two-handed_maces-10",
+      "name": "Severe Concussion",
+      "treeId": "two-handed_maces",
+      "x": 244,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "two-handed_maces-7"
+      ],
+      "description": "Dazing, Stunning, or Staggering targets with two-handed mace strikes applies them with -15% Move Resistance, -10% Accuracy, and +10% Fumble Chance for 4 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "spears-1",
+      "name": "Precise Hits",
+      "treeId": "spears",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants spear strikes against targets affected by Immobilization or \"Net\" +10% Armor Penetration and +15% Bodypart Damage.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "spears-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "spears-2",
+      "name": "Nail Down",
+      "treeId": "spears",
+      "x": 130,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 2,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [],
+      "description": "Delivers a strike to one of the target's legs with +math_round(0.5 * AGL)% Crit Chance. If the target is adjacent, grants the strike +math_round(5 + AGL + PRC)% Weapon Damage and +math_round(30 + STR + AGL)% Knockback Chance. If the target is 1 tile away, grants the strike +math_round(5 + PRC + AGL)% Bodypart Damage and +math_round(30 + 1.5 * STR + 1.5 * PRC)% Immobilization Chance.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "spears-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "spears-3",
+      "name": "Impaling Lunge",
+      "treeId": "spears",
+      "x": 206,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Area",
+      "range": 2,
+      "energy": 10,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Delivers a strike to a 2x1 tile area with +math_round(2 * PRC)% Bodypart Damage, +math_round(2 * AGL)% Armor Penetration, and +math_round(30 + 2 * STR)% Bleed Chance. If the target is affected by Immobilization or \"Net\" grants the strike -35% Weapon Damage, -100% Immobilization Chance, halves all other bonuses, and instantly refreshes the skill's cooldown.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "spears-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "spears-4",
+      "name": "No Retreat",
+      "treeId": "spears",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Remaining on the same tile grants -3% Cooldowns Duration, +3% Weapon Damage, and +3% Counter Chance for 4 turns. The effect stacks up to 3 times. Moving to other tiles removes the effect (except when moving with Maneuvers).",
+      "unlockConditions": [],
+      "requiredBy": [
+        "spears-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "spears-5",
+      "name": "Pikeman Stance",
+      "treeId": "spears",
+      "x": 54,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "spears-1"
+      ],
+      "description": "Activates \"Pikeman Stance\" for 10 turns: +5% Accuracy +5% Bleed Chance +15% Knockback Chance +8% Immobilization Chance Using the ability tree's skills grants an extra stack of the effect (up to IV). Remaining on the same tile prolongs the effect's duration by 1 turn (up to 10), and basic spear strikes reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR PER VIT"
+      ],
+      "requiredBy": [
+        "spears-8",
+        "spears-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "spears-6",
+      "name": "Wounding Spearhead",
+      "treeId": "spears",
+      "x": 168,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "spears-2",
+        "spears-3"
+      ],
+      "description": "Grants critical spear strikes +20% Bodypart Damage. Critical spear strikes deal additional damage equal to 10% of the target's Max Health (but no more than math_round(STR + AGL)).",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI"
+      ],
+      "requiredBy": [
+        "spears-9"
+      ],
+      "modifiedByLabel": "Strength, Agility"
+    },
+    {
+      "id": "spears-7",
+      "name": "Determination",
+      "treeId": "spears",
+      "x": 282,
+      "y": 262,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 12,
+      "cooldown": 14,
+      "requires": [
+        "spears-4"
+      ],
+      "description": "Activates \"Determination\" for 2 turns: Delivers a free strike with +math_round(AGL + PRC)% Weapon Damage and +math_round(55 + 2 * STR)% Bleed Chance to every enemy that moves to adjacent tiles. If this strike does damage, replenishes math_round(-5 + WIL)% Max Energy and applies the target with -20% Move Resistance for 3 turns.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER WIL"
+      ],
+      "requiredBy": [
+        "spears-9",
+        "spears-10"
+      ],
+      "modifiedByLabel": "Perception, Agility, Strength, Willpower"
+    },
+    {
+      "id": "spears-8",
+      "name": "One at a Time!",
+      "treeId": "spears",
+      "x": 54,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "spears-5"
+      ],
+      "description": "Grants +5% Weapon Damage, +5% Immobilization Chance, and +3% Crit Chance if there is only one adjacent enemy. Doubles the bonuses if the adjacent tiles are empty.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "spears-9",
+      "name": "Regroup",
+      "treeId": "spears",
+      "x": 168,
+      "y": 408,
+      "type": "maneuver",
+      "target": "Target Tile",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 18,
+      "requires": [
+        "spears-5",
+        "spears-6",
+        "spears-7"
+      ],
+      "description": "Repositions to an adjacent tile, replenishes math_round(2 * Vitality)% Max Block Power, and reduces the cooldowns of the ability tree's other skills by 1 turn for each visible enemy within 3 tiles. Activates \"Regroup\" for 10 turns: +5% Block Chance +5% Max Block Power +15% Block Power Recovery +5% Counter Chance Grants an extra stack of the effect (up to IV) for each reduced cooldown.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI VIT"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Vitality"
+    },
+    {
+      "id": "spears-10",
+      "name": "Stay Back!",
+      "treeId": "spears",
+      "x": 282,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "spears-7"
+      ],
+      "description": "When enemies move to adjacent tiles, applies them with -10% Physical Resistance and -10% Crit Avoidance for 4 turns. The effect stacks up to 2 times. Grants spear strikes against adjacent targets +30% Knockback Chance.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-1",
+      "name": "Taking Aim",
+      "treeId": "ranged_weapons",
+      "x": 54,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 4,
+      "cooldown": 1,
+      "requires": [],
+      "description": "Activates \"Taking Aim\" for 1 turn: +(59 + 1 * ranged_skill_learned)% Accuracy +PRC% Weapon Damage +10% Range Each enemy within 4 tiles additionally grants to the effect: +(3 * STR)% Knockback Chance +(3 * AGL)% Immobilization Chance +(3 * PRC)% Stagger Chance The bonus to Accuracy depends on the number of learned Ranged Weapons abilities. The effect is removed if not equipped with a ranged weapon.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "ranged_weapons-5"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "ranged_weapons-2",
+      "name": "Constant Practice",
+      "treeId": "ranged_weapons",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Reduces the distance penalties to Accuracy and Fumble Chance (from -2% and +2% per tile to -1% and +1% respectively). Reduces the penalties to Accuracy when shooting over small (from -15% to -10%) and medium-sized obstacles (from -30% to -20%). Reduces the Accuracy penalty to bows when shooting at adjacent targets (from -50% to -35%) and targets that are 1 tile away (from -25% to -15%). Grants sling shots +25% Accuracy. Each tile of distance to the target reduces the bonus by 5%.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "ranged_weapons-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-3",
+      "name": "Dexterity",
+      "treeId": "ranged_weapons",
+      "x": 206,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Killing enemies with melee strikes activates \"Taking Aim\" for 1 turn the next time the character switches to the loadout with an equipped ranged weapon (if the weapon is a crossbow, also instantly reloads it). If equipped with a ranged weapon, switching to the loadout with a melee weapon doesn't take a turn. Halves the chance of ammo to break upon hitting its target (this affects fumbled and blocked shots as well).",
+      "unlockConditions": [],
+      "requiredBy": [
+        "ranged_weapons-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-4",
+      "name": "Distracting Shot",
+      "treeId": "ranged_weapons",
+      "x": 282,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Tile",
+      "range": 2,
+      "energy": 16,
+      "cooldown": 16,
+      "requires": [],
+      "description": "Performs a charge towards the targeted tile. Before charging, takes a shot at the closest enemy within Attack Range with (-60 + AGL)% Weapon Damage and +(40 + STR)% Immobilization Chance. Hitting the target grants +Vitality% Energy Restoration and +PRC% Dodge Chance for 5 turns and reduces cooldowns of all skills by 1 turn. The effect stacks up to 2 times. If equipped with a sling, grants the skill +1 Range, and hitting the target reduces its cooldown by 2 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "ranged_weapons-8"
+      ],
+      "modifiedByLabel": "Vitality, Perception"
+    },
+    {
+      "id": "ranged_weapons-5",
+      "name": "Spot Weakness",
+      "treeId": "ranged_weapons",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "ranged_weapons-1"
+      ],
+      "description": "Grants +5% Armor Penetration and +5% Bodypart Damage to \"Taking Aim\". Using \"Taking Aim\" applies all targets within Vision with -5% Physical Resistance for 4 turns. If equipped with a sling, also applies the targets with -5% Control Resistance and -5% Move Resistance for 4 turns. Both effects stack up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-6",
+      "name": "Startling Volley",
+      "treeId": "ranged_weapons",
+      "x": 130,
+      "y": 228,
+      "type": "attack",
+      "target": "Target Tile",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 24,
+      "requires": [
+        "ranged_weapons-2"
+      ],
+      "description": "Marks a tile (2 different tiles or the same tile twice if equipped with a bow or sling).  Then takes a shot at them with (-40 + AGL)% Weapon Damage and +(20 + STR + PRC)% Daze Chance. Applies damaged targets with (-STR)% Block Chance and +(0.5 * PRC + 0.5 * AGL)% Fumble Chance for 5 turns. If the same target wasn't marked twice, doubles the applied penalties' duration. If equipped with a crossbow, instantly reloads it and doubles the applied penalties.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-9",
+        "ranged_weapons-10"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "ranged_weapons-7",
+      "name": "Suppression",
+      "treeId": "ranged_weapons",
+      "x": 206,
+      "y": 228,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 10,
+      "requires": [
+        "ranged_weapons-3"
+      ],
+      "description": "Activates \"Suppression\" for 12 turns (15 turns if equipped with a crossbow): +5% Immobilization Chance +10% Knockback Chance +10% Bleed Chance -5% Cooldowns Duration -5% Skills Energy Cost Using the ability tree's skills (except \"Taking Aim\") grants an extra stack of the effect (up to IV). If equipped with a sling, using the ability tree's skills increases the number of stacks by 2. Basic shots prolong the effect's duration by 1 turn (up to 15) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-10",
+        "ranged_weapons-11"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-8",
+      "name": "Anticipation",
+      "treeId": "ranged_weapons",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "ranged_weapons-4"
+      ],
+      "description": "Damaging shots apply all targets within Vision with -2% Dodge Chance, +2% Fumble Chance, -2% Accuracy, and -2% Crit Chance for 10 turns. Each missed shot grants +2% Accuracy for 6 turns. Both effects stack up to 5 times. If equipped with a crossbow or a sling, both effects trigger twice per shot.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-11"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-9",
+      "name": "Long Shot",
+      "treeId": "ranged_weapons",
+      "x": 92,
+      "y": 340,
+      "type": "attack",
+      "target": "Target Tile",
+      "range": 1,
+      "energy": 12,
+      "cooldown": 10,
+      "requires": [
+        "ranged_weapons-5",
+        "ranged_weapons-6"
+      ],
+      "description": "Takes a shot with +2 Range. Each tile of distance to the target grants the shot +(0.1 * PRC + 0.1 * AGL)% Weapon Damage, +(0.1 * STR + 0.1 * AGL)% Armor Penetration, and +(0.15 * PRC + 0.15 * AGL)% Bodypart Damage. If equipped with a sling, each tile of distance to the target also grants the shot +(0.15 * PRC)% Accuracy. If the target isn't hostile, doubles all distance-related bonuses and, upon hitting the target, with (60 + 2 * PRC)% chance Confuses it for 10 turns.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-12"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "ranged_weapons-10",
+      "name": "Precision",
+      "treeId": "ranged_weapons",
+      "x": 168,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "ranged_weapons-6",
+        "ranged_weapons-7"
+      ],
+      "description": "Grants +5% Accuracy to the ability tree's Attack skills. While affected by \"Taking Aim\", hitting targets with shots reduces the ability tree's cooldowns by 1 turn and grants +5% Weapon Damage for 8 turns. The effect stacks up to 4 times. If equipped with a crossbow or a sling, both effects trigger twice per shot.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-13"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-11",
+      "name": "Hunter's Mark",
+      "treeId": "ranged_weapons",
+      "x": 244,
+      "y": 340,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 16,
+      "requires": [
+        "ranged_weapons-7",
+        "ranged_weapons-8"
+      ],
+      "description": "Activates \"Thrill of the Hunt\" for 15 turns: +7% Bodypart Damage +3% Crit Chance +5% Crit Efficiency Applies the target with \"Hunter's Mark\" for 15 turns: -7% Bleed Resistance -7% Move Resistance -7% Control Resistance Then takes a shot at the target. While affected by \"Thrill of the Hunt\", damaging shots apply their target with \"Hunter's Mark\" or with an extra stack of the effect (up to IV). Killing targets affected by \"Hunter's Mark\" or applying it to new targets grants an extra stack of \"Thrill of the Hunt\" (up to IV). Switching to another loadout doesn't remove the effects.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "ranged_weapons-14"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-12",
+      "name": "Shoot to Kill",
+      "treeId": "ranged_weapons",
+      "x": 92,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "ranged_weapons-9"
+      ],
+      "description": "Grants all shots +10% Crit Efficiency, +12% Bodypart Damage, and +5% Armor Penetration for each missing 20% of the target's Health. Grants all shots +3% Crit Chance for each degree of Injury and each \"Net\", \"Web\", Daze, Stun, Stagger, and Immobilization affecting the target.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "ranged_weapons-13",
+      "name": "Headshot",
+      "treeId": "ranged_weapons",
+      "x": 168,
+      "y": 452,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 26,
+      "cooldown": 30,
+      "requires": [
+        "ranged_weapons-10"
+      ],
+      "description": "Takes a shot at the target's head with +(20 + PRC + AGL)% Bodypart Damage, +(0.5 * AGL + 0.5 * STR)% Crit Chance, and +(2 * PRC)% Crit Efficiency. If the shot kills its target, replenishes (2 * WIL)% Max Energy, instantly reloads the equipped crossbow, and activates \"Taking Aim\" for 1 turn.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "ranged_weapons-14",
+      "name": "Upper Hand",
+      "treeId": "ranged_weapons",
+      "x": 244,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "ranged_weapons-11"
+      ],
+      "description": "While affected by \"Suppression\", grants an extra stack of \"Thrill of the Hunt\" when using \"Hunter's Mark\". At the end of the turn, grants an extra stack of \"Suppression\" for each target affected by \"Hunter's Mark\" within Vision. Grants melee strikes against targets affected by \"Hunter's Mark\" +20% Weapon Damage and +5% Crit Chance.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "shields-1",
+      "name": "Raise Shield",
+      "treeId": "shields",
+      "x": 54,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 8,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Activates \"Raise Shield\" for 3 turns: +(10 + (AGL + Vitality) * Shield_Block_Chance * 0.01)% Block Chance +math_round(-5 + STR + Vitality)% Max Block Power +math_round(AGL + PRC)% Crit Avoidance -200% Dodge Chance The bonus to Block Chance depends on the equipped shield's Block Chance. If equipped with a light shield, replenishes math_round(2 * Vitality)% Max Block Power, grants the effect +math_round(5 + 0.5 * AGL)% Counter Chance, and doesn't penalize Dodge Chance. If equipped with a heavy shield, grants the effect +33% Energy Restoration.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "shields-5"
+      ],
+      "modifiedByLabel": "Strength, Agility, Vitality"
+    },
+    {
+      "id": "shields-2",
+      "name": "Embodiment of Resilience",
+      "treeId": "shields",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Full blocks replenish (-5 + WIL)% Max Energy and reduce the ability tree's cooldowns by 2 turns. Partial blocks grant -5% Damage Taken for 6 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "shields-5"
+      ],
+      "modifiedByLabel": "Willpower"
+    },
+    {
+      "id": "shields-3",
+      "name": "Breakthrough",
+      "treeId": "shields",
+      "x": 206,
+      "y": 116,
+      "type": "maneuver",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 16,
+      "cooldown": 14,
+      "requires": [],
+      "description": "Deals ((6 + 0.25 * Block_PowerMax) * Retaliation) Crushing Damage to three adjacent tiles with (65 + 2 * PRC)% Accuracy, (0.1 * Block_Chance * Retaliation)% Crit Chance, and (60 + 2 * STR)% Stagger Chance. Hitting a target applies it with -20% Control Resistance and -25% Move Resistance for 6 turns. Grants +(0.5 * Vitality)% Block Power Recovery for 3 turns and reduces the ability tree's cooldowns by 2 turns for each enemy within the skill's area of effect. If equipped with a light shield, grants the skill -25% Cooldown Duration. If equipped with a heavy shield, hitting a target applies it with +10% Damage Taken for 6 turns (the effect stacks up to 2 times).",
+      "unlockConditions": [],
+      "requiredBy": [
+        "shields-6"
+      ],
+      "modifiedByLabel": "Strength, Perception, Vitality, Block Chance, Block Power"
+    },
+    {
+      "id": "shields-4",
+      "name": "Moment of Retribution",
+      "treeId": "shields",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Using the ability tree's skills grants +5% Weapon Damage and +4% Counter Chance for 5 turns. The effect stacks up to 3 times. Damaging counters replenish 5% Max Block Power.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "shields-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "shields-5",
+      "name": "Last Bastion",
+      "treeId": "shields",
+      "x": 92,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "shields-1",
+        "shields-2"
+      ],
+      "description": "Grants +3% Block Power Recovery for 6 turns for each adjacent enemy. Each received hit grants +3% Energy Restoration for 6 turns. Both effects stack up to 5 times. If equipped with a light shield, both effects trigger twice per turn.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR VIT"
+      ],
+      "requiredBy": [
+        "shields-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "shields-6",
+      "name": "Shield Bash",
+      "treeId": "shields",
+      "x": 206,
+      "y": 262,
+      "type": "maneuver",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 16,
+      "cooldown": 12,
+      "requires": [
+        "shields-3|shields-4"
+      ],
+      "description": "Deals ((8 + 0.3 * Block_PowerMax) * Retaliation) Crushing Damage with (80 + 2 * PRC)% Accuracy, (0.2 * Block_Chance * Retaliation)% Crit Chance, (2 * AGL + 2 * PRC)% Daze Chance, and (60 + 2 * STR)% Knockback Chance. Replenishes (-5 + 2 * Vitality)% Max Block Power. If equipped with a light shield, grants the skill -25% Cooldown Duration. If equipped with a heavy shield, replenishes Block Power for 30% of the damage dealt.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "shields-8"
+      ],
+      "modifiedByLabel": "Strength, Perception, Vitality, Block Chance, Block Power"
+    },
+    {
+      "id": "shields-7",
+      "name": "Hold the Line!",
+      "treeId": "shields",
+      "x": 92,
+      "y": 408,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 14,
+      "requires": [
+        "shields-5"
+      ],
+      "description": "Activates \"Hold the Line!\" for 10 turns: -5% Damage Taken +5% Block Power Recovery +7% Counter Chance +10% Move Resistance +10% Control Resistance Using the ability tree's skills grants 2 stacks of the effect (up to IV) but reduces its duration by 1 turn. Each received hit prolongs the effect's duration by 1 turn (up to 10) but reduces its number of stacks (no more than once per turn). If equipped with a light shield, grants the skill -25% Cooldown Duration. If equipped with a heavy shield, grants an extra stack of the effect upon activation.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Vitality"
+    },
+    {
+      "id": "shields-8",
+      "name": "Retaliation",
+      "treeId": "shields",
+      "x": 206,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "shields-6"
+      ],
+      "description": "Grants \"Shield Bash\" and \"Breakthrough\" +50% Damage and increases their Crit Chance by half. Using these skills applies the target with -10% Accuracy, -10% Counter Chance, and -15% Weapon Damage for 5 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "staves-1",
+      "name": "Destabilizing Hits",
+      "treeId": "staves",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Staggering, Dazing, or knocking targets back with staff strikes applies them with +10% Damage Taken, -10% Magic Resistance, and -10% Nature Resistance for 5 turns. The effect stacks up to 3 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "staves-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "staves-2",
+      "name": "Hail of Blows",
+      "treeId": "staves",
+      "x": 130,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 12,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Delivers two strikes with (-((30 - AGL)))% Weapon Damage, +(40 + 2 * STR)% Stagger Chance, and -5% Accuracy. Grants +(15 + 2 * WIL)% Energy Drain to the first strike and +(40 + STR + PRC)% Daze Chance to the second. If both strikes hit the target, delivers an additional strike with (-((30 - AGL)))% Weapon Damage and +(40 + STR + AGL)% Knockback Chance.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "staves-5",
+        "staves-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception, Willpower"
+    },
+    {
+      "id": "staves-3",
+      "name": "Step Aside!",
+      "treeId": "staves",
+      "x": 206,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 3,
+      "energy": 16,
+      "cooldown": 12,
+      "requires": [],
+      "description": "Performs a charge towards the target and delivers a strike to all adjacent tiles with +(PRC + AGL)% Weapon Damage and +(40 + STR + AGL)% Knockback Chance. Reduces the ability tree's cooldowns and cooldowns of all spells by 2 turns for each enemy knocked back by the strike.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "staves-6",
+        "staves-7"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "staves-4",
+      "name": "Battle Trance",
+      "treeId": "staves",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "If there are enemies within Vision, using spells grants +8% Weapon Damage and +3% Crit Chance for 10 turns. Each received strike or shot (including misses) grants -3% Damage Taken and -3% Backfire Chance for 10 turns. Both effects stack up to 5 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "staves-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "staves-5",
+      "name": "Now or Never",
+      "treeId": "staves",
+      "x": 54,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "staves-1",
+        "staves-2"
+      ],
+      "description": "Full and partial dodges and blocks grant +10% Counter Chance and +10% Magic Power for 4 turns. Using spells grants +8% Dodge Chance and +8% Block Chance for 4 turns. Both effects stack up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "staves-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "staves-6",
+      "name": "Unwavering Stance",
+      "treeId": "staves",
+      "x": 168,
+      "y": 262,
+      "type": "stance",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "staves-2",
+        "staves-3"
+      ],
+      "description": "Activates \"Unwavering Stance\" for 10 turns: +10% Magic Resistance +10% Nature Resistance +5% Counter Chance +10% Block Chance +10% Max Block Power +10% Block Power Recovery Grants +100% Knockback Chance to every third strike. Using the ability tree's skills grants an extra stack of the effect (up to IV). Basic staff strikes prolong the effect's duration by 1 turn (up to 10) but reduce its number of stacks (no more than once per turn). Only one Stance effect can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI VIT WIL"
+      ],
+      "requiredBy": [
+        "staves-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "staves-7",
+      "name": "Triumph",
+      "treeId": "staves",
+      "x": 282,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "staves-3|staves-4"
+      ],
+      "description": "Killing enemies with staves grants +12% Crit Chance and +12% Miracle Chance for 10 turns. The effect stacks up to 3 times. Grants additional +50% Energy Drain to critical staff strikes and allows them to reduce all cooldowns by 1 turn.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR PER WIL"
+      ],
+      "requiredBy": [
+        "staves-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "staves-8",
+      "name": "Peacemaker",
+      "treeId": "staves",
+      "x": 168,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Tile",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 16,
+      "requires": [
+        "staves-5|staves-6|staves-7"
+      ],
+      "description": "Delivers a strike to all adjacent tiles with +(40 + STR + AGL)% Stagger Chance and +(50 + STR + PRC)% Daze Chance. Then allows the character to reposition to an adjacent tile. Grants -10% Backfire Chance, -10% Abilities Energy Cost, and -5% Fumble Chance for 5 turns for each enemy hit by the strike. The effect stacks up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "dual_wielding-1",
+      "name": "Flurry of Strikes",
+      "treeId": "dual_wielding",
+      "x": 54,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [],
+      "description": "Delivers two dual strikes with (-((30 - open_weapon_one_hand_skills)))% Hands Efficiency, -5% Accuracy, and +5% Fumble Chance. Each successful hit grants +2% Hands Efficiency for 2 turns. The effect stacks up to 4 times. If all hits are successful, delivers an additional dual strike with the same penalty. The penalty to Hands Efficiency depends on the number of learned Weaponry abilities.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "dual_wielding-5",
+        "dual_wielding-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "dual_wielding-2",
+      "name": "Dual Wielding Training",
+      "treeId": "dual_wielding",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Using Attack skills (except this ability tree's skills) also delivers a strike with a weapon in another hand. If the equipped weapons belong to the same type, grants +math_round(1 + 0.5 * open_weapon_one_hand_skills)% Main Hand Efficiency and -3% Fumble Chance. If the equipped weapons belong to different types, grants +20% Off-Hand Efficiency when using Attack skills and (-(math_round(1 + 0.5 * open_weapon_one_hand_skills)))% Cooldowns Duration. The bonuses to Main Hand Efficiency and Cooldowns Duration depend on the number of learned Weaponry abilities.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "dual_wielding-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "dual_wielding-3",
+      "name": "Deflect",
+      "treeId": "dual_wielding",
+      "x": 206,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 8,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Activates \"Deflect\" until the next turn: +math_round(STR)% Max Block Power for each enemy within 2 tiles. +math_round(0.4 * (Mainhand_Efficiency + Offhand_Efficiency))% Block Chance Fully replenishes Block Power. While affected by \"Deflect\", each blocked strike or full dodge replenishes 25% Max Block Power, grants +5% Hands Efficiency, and +10% Counter Chance for 3 turns. Full blocks also reduce the ability tree's cooldowns and cooldowns of all Attack skills by 1 turn. Each missing 25% Health reduce the skill's cooldown by 1 turn.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "dual_wielding-7"
+      ],
+      "modifiedByLabel": "Strength, Main Hand Efficiency, Off-Hand Efficiency"
+    },
+    {
+      "id": "dual_wielding-4",
+      "name": "Dying Fervor",
+      "treeId": "dual_wielding",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants +20% Hands Efficiency and +3% Crit Chance if Health is below 60%. Additionally grants +7% Crit Chance, +15% Counter Chance, and +15% Crit Avoidance if Health is below 40%.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "dual_wielding-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "dual_wielding-5",
+      "name": "Enough for Everyone",
+      "treeId": "dual_wielding",
+      "x": 54,
+      "y": 262,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 16,
+      "cooldown": 6,
+      "requires": [
+        "dual_wielding-1"
+      ],
+      "description": "Applies the target with \"Enough for Everyone\" and delivers a dual strike. If there's more than one adjacent enemy, each target with this effect grants: +5% Hands Efficiency +(0.5 * AGL)% Counter Chance +(0.5 * PRC)% Dodge Chance (-0.5 * Vitality)% Damage Taken While the target affected by \"Enough for Everyone\" is adjacent, basic strikes and using Attack skills against other enemies will deliver a dual strike to it as well. The effect remains active until the target's death and while equipped with dual weapons.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "dual_wielding-8"
+      ],
+      "modifiedByLabel": "Agility, Perception, Vitality"
+    },
+    {
+      "id": "dual_wielding-6",
+      "name": "Concentration",
+      "treeId": "dual_wielding",
+      "x": 130,
+      "y": 262,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 12,
+      "requires": [
+        "dual_wielding-1",
+        "dual_wielding-2"
+      ],
+      "description": "Activates \"Concentration\" for 12 turns: +4% Hands Efficiency +3% Accuracy -3% Fumble Chance Using Weaponry Attack skills grants an extra stack of the effect (up to IV). Using the ability tree's Attack skills reduces the number of stacks by 2. Killing enemies prolongs the effect's duration by 2 turns.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "dual_wielding-9",
+        "dual_wielding-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "dual_wielding-7",
+      "name": "Berserk Tradition",
+      "treeId": "dual_wielding",
+      "x": 244,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "dual_wielding-3",
+        "dual_wielding-4"
+      ],
+      "description": "Grants: -0.25% Damage Taken for each missing percent of Health +3% Crit Chance for 10 turns for each missed or fumbled strike (the effect stacks up to 5 times) +0.5% Weapon Damage for each percent of Pain +10% Dodge Chance for each degree of Injury +2% Counter Chance for 10 turns for each received strike (the effect stacks up to 5 times) +8% Crit Efficiency for each adjacent enemy",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI VIT WIL"
+      ],
+      "requiredBy": [
+        "dual_wielding-9",
+        "dual_wielding-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "dual_wielding-8",
+      "name": "Unstoppable",
+      "treeId": "dual_wielding",
+      "x": 54,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "dual_wielding-5"
+      ],
+      "description": "If a target affected by \"Enough for Everyone\" dies, replenishes math_round(0.5 * Vitality)% Max Health and math_round(1.5 * WIL)% Max Energy, then delivers a free dual strike to a random adjacent enemy and applies it with the same effect (no more than once per turn).",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Vitality, Willpower"
+    },
+    {
+      "id": "dual_wielding-9",
+      "name": "Whirlwind",
+      "treeId": "dual_wielding",
+      "x": 148,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 30,
+      "cooldown": 30,
+      "requires": [
+        "dual_wielding-6",
+        "dual_wielding-7"
+      ],
+      "description": "Applies the target with (-(math_round(2 * (AGL + PRC))))% Counter Chance until the next turn, delivers a dual strike with +math_round(80 + 2 * STR)% Stagger Chance, and with math_round(100 + 3 * AGL)% chance swaps places with the target. Then proceeds delivering strikes with the same effects to random adjacent enemies (prioritizing new ones) until one of them is struck twice. If this skill kills a target, allows the character to repeat the strike 2 more times without restrictions.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "dual_wielding-10",
+      "name": "More Blood!",
+      "treeId": "dual_wielding",
+      "x": 224,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "dual_wielding-6",
+        "dual_wielding-7"
+      ],
+      "description": "Killing enemies grants +(1 + open_weapon_one_hand_skills)% Hands Efficiency and (-((1 + open_weapon_one_hand_skills)))% Abilities Energy Cost for 3 turns, and also reduces the cooldowns of this ability tree and all Attack skills by 2 turns. The effect stacks up to 2 times. The bonuses to Hands Efficiency and Abilities Energy Cost depend on the number of learned Weaponry abilities.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-1",
+      "name": "Butchering",
+      "treeId": "survival",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Carves the targeted animal carcass for meat.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "survival-4",
+        "survival-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-2",
+      "name": "Make a Halt",
+      "treeId": "survival",
+      "x": 168,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Using the Rest Mode no longer reduces the duration of \"Vigor\". Removes the Rest Mode's penalties to restoration from active negative effects. Sleeping in bedrolls and camps activates \"Vigor\" and is 25% more effective at restoring Health, Psyche, and Fatigue. Grants +5% Max Energy, +5% Fatigue Resistance, and -0.01% Fatigue Change to \"Vigor\".",
+      "unlockConditions": [],
+      "requiredBy": [
+        "survival-5",
+        "survival-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-3",
+      "name": "Cauterize Wounds",
+      "treeId": "survival",
+      "x": 282,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Stops all Bleedings and removes the effect of \"Gaping Wound\". Worsens the Condition of the affected body parts by 3% and grants them +33% Bleed Resistance for 240 turns. The effect doesn't stack. Grants +10% Pain for each stopped Bleeding. If affected by \"Vigor\", halves the Pain from stopped Bleedings and prolongs the duration of the Bleed Resistance bonus to 360 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "survival-6",
+        "survival-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-4",
+      "name": "Resourcefulness",
+      "treeId": "survival",
+      "x": 54,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "survival-1"
+      ],
+      "description": "Allows \"Butchering\" to harvest pelts and grants it 50% chance to collect special hunting trophies from some animals. The chance to harvest a pelt depends on the type of damage used to kill the animal. Piercing and Crushing damage types harm pelts the least. With 33% chance allows the character to find an additional mushroom, berry, or herb when gathering. Doubles the amount of Experience received for crafting items. Grants +10% Fatigue Resistance. Grants +5% Experience Gain to \"Vigor\"",
+      "unlockConditions": [
+        "Reach Level 6",
+        "Invest 4 AP in PER"
+      ],
+      "requiredBy": [
+        "survival-8",
+        "survival-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-5",
+      "name": "Pathfinder",
+      "treeId": "survival",
+      "x": 130,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "survival-1|survival-2"
+      ],
+      "description": "Allows \"Examine Surroundings\" to reliably hear all creatures within 100% of the Max Vision range, and reveal their tracks while on the surface. Grants +5% Vision and increases the passive chance to hear other creatures by 50%. Hearing an enemy permanently applies them with +5% Damage Taken and -5% Dodge Chance. The effect doesn't stack. Grants -5% Fumble Chance to \"Vigor\".",
+      "unlockConditions": [
+        "Reach Level 6",
+        "Invest 4 AP in PER"
+      ],
+      "requiredBy": [
+        "survival-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-6",
+      "name": "Austerity",
+      "treeId": "survival",
+      "x": 206,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "survival-2|survival-3"
+      ],
+      "description": "Increases the threshold for activating negative effects caused by Hunger, Thirst, Pain, and Fatigue by 5% (up to 30% / 55% / 80% ). Reduces the rate of gaining Hunger and Thirst by 10% and the rate of passive Diet Morale loss by 20%. Grants +10% Pain Resistance. Grants +0.01% Sit. Sanity Change, +0.01% Sit. Morale Change, and -0.01% Pain Change to \"Vigor\".",
+      "unlockConditions": [
+        "Reach Level 6",
+        "Invest 4 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "survival-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-7",
+      "name": "First Aid",
+      "treeId": "survival",
+      "x": 282,
+      "y": 262,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 120,
+      "requires": [
+        "survival-3"
+      ],
+      "description": "Stabilizes all Injuries. Grants +math_round(30 + 3 * PRC)% Healing Efficiency and +math_round(5 + 0.5 * AGL)% Health Restoration for math_round(6 * WIL) turns. Grants +4% Pain for each degree of stabilized Injuries and replenishes math_round(Vitality)% Max Health. If affected by \"Vigor\", improves the Condition of all body parts by math_round(0.5 * Vitality + 0.5 * PRC)% and doesn't increase Pain.",
+      "unlockConditions": [
+        "Reach Level 6",
+        "Invest 4 AP in AGI PER VIT WIL"
+      ],
+      "requiredBy": [
+        "survival-10",
+        "survival-11"
+      ],
+      "modifiedByLabel": "Agility, Perception, Vitality, Willpower"
+    },
+    {
+      "id": "survival-8",
+      "name": "Huntmaster",
+      "treeId": "survival",
+      "x": 54,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "survival-4"
+      ],
+      "description": "Grants \"Butchering\" 25% chance to harvest pelts, regardless of the damage type used to kill the animal, and allows it to always succeed at collecting special hunting trophies. Grants strikes and shots against animals +15% Accuracy and +15% Weapon Damage. Grants -5% Fumble Chance. Grants +4% Crit Chance to \"Vigor\".",
+      "unlockConditions": [
+        "Reach Level 8",
+        "Invest 6 AP in AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-9",
+      "name": "Ever Vigilant",
+      "treeId": "survival",
+      "x": 130,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "survival-4|survival-5"
+      ],
+      "description": "Grants all received strikes and shots -5% Accuracy and -5% Crit Chance. Also grants them -1% Crit Efficiency for each 2% of the character's Crit Avoidance. Grants +5% Dodge Chance and doubles the chance of evading traps. Removes the Rest Mode's penalty to Vision. If affected by \"Vigor\", killing enemies prolongs the effect's duration by 20 turns.",
+      "unlockConditions": [
+        "Reach Level 8",
+        "Invest 6 AP in AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-10",
+      "name": "Adaptability",
+      "treeId": "survival",
+      "x": 206,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "survival-6|survival-7"
+      ],
+      "description": "Reduces the duration of received Poisonings, Hangovers, Bad Trips, and Aftermaths by 50%. Reduces the effect of damaged body parts on Max Health Threshold by 25% and increases the effectiveness of Immunity when recovering from Intoxication by 50%. Grants +10 Max Health. Grants +10% Health Restoration and -0.01% Intoxication Change to \"Vigor\".",
+      "unlockConditions": [
+        "Reach Level 8",
+        "Invest 6 AP in VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "survival-11",
+      "name": "Will to Survive",
+      "treeId": "survival",
+      "x": 282,
+      "y": 408,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 90,
+      "requires": [
+        "survival-7"
+      ],
+      "description": "Removes all negative physical and mental effects. Activates \"Vigor\" for 60 turns. Activates \"Will to Survive\" for 15 turns: +math_round(0.5 * Vitality)% Fortitude Temporary immunity to Injuries and negative states (caused by Fatigue, Pain, low Morale, etc). -5% Damage Taken for each fully or temporarily removed effect, Injury, or state (up to -25%). Replenishes math_round(WIL + 5)% Max Health.",
+      "unlockConditions": [
+        "Reach Level 8",
+        "Invest 6 AP in VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Vitality, Willpower"
+    },
+    {
+      "id": "warfare-1",
+      "name": "Seize the Initiative",
+      "treeId": "warfare",
+      "x": 54,
+      "y": 116,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Applies the target with (-2.5 * AGL)% Dodge Chance and (-2.5 * STR)% Block Chance until the next turn (the effect doesn't stack) and delivers a strike to its least protected body part with +AGL% Accuracy and (-PRC)% Fumble Chance. If the target takes damage, activates \"Seized Initiative\" for 2 turns: +5% Accuracy -5% Fumble Chance -10% Cooldowns Duration -10% Skills Energy Cost Also applies the target with \"Initiative Loss\" for 2 turns, which penalizes the same stats. Damaging strikes and shots prolong the duration of both effects by 1 turn. \"Initiative Loss\" can only be active on one target at a time. Grants the skill +1 Range (if equipped with a spear) or sets its Range to that of the weapon (if equipped with a ranged weapon).",
+      "unlockConditions": [],
+      "requiredBy": [
+        "warfare-5"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "warfare-2",
+      "name": "Opportune Moment",
+      "treeId": "warfare",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Critical strikes, shots, and damaging counters replenish (-5 + WIL)% Max Energy.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "warfare-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-3",
+      "name": "Setup",
+      "treeId": "warfare",
+      "x": 206,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Skipping a turn, switching to another loadout, or using Stances and Maneuvers grants +5% Accuracy, -5% Damage Taken, and -5% Abilities Energy Cost for 3 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "warfare-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-4",
+      "name": "War Cry",
+      "treeId": "warfare",
+      "x": 282,
+      "y": 116,
+      "type": "maneuver",
+      "target": "Target Area",
+      "range": 9,
+      "energy": 10,
+      "cooldown": 20,
+      "requires": [],
+      "description": "Makes a large amount of noise. With (45 + 3 * WIL)% chance Confuses all enemies within 9 tiles for 6 turns or Dazes them for 2-3 turns. The chances to Confuse and Daze depend on the target's Will to Fight. Activates \"Battle Rage\" for 6 turns (+2 turns for each enemy Confused or Dazed by the skill, up to 20): +10% Weapon Damage +5% Crit Chance +20% Crit Efficiency",
+      "unlockConditions": [],
+      "requiredBy": [
+        "warfare-8"
+      ],
+      "modifiedByLabel": "Willpower"
+    },
+    {
+      "id": "warfare-5",
+      "name": "Right on Target",
+      "treeId": "warfare",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "warfare-1"
+      ],
+      "description": "Grants all Attack skills +3% Accuracy, -3% Fumble Chance, and +3% Crit Chance. If equipped with a one-handed melee weapon while the second weapon slot is empty, grants: +2 + open_weapon_skills% Main Hand Efficiency +0.5 * AGL% Weapon Damage +0.5 * STR% Armor Penetration (-((0.5 * PRC)))% Fumble Chance (-((0.5 * Vitality)))% Damage Taken (-((0.5 * WIL)))% Abilities Energy Cost The bonus to Main Hand Efficiency depends on the number of learned Weaponry abilities.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "warfare-9"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception, Vitality, Willpower"
+    },
+    {
+      "id": "warfare-6",
+      "name": "Offensive Tactic",
+      "treeId": "warfare",
+      "x": 130,
+      "y": 228,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 28,
+      "requires": [
+        "warfare-2"
+      ],
+      "description": "Activates 5 stacks of \"Offensive Tactic\" for 6 turns (+1 turn for each enemy within Vision): +2% Crit Chance +3% Accuracy -3% Fumble Chance -3% Skills Energy Cost -3% Cooldowns Duration Basic strikes, shots, and using Attack skills reduce the number of stacks (no more than once per turn). Killing enemies increases the number of stacks by 2 (up to VI). While affected by \"Offensive Tactic\", using \"Defensive Tactic\" doesn't take a turn. Only one \"Tactic\" can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER"
+      ],
+      "requiredBy": [
+        "warfare-9",
+        "warfare-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-7",
+      "name": "Defensive Tactic",
+      "treeId": "warfare",
+      "x": 206,
+      "y": 228,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 28,
+      "requires": [
+        "warfare-3"
+      ],
+      "description": "Activates 5 stacks of \"Defensive Tactic\" for 6 turns (+1 turn for each enemy within Vision): +4% Crit Avoidance +3% Block Chance +3% Dodge Chance +3% Counter Chance +6% Bleed Resistance Basic strikes, shots, and using Attack skills reduce the number of stacks (no more than once per turn). Killing enemies increases the number of stacks by 2 (up to VI). While affected by \"Defensive Tactic\", using \"Offensive Tactic\" doesn't take a turn. Only one \"Tactic\" can be active at a time.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI VIT WIL"
+      ],
+      "requiredBy": [
+        "warfare-10",
+        "warfare-11"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-8",
+      "name": "Intimidation",
+      "treeId": "warfare",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "warfare-4"
+      ],
+      "description": "Successful strikes and shots apply their targets with -5% Crit Avoidance and -4% Fortitude for 5 turns. The effect stacks up to 5 times. Increases the negative impact of the character's actions upon the enemies' Will to Fight by 33%.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "warfare-11"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-9",
+      "name": "Finisher",
+      "treeId": "warfare",
+      "x": 92,
+      "y": 340,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 2,
+      "energy": 26,
+      "cooldown": 18,
+      "requires": [
+        "warfare-5",
+        "warfare-6"
+      ],
+      "description": "Performs a charge towards the target and delivers a strike to its most damaged body part with +(2.5 * AGL)% Bodypart Damage, +(1.5 * STR)% Crit Chance, (-2 * PRC)% Fumble Chance, and +(5 * WIL)% Energy Drain. Instantly kills the target if the strike puts its Health below (2.5 + 0.25 * STR + 0.25 * AGL + 0.5 * PRC)% (but no more than (0.5 * STR + 0.5 * AGL + 0.5 * PRC)). If the skill kills its target, instantly refreshes all other attack skills, charges, and spells' cooldowns and replenishes (1.5 * WIL)% Max Energy. If equipped with a spear, grants the skill +1 Range.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER WIL"
+      ],
+      "requiredBy": [
+        "warfare-12"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception, Willpower"
+    },
+    {
+      "id": "warfare-10",
+      "name": "Tactical Advantage",
+      "treeId": "warfare",
+      "x": 168,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "warfare-6",
+        "warfare-7"
+      ],
+      "description": "Grants additional +2 turns to the duration of \"Defensive Tactic\" and \"Offensive Tactic\". Grants -15% Energy Cost and -15% Cooldown Duration to all Stances and Maneuvers. If affected by \"Offensive Tactic\", using \"Defensive Tactic\" replenishes (0.5 * Vitality)% Max Health and (5 + WIL)% Max Energy. If affected by \"Defensive Tactic\", using \"Offensive Tactic\" grants +20% Weapon Damage for 3 turns. The effect doesn't stack.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER VIT WIL"
+      ],
+      "requiredBy": [
+        "warfare-13"
+      ],
+      "modifiedByLabel": "Vitality, Willpower"
+    },
+    {
+      "id": "warfare-11",
+      "name": "Against the Odds",
+      "treeId": "warfare",
+      "x": 244,
+      "y": 340,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 12,
+      "cooldown": 60,
+      "requires": [
+        "warfare-7",
+        "warfare-8"
+      ],
+      "description": "Activates \"Against the Odds\" for 2 turns: -50% Damage Taken +50% Bleed Resistance +50% Move Resistance +50% Control Resistance +50% Crit Avoidance Health can't drop below (2.5 * Vitality)%. Killing enemies replenishes (2.5 * Vitality)% Max Health and (2.5 * WIL)% Max Energy. The first strike or shot received on the same turn as using the skill will deal no damage.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "warfare-14"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-12",
+      "name": "Armor Crusher",
+      "treeId": "warfare",
+      "x": 92,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "warfare-9"
+      ],
+      "description": "Grants strikes and shots +10% Armor Penetration and +50% Armor Damage if the target's Armor Durability is above 0%. Hitting the target applies it with +10% Damage Taken for 5 turns if it has no Armor or its Armor Durability is 0%. Grants +5% Crit Chance for 5 turns for each strike or shot blocked by the target. Both effects stack up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-13",
+      "name": "Thirst for Battle",
+      "treeId": "warfare",
+      "x": 168,
+      "y": 452,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 30,
+      "cooldown": 30,
+      "requires": [
+        "warfare-10"
+      ],
+      "description": "Activates \"Thirst for Battle\" for 8 turns. Each missing percent of Health grants: +0.4% Weapon Damage +0.2% Crit Chance +0.5% Crit Efficiency +0.25% Life Drain +0.4% Energy Drain The effect's power changes dynamically depending on the current Health. Critical strikes and shots prolong the effect's duration by 1 turn (up to 8). The first strike received on the same turn as using the skill is guaranteed to trigger a counter.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR AGI VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "warfare-14",
+      "name": "Final Push",
+      "treeId": "warfare",
+      "x": 244,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "warfare-11"
+      ],
+      "description": "Grants +5% Weapon Damage and +5% Accuracy for each missing 20% of Health. Grants -5% Cooldowns Duration and -10% Abilities Energy Cost for each missing 20% of Energy. Grants +5% Fortitude, +5% Bleed Resistance, +5% Control Resistance, and +5% Move Resistance for each negative effect.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-1",
+      "name": "Disengage",
+      "treeId": "athletics",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Reduces the chance of triggering attacks of opportunity (from 50% to 25%). Grants +0.2% Magic Resistance and +0.2% Nature Resistance for each 1% Dodge Chance. Applies all adjacent enemies with +3% Fumble Chance, -3% Accuracy, and -3% Crit Chance.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "athletics-5"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-2",
+      "name": "Leg Sweep",
+      "treeId": "athletics",
+      "x": 130,
+      "y": 116,
+      "type": "maneuver",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 12,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Applies three adjacent targets with (-((3 * AGL)))% Counter Chance until the next turn (the effect doesn't stack), then deals (4 + 0.2 * Legs_DEF + 0.3 * STR) Crushing Damage to them with (80 + 2 * PRC)% Accuracy, (20 - 0.5 * PRC)% Fumble Chance, STR% Armor Penetration, AGL% Crit Chance, and (65 + 2 * AGL)% Immobilization Chance. Then allows the character to reposition to an adjacent tile. The damage dealt depends on the equipped boots' Protection. Hitting a target applies it with +(20 - 0.5 * AGL)% Fumble Chance, (-((5 + 0.5 * PRC)))% Crit Chance, and (-((5 + 0.5 * STR)))% Weapon Damage for 3 turns. The effect stacks up to 2 times. With (105 + 2 * STR)% chance Staggers the target if it remains adjacent after receiving a hit.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "athletics-6"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "athletics-3",
+      "name": "Not This Time",
+      "treeId": "athletics",
+      "x": 206,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Full blocks and dodges grant +5% Control Resistance and +5% Move Resistance for 5 turns. The effect stacks up to 2 times. Once per 90 turns, removes Stun, Daze, Stagger, or Immobilization upon receiving them.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "athletics-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-4",
+      "name": "Mighty Kick",
+      "treeId": "athletics",
+      "x": 282,
+      "y": 116,
+      "type": "maneuver",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 6,
+      "cooldown": 6,
+      "requires": [],
+      "description": "Applies the target with (-((3 * AGL)))% Counter Chance until the next turn (the effect doesn't stack), then deals (6 + 0.3 * Legs_DEF + 0.4 * STR) Crushing Damage with (100 + 2 * PRC)% Accuracy, (20 - 0.5 * PRC)% Fumble Chance, STR% Armor Penetration, AGL% Crit Chance, (80 + 2 * AGL)% Stagger Chance, and (60 + 2 * STR)% Knockback Chance. The damage dealt depends on the equipped boots' Protection. Hitting the target applies it with (-((3 * STR)))% Max Block Power, (-((AGL + PRC)))% Control Resistance, (-((AGL + PRC)))% Move Resistance, and (-((1.5 * PRC)))% Crit Avoidance for 4 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "athletics-8"
+      ],
+      "modifiedByLabel": "Strength, Agility, Perception"
+    },
+    {
+      "id": "athletics-5",
+      "name": "Dash",
+      "treeId": "athletics",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 4,
+      "energy": 26,
+      "cooldown": 20,
+      "requires": [
+        "athletics-1"
+      ],
+      "description": "Performs a charge towards the targeted tile. Grants the skill -1 Range for each adjacent enemy (down to 2 Range). If there are adjacent enemies after using the skill, grants +15% Dodge Chance and +15% Counter Chance for 2 turns.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI VIT"
+      ],
+      "requiredBy": [
+        "athletics-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-6",
+      "name": "Inner Reserves",
+      "treeId": "athletics",
+      "x": 130,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "athletics-2"
+      ],
+      "description": "Once per math_round(25 - 0.5 * Vitality) turns, replenishes math_round(10 + WIL)% Max Energy when Energy drops below 50%.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "athletics-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-7",
+      "name": "Sudden Lunge",
+      "treeId": "athletics",
+      "x": 206,
+      "y": 228,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 14,
+      "requires": [
+        "athletics-3"
+      ],
+      "description": "Delivers a strike with -50% Weapon Damage and +(40 + 2 * AGL + 2 * PRC)% Stagger Chance. Reduces all cooldowns by 2 turns. A successful, damaging hit puts all of the target's abilities on a 2 turn cooldown. If equipped with a spear, grants the skill +1 Range.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "athletics-10"
+      ],
+      "modifiedByLabel": "Agility, Perception"
+    },
+    {
+      "id": "athletics-8",
+      "name": "Push the Falling",
+      "treeId": "athletics",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "athletics-4"
+      ],
+      "description": "Dazing, Stunning, Staggering, Confusing, Immobilizing, and causing Bleeding with strikes and shots replenishes math_round(-6 + WIL)% Max Energy. Using \"Mighty Kick\" against targets with these effects prolongs their duration by 1-2 turns, depending on each individual effect's duration cap.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "athletics-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-9",
+      "name": "Elusiveness",
+      "treeId": "athletics",
+      "x": 130,
+      "y": 340,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 16,
+      "cooldown": 24,
+      "requires": [
+        "athletics-5|athletics-6"
+      ],
+      "description": "Activates 5 stacks of \"Elusiveness\" for 6 turns: +(0.4 * PRC)% Dodge Chance (-((0.2 * Vitality)))% Damage Taken Each dodge as well as received fumbled strikes and shots prolong the effect's duration by 1 turn (up to 6) but reduce its number of stacks. Moving to other tiles (Charges and Maneuvers count as well) grants an extra stack of the effect for each traveled tile (up to V). Applies all adjacent enemies with +(0.5 * AGL)% Fumble Chance for 4 turns. The effect doesn't stack.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER VIT"
+      ],
+      "requiredBy": [
+        "athletics-11",
+        "athletics-12",
+        "athletics-13"
+      ],
+      "modifiedByLabel": "Agility, Vitality, Perception"
+    },
+    {
+      "id": "athletics-10",
+      "name": "No Time to Linger",
+      "treeId": "athletics",
+      "x": 206,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "athletics-7|athletics-8"
+      ],
+      "description": "Grants strikes and shots against Dazed, Stunned, Staggered, Confused, Immobilized, or Bleeding targets +4% Accuracy, -4% Fumble Chance, and +4% Crit Chance. Using \"Sudden Lunge\" against targets with these effects grants the skill +75% Weapon Damage, -50% Cooldown Duration, and -50% Energy Cost.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI PER"
+      ],
+      "requiredBy": [
+        "athletics-11",
+        "athletics-12",
+        "athletics-13"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-11",
+      "name": "Sprint Training",
+      "treeId": "athletics",
+      "x": 92,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "athletics-9",
+        "athletics-10"
+      ],
+      "description": "Grants +1 Range, -33% Energy Cost, and -33% Cooldown Duration to all Charge skills.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in AGI VIT"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "athletics-12",
+      "name": "Adrenaline Rush",
+      "treeId": "athletics",
+      "x": 168,
+      "y": 452,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 60,
+      "requires": [
+        "athletics-9",
+        "athletics-10"
+      ],
+      "description": "Replenishes (2 * WIL * (1.5 - HP / max_hp))% Max Energy, grants (-2 * WIL * (2 - HP / max_hp))% Pain, and activates \"Adrenaline Rush\" for math_round(Vitality / 2 * (2 - HP / max_hp)) turns: -3% Damage Taken -5% Abilities Energy Cost +10% Energy Restoration +3% Crit Chance +10% Pain Resistance III stacks: reduces all cooldowns by 1 turn. VI stacks: replenishes 4% Max Health if the current Health is below 40%. Grants an extra stack of the effect (up to VI) for each enemy within Vision upon its activation. Adjacent enemies are counted twice. The effect's duration as well as the amount of reduced Pain and replenished Energy depend on missing Health.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Vitality, Willpower"
+    },
+    {
+      "id": "athletics-13",
+      "name": "Peak Performance",
+      "treeId": "athletics",
+      "x": 244,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "athletics-9",
+        "athletics-10"
+      ],
+      "description": "Grants +10% Weapon Damage, +10% Dodge Chance, and -10% Cooldowns Duration if Energy is above 50%.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in STR AGI VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-1",
+      "name": "Seal of Finesse",
+      "treeId": "magic_mastery",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 16,
+      "requires": [],
+      "description": "Reduces Backfire Damage by 40% and activates Seal of Finesse for 10 turns: -3% Backfire Chance -3% Fumble Chance -3% Backfire Damage Change -3% Cooldowns Duration Remaining on the same tile grants an extra stack of the effect (up to V). Moving to other tiles reduces the number of stacks. Removes the effect when moving with I stack.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "magic_mastery-5",
+        "magic_mastery-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-2",
+      "name": "Precise Movements",
+      "treeId": "magic_mastery",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Remaining on the same tile grants -3% Backfire Chance. The effect stacks up to 3 times. Each learned Sorcery ability grants -0.5% Backfire Chance and +1% Armor Penetration to the corresponding ability tree's spells. Magic Mastery also counts as a Sorcery tree for this ability.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "magic_mastery-5",
+        "magic_mastery-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-3",
+      "name": "Dissipation",
+      "treeId": "magic_mastery",
+      "x": 206,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Each point of received Magic or Nature Damage replenishes 1 Energy and grants +1% Magic or Nature Resistances for 5 turns. The effect stacks up to 15 times.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "magic_mastery-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-4",
+      "name": "Seal of Power",
+      "treeId": "magic_mastery",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 24,
+      "cooldown": 20,
+      "requires": [],
+      "description": "Activates Seal of Power for 5 turns: +15% Magic Power +(WIL * 0.1) Arcane Damage to strikes and shots +10% Bonus Range Using spells transforms the effect into a \"Seal\" of the corresponding School and prolongs its duration by 3 turns (up to 9). Pyromancy: +15% Pyromantic Power, +(WIL * 0.2) Fire Damage to strikes and shots, +3% Miracle Chance, and +3% Crit Chance. Electromancy: +15% Electromantic Power, +(WIL * 0.2) Shock Damage to strikes and shots, -4% Backfire Chance, and -4% Fumble Chance. Geomancy: +15% Geomantic Power, -10% Damage Taken, +10% Damage Reflection, and -5% Backfire Damage Change. Arcanistics: +15% Arcanistic Power, +(WIL * 0.2) Arcane Damage to strikes and shots, and -7% Abilities Energy Cost. Using the ability tree's spells transforms the effect back into \"Seal of Power\".",
+      "unlockConditions": [],
+      "requiredBy": [
+        "magic_mastery-8"
+      ],
+      "modifiedByLabel": "Willpower"
+    },
+    {
+      "id": "magic_mastery-5",
+      "name": "Seal of Insight",
+      "treeId": "magic_mastery",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 20,
+      "cooldown": 12,
+      "requires": [
+        "magic_mastery-1",
+        "magic_mastery-2"
+      ],
+      "description": "Creates 3 random places of power within 2 tiles, which persist for 20 turns. When the caster moves to a place of power activates \"Place of Power\" for 3 turns: +7% Magic Power -4% Spells Energy Cost +3% Miracle Chance +10% Energy Restoration Remaining on a place of power grants an extra stack of the effect (up to IV) and prolongs its duration by 1 turn. Using spells reduces the number of stacks. When the caster moves to a place of power for the first time, reduces all spells' cooldowns by 2 turns. Places of power prevent the creation of sigils on the same tile.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "magic_mastery-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-6",
+      "name": "Lingering Incantations",
+      "treeId": "magic_mastery",
+      "x": 130,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "magic_mastery-1",
+        "magic_mastery-2"
+      ],
+      "description": "Increases the duration of all effects, areas, and entities applied or created with spells by 20%. Activating a positive magical effect grants the next spell -10% Energy Cost and -10% Cooldown Duration.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI WIL"
+      ],
+      "requiredBy": [
+        "magic_mastery-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-7",
+      "name": "Seal of Cleansing",
+      "treeId": "magic_mastery",
+      "x": 206,
+      "y": 228,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 6,
+      "energy": 24,
+      "cooldown": 24,
+      "requires": [
+        "magic_mastery-3"
+      ],
+      "description": "Removes all physical and magical effects from the chosen target and every target adjacent to it. Destroys all summoned magical or elemental entities within the spell's area of effect (runes, fires, unholy blood, acid, magma, etc). Replenishes math_round(-7 + Vitality)% Max Health and math_round(0.5 * WIL)% Max Energy for each removed effect or destroyed entity. Doubles the bonuses for each positive effect removed from the caster. Applies all Undead targets within the spell's area of effect with +33% Damage Taken for 10 turns.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "magic_mastery-10"
+      ],
+      "modifiedByLabel": "Vitality, Willpower, Bonus Range"
+    },
+    {
+      "id": "magic_mastery-8",
+      "name": "Body and Spirit",
+      "treeId": "magic_mastery",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "magic_mastery-4"
+      ],
+      "description": "Using spells grants +5% Weapon Damage and +2% Crit Chance for 4 turns. Strikes, shots, and using Attack skills grants +8% Magic Power and -4% Backfire Chance for 4 turns. Both effects stack up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "magic_mastery-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-9",
+      "name": "Thaumaturgy",
+      "treeId": "magic_mastery",
+      "x": 130,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "magic_mastery-5|magic_mastery-6"
+      ],
+      "description": "Miracles reduce all spells' cooldowns by 1 turn and apply all enemies within Vision with (-(math_round(0.5 * WIL)))% Magic Resistance and (-(math_round(0.5 * WIL)))% Nature Resistance for 5 turns. The effect stacks up to 2 times. Grants +3% Miracle Chance and +10% Miracle Potency.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in WIL"
+      ],
+      "requiredBy": [
+        "magic_mastery-11",
+        "magic_mastery-12"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "magic_mastery-10",
+      "name": "Seal of Reflection",
+      "treeId": "magic_mastery",
+      "x": 206,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 6,
+      "energy": 42,
+      "cooldown": 36,
+      "requires": [
+        "magic_mastery-7|magic_mastery-8"
+      ],
+      "description": "Applies the target with \"Seal of Reflection\" for 8 turns: +30% Magic Resistance +25% Nature Resistance +10% Physical Resistance +33% Damage Reflection Redirects all received aimed spells towards a random target within 8 tiles, if there is one.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "magic_mastery-11",
+        "magic_mastery-12"
+      ],
+      "modifiedByLabel": "Bonus Range"
+    },
+    {
+      "id": "magic_mastery-11",
+      "name": "Seal of Shackles",
+      "treeId": "magic_mastery",
+      "x": 130,
+      "y": 452,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 32,
+      "cooldown": 32,
+      "requires": [
+        "magic_mastery-9",
+        "magic_mastery-10"
+      ],
+      "description": "Applies the target with \"Seal of Shackles\" for 6 turns: -50% Energy Restoration +100% Abilities Energy Cost +100% Cooldowns Duration +25% Fumble Chance +25% Backfire Chance Using abilities deals Arcane Damage equal to ((math_round(10 + 1.5 * WIL)) * Magic_Power / 100)% of the Energy spent.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in PER WIL AGI"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Willpower, Bonus Range"
+    },
+    {
+      "id": "magic_mastery-12",
+      "name": "Forgotten Lore",
+      "treeId": "magic_mastery",
+      "x": 206,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "magic_mastery-9",
+        "magic_mastery-10"
+      ],
+      "description": "Grants -0.5% Spells Energy Cost and -1% Cooldowns Duration for each learned spell. Grants +1% Magic Power and +1% Miracle Potency for each learned Sorcery passive, including those of Magic Mastery.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "armored_combat-1",
+      "name": "Self-Repair",
+      "treeId": "armored_combat",
+      "x": 68,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants -15% to the equipped armor and weapons' Durability loss rate. Allows dismantling pieces of armor into fragments, which can be used to repair other armor, and also occasionally receive them as loot when killing enemies. The chance to receive fragments depends on the target's Armor Durability upon its death. Increases the amount of Durability restored by repair kits by 33%. Each equipped piece of armor with Durability above 80% grants +5% Bleed Resistance to the respective body part and +3% Crit Avoidance.",
+      "unlockConditions": [],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "armored_combat-2",
+      "name": "Brace for Impact!",
+      "treeId": "armored_combat",
+      "x": 168,
+      "y": 116,
+      "type": "maneuver",
+      "target": "No Target",
+      "range": 1,
+      "energy": 10,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Activates \"Brace for Impact!\" for 2 turns: +12% Dodge Chance +12% Block Chance +12% Control Resistance +12% Move Resistance Grants all received strikes and shots +(1.5 * AGL)% Fumble Chance, (-((5 + 0.5 * PRC)))% Accuracy, and (-((5 + 2 * Vitality)))% Armor Penetration. If equipped with a light chestpiece, grants the effect +50% Crit Avoidance. If equipped with a medium chestpiece, also grants received strikes and shots -33% Bodypart Damage. If equipped with a heavy chestpiece, grants the skill -33% Cooldown Duration.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "armored_combat-4",
+        "armored_combat-5",
+        "armored_combat-6"
+      ],
+      "modifiedByLabel": "Agility, Perception, Vitality"
+    },
+    {
+      "id": "armored_combat-3",
+      "name": "Hard Target",
+      "treeId": "armored_combat",
+      "x": 268,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Each shot taken at the character grants +5% Dodge Chance for 5 turns and applies the attacker with -8% Accuracy for 5 turns. Both effects stack up to 4 times and trigger twice if the shot hits its target. Grants all received strikes and shots -10% Armor Penetration.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "armored_combat-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "armored_combat-4",
+      "name": "Flexible Defense",
+      "treeId": "armored_combat",
+      "x": 68,
+      "y": 262,
+      "type": "attack",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 14,
+      "cooldown": 14,
+      "requires": [
+        "armored_combat-2"
+      ],
+      "description": "Delivers a strike to three adjacent tiles with math_round(-60 + AGL)% Weapon Damage and +math_round(80 + 2 * PRC)% Stagger Chance. Hitting a target applies it with -20% Weapon Damage, +20% Fumble Chance, and -5% Accuracy for 2 turns (the effect doesn't stack). If equipped with a light chestpiece, grants additional +1 turn to the applied penalties' duration. If equipped with a medium chestpiece, hitting a target applies it with -15% Control Resistance, -15% Move Resistance, and -15% Crit Avoidance for 2 turns (the effect doesn't stack). If equipped with a heavy chestpiece, replenishes math_round(-5 + WIL)% Max Energy and grants +6% Energy Restoration for 5 turns for each enemy hit by the strike.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "armored_combat-7",
+        "armored_combat-8"
+      ],
+      "modifiedByLabel": "Agility, Perception, Willpower"
+    },
+    {
+      "id": "armored_combat-5",
+      "name": "Battle-Forged",
+      "treeId": "armored_combat",
+      "x": 168,
+      "y": 262,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "armored_combat-2"
+      ],
+      "description": "Using Stances and Maneuvers grants -10% Damage Taken until the next turn. If equipped with a light chestpiece, moving to other tiles (Charges and Maneuvers count as well) grants +2% Dodge Chance and +2% Counter Chance for 4 turns for each traveled tile. If equipped with a medium chestpiece, using Stances and Maneuvers also reduces this ability tree's cooldowns by 1 turn. If equipped with a heavy chestpiece, remaining on the same tile grants -3% Abilities Energy Cost and +3% Crit Avoidance for 6 turns. All effects stack up to 5 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI VIT WIL"
+      ],
+      "requiredBy": [
+        "armored_combat-7",
+        "armored_combat-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "armored_combat-6",
+      "name": "Unyielding Defense",
+      "treeId": "armored_combat",
+      "x": 268,
+      "y": 262,
+      "type": "maneuver",
+      "target": "Target Tile",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 14,
+      "requires": [
+        "armored_combat-2",
+        "armored_combat-3"
+      ],
+      "description": "Repositions to an adjacent tile, lowers the equipped helmet's visor, and activates \"Unyielding Defense\" for 8 turns: +6% to all body parts' Protection (no less than +1) +4% Fortitude +4% Block Power Recovery +4% Block Chance or +4% Dodge Chance (the priority is given to the highest Stat) Each received strike or shot grants an extra stack of the effect (up to V).",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI VIT"
+      ],
+      "requiredBy": [
+        "armored_combat-7",
+        "armored_combat-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "armored_combat-7",
+      "name": "Battering Ram",
+      "treeId": "armored_combat",
+      "x": 118,
+      "y": 408,
+      "type": "attack",
+      "target": "Target Object",
+      "range": 3,
+      "energy": 22,
+      "cooldown": 24,
+      "requires": [
+        "armored_combat-4|armored_combat-5|armored_combat-6"
+      ],
+      "description": "Performs a charge towards the target and applies it with -100% Counter Chance until the next turn, then deals math_round(0.5 * Body_DEF + 0.5 * STR) Crushing Damage with math_round(50 + 2.5 * PRC + 2.5 * AGL)% Accuracy,  max((15 - 0.5 * PRC), 0)% Fumble Chance, max(math_round(50 + STR), 0)% Armor Penetration, and math_round(70 + STR + Vitality)% Stagger Chance. The damage depends on the equipped chestpiece's Protection. If equipped with a light chestpiece, grants the skill +1 Range and also grants +max(math_round(0.33 * EVS), 0)% Weapon Damage for 2 turns. If equipped with a medium chestpiece and the skill Staggers its target, grants -25% Cooldowns Duration for 2 turns. If equipped with a heavy chestpiece, grants the skill -1 Range and math_round(60 + 2 * STR + 2 * Vitality)% Stun Chance.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI PER VIT"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Strength, Agility, Perception, Vitality, Dodge Chance"
+    },
+    {
+      "id": "armored_combat-8",
+      "name": "Custom Adjustments",
+      "treeId": "armored_combat",
+      "x": 218,
+      "y": 408,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "armored_combat-4|armored_combat-5|armored_combat-6"
+      ],
+      "description": "Each equipped piece of light armor grants +25% to the respective body part's Protection (no less than +2) and -2% Damage Taken. Each equipped piece of medium armor grants +8% Bleed Resistance to the respective body part and +3% Dodge Chance. Each equipped piece of heavy armor grants -3% to its Durability loss rate and also +4 Max Energy and +2% Energy Restoration.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in STR AGI VIT"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-1",
+      "name": "Fire Barrage",
+      "treeId": "pyromancy",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 5,
+      "energy": 12,
+      "cooldown": 4,
+      "requires": [],
+      "description": "Shoots three fire bolts, each dealing (7 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage with (Spell_Hit_Chance - 10)% Accuracy. Fire bolts deal 30% more damage to Burning targets.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "pyromancy-5"
+      ],
+      "modifiedByLabel": "Perception, Magic Power, Pyromantic Power, Bonus Range"
+    },
+    {
+      "id": "pyromancy-2",
+      "name": "Flame Saturation",
+      "treeId": "pyromancy",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants -10% Abilities Energy Cost for 3 turns each time an enemy within Vision is Ignited. Dealing repeated Fire Damage with the ability tree's spells is more effective at Igniting targets.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "pyromancy-6"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-3",
+      "name": "Baptism by Fire",
+      "treeId": "pyromancy",
+      "x": 206,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Grants +2.5% Pyromantic Power for each Burning tile or enemy within Vision. Doubles the bonus for each adjacent Burning tile or enemy. Grants +33% Fire Resistance. Receiving Fire Damage puts this bonus on a 6 turn cooldown.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "pyromancy-7",
+        "pyromancy-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-4",
+      "name": "Ring of Fire",
+      "treeId": "pyromancy",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 16,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Deals (14 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage to all adjacent tiles, Igniting the empty ones. With (40 * (Magic_Power + Pyromantic_Power) / 100)% chance Ignites all affected targets for 2-3 turns and applies them with math_round(-5 * (Magic_Power + Pyromantic_Power) / 100)% Fire Resistance for 10 turns. Grants +15% Pyromantic Power for 4 turns for each affected enemy.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "pyromancy-7",
+        "pyromancy-8"
+      ],
+      "modifiedByLabel": "Magic Power, Pyromantic Power"
+    },
+    {
+      "id": "pyromancy-5",
+      "name": "Feed the Flames",
+      "treeId": "pyromancy",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "pyromancy-1"
+      ],
+      "description": "Hitting a Burning target with a firebolt from \"Fire Barrage\" applies it with -5% Fire Resistance for 3 turns and prolongs the duration of Burning by 1 turn. The effect stacks up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-9"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-6",
+      "name": "Flame Wave",
+      "treeId": "pyromancy",
+      "x": 130,
+      "y": 228,
+      "type": "passive",
+      "target": "Target Area",
+      "range": 3,
+      "energy": 20,
+      "cooldown": 10,
+      "requires": [
+        "pyromancy-2"
+      ],
+      "description": "Deals (15 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage to a large area within 3 tiles, Igniting some of the tiles in it. Burns the affected targets' Energy for 200% of the damage dealt. Reduces the ability tree's cooldowns by 1 turn for each affected enemy.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-9",
+        "pyromancy-10"
+      ],
+      "modifiedByLabel": "Magic Power, Pyromantic Power"
+    },
+    {
+      "id": "pyromancy-7",
+      "name": "Magma Rain",
+      "treeId": "pyromancy",
+      "x": 206,
+      "y": 228,
+      "type": "passive",
+      "target": "Target Area",
+      "range": 3,
+      "energy": 36,
+      "cooldown": 20,
+      "requires": [
+        "pyromancy-3",
+        "pyromancy-4"
+      ],
+      "description": "Deals (7 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage to a 3x3 tile area, creating magma puddles within it and Igniting some of the tiles. Magma persists for (3 * (Magic_Power + Pyromantic_Power) / 100) turns. Remaining in magma deals (4 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage, applies with -5% Fire Resistance for 7 turns (the effect stacks), and has 5% chance to Ignite for 3-4 turns. Each turn of remaining in the magma increases the Ignition chance by 5%.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-10",
+        "pyromancy-11"
+      ],
+      "modifiedByLabel": "Magic Power, Pyromantic Power, Bonus Range"
+    },
+    {
+      "id": "pyromancy-8",
+      "name": "Scorch",
+      "treeId": "pyromancy",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "pyromancy-3",
+        "pyromancy-4"
+      ],
+      "description": "Using the ability tree's spells applies all enemies within 5 tiles with -5% Fire Resistance and -5% Max Health for 8 turns. The effect stacks up to 4 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-11"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-9",
+      "name": "Incineration",
+      "treeId": "pyromancy",
+      "x": 92,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 6,
+      "energy": 28,
+      "cooldown": 10,
+      "requires": [
+        "pyromancy-5",
+        "pyromancy-6"
+      ],
+      "description": "Removes Burning from the target, dealing (10 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage to a 3x3 tile area and with (20 * (Magic_Power + Pyromantic_Power) / 100)% chance Igniting all affected targets for 3-4 turns. Each turn of removed Burning increases the damage by 30% and the chance to Ignite by 100%.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-12",
+        "pyromancy-13"
+      ],
+      "modifiedByLabel": "Magic Power, Pyromantic Power, Bonus Range"
+    },
+    {
+      "id": "pyromancy-10",
+      "name": "From Blaze to Furnace",
+      "treeId": "pyromancy",
+      "x": 168,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "pyromancy-6",
+        "pyromancy-7"
+      ],
+      "description": "Grants +1 Range to \"Fire Barrage\", \"Melting Ray\", \"Incineration\", \"Magma Rain\", and \"Inferno\" if there are no enemies within 5 tiles. Grants +5% Pyromantic Power and +3% Miracle Chance for each enemy within 5 tiles.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-13"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-11",
+      "name": "Melting Ray",
+      "treeId": "pyromancy",
+      "x": 244,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 5,
+      "energy": 40,
+      "cooldown": 16,
+      "requires": [
+        "pyromancy-7",
+        "pyromancy-8"
+      ],
+      "description": "Shoots a fiery ray towards the targeted tile, dealing (6 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage to all targets in its path and with (14 * (Magic_Power + Pyromantic_Power) / 100)% chance Igniting them for 3-4 turns. The ray explodes in the targeted tile, Igniting it and dealing (10 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage to a 3x3 tile area. The explosion's damage increases by 20% for each enemy the ray passes through.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "pyromancy-13",
+        "pyromancy-14"
+      ],
+      "modifiedByLabel": "Magic Power, Pyromantic Power, Bonus Range"
+    },
+    {
+      "id": "pyromancy-12",
+      "name": "Excess Heat",
+      "treeId": "pyromancy",
+      "x": 92,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "pyromancy-9"
+      ],
+      "description": "Killing enemies with the ability tree's spells grants +20% Pyromantic Power to the next spell. The effect stacks up to 3 times. Increases the duration of every Burning caused by dealing Fire Damage and the ability tree's spells by 33%.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "pyromancy-13",
+      "name": "Inferno",
+      "treeId": "pyromancy",
+      "x": 168,
+      "y": 452,
+      "type": "passive",
+      "target": "Target Area",
+      "range": 3,
+      "energy": 64,
+      "cooldown": 24,
+      "requires": [
+        "pyromancy-9",
+        "pyromancy-10",
+        "pyromancy-11"
+      ],
+      "description": "Creates a firestorm in a 5x5 tile area, which persists for 3 turns. Remaining in the firestorm deals (10 * (1 + Pyromantic_Power / 100) * Magic_Power / 100) Fire Damage. The firestorm's damage increases by 15% for each target within the spell's area of effect.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in AGI WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Magic Power, Pyromantic Power, Bonus Range"
+    },
+    {
+      "id": "pyromancy-14",
+      "name": "Pyromania",
+      "treeId": "pyromancy",
+      "x": 244,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "pyromancy-11"
+      ],
+      "description": "Grants +20% Energy Restoration, -10% Cooldowns Duration, and -10% Backfire Chance for each Burning enemy within Vision.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-1",
+      "name": "Runic Boulder",
+      "treeId": "geomancy",
+      "x": 130,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 5,
+      "energy": 6,
+      "cooldown": 4,
+      "requires": [],
+      "description": "Summons a runic boulder on the targeted tile, dealing (6 * (1 + Geomantic_Power / 100) * Magic_Power / 100) Arcane Damage to every enemy adjacent to it and with (75 * (Magic_Power + Geomantic_Power) / 100)% chance knocking them back. Each boulder grants the caster 1 stack of \"Runic Empowerment\": +5% Magic Power +10% Geomantic Power -10% Abilities Energy Cost -3 Energy Replenishment Only 3 boulders can be summoned simultaneously, and their Durability depends on the caster's Max Energy. Boulders fall apart when they leave the caster's Vision or if the caster runs out of Energy. When a boulder is destroyed by enemies, Confuses the caster for 4-6 turns and deals (6 * (1 + Geomantic_Power / 100) * Magic_Power / 100) Arcane Damage to them.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "geomancy-3",
+        "geomancy-4",
+        "geomancy-5"
+      ],
+      "modifiedByLabel": "Magic Power, Geomantic Power, Bonus Range"
+    },
+    {
+      "id": "geomancy-2",
+      "name": "Stone Armor",
+      "treeId": "geomancy",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 16,
+      "requires": [],
+      "description": "Activates \"Stone Armor\" for 4 turns (+4 turns for each stack of \"Runic Empowerment\"): +15% Physical Resistance +20% Nature Resistance +15% Magic Resistance +20% Bleed Resistance +20% Move Resistance +20% Control Resistance Summoning runic boulders prolongs the effect's duration by 2 turns. When the effect expires or is activated again, the armor explodes, dealing (6 * (Magic_Power + Geomantic_Power) / 100) Arcane and (6 * (Magic_Power + Geomantic_Power) / 100) Crushing Damage to all adjacent targets, and with (50 * (Magic_Power + Geomantic_Power) / 100)% chance Knocking them back. The Crushing Damage increases by 100% for each strike or shot received over the course of the effect (but no more than (3 * WIL)).",
+      "unlockConditions": [],
+      "requiredBy": [
+        "geomancy-6"
+      ],
+      "modifiedByLabel": "Magic Power, Geomantic Power"
+    },
+    {
+      "id": "geomancy-3",
+      "name": "Rune of Fortifying",
+      "treeId": "geomancy",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-1"
+      ],
+      "description": "Grants -5% Damage Taken and -5% Backfire Damage Change for each adjacent runic boulder Grants boulders -25% Damage Taken. Reduces the sustain cost of adjacent boulders to 1 Energy per turn.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "geomancy-7",
+        "geomancy-8"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-4",
+      "name": "Stone Spikes",
+      "treeId": "geomancy",
+      "x": 130,
+      "y": 228,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 24,
+      "cooldown": 12,
+      "requires": [
+        "geomancy-1"
+      ],
+      "description": "Destroys the chosen runic boulder, dealing (14 * ((Magic_Power + Geomantic_Power) / 100)) Piercing and (3 * ((Magic_Power + Geomantic_Power) / 100)) Crushing Damage to all tiles adjacent to it, and with (40 * (Magic_Power + Geomantic_Power) / 100)% chance knocks the affected targets back. Then, if the adjacent tiles are empty, summons stone spikes on them, which persist for 8 turns. The spikes' Durability depends on the caster's Max Energy.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI VIT WIL"
+      ],
+      "requiredBy": [
+        "geomancy-7",
+        "geomancy-8"
+      ],
+      "modifiedByLabel": "Magic Power, Geomantic Power, Bonus Range"
+    },
+    {
+      "id": "geomancy-5",
+      "name": "Rune of Enfeeblement",
+      "treeId": "geomancy",
+      "x": 206,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-1"
+      ],
+      "description": "Applies enemies with -5% Physical Resistance, -5% Move Resistance, and -5% Control Resistance for each runic boulder adjacent to them.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "geomancy-9",
+        "geomancy-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-6",
+      "name": "Rune of Sustention",
+      "treeId": "geomancy",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-2"
+      ],
+      "description": "While affected by \"Stone Armor\", remaining on the same tile grants -5% Cooldowns Duration, +8% Crit Avoidance, and +10% Energy Restoration for 5 turns. The effect stacks up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in VIT"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-7",
+      "name": "Earthquake",
+      "treeId": "geomancy",
+      "x": 54,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 26,
+      "cooldown": 12,
+      "requires": [
+        "geomancy-3",
+        "geomancy-4"
+      ],
+      "description": "Destroys the chosen runic boulder, creating an earthquake in a 5x5 tile area, which persists for 8 turns. Remaining in the earthquake: Deals (4 * (Magic_Power + Geomantic_Power) / 100) Crushing Damage Burns math_round(3 * (Magic_Power + Geomantic_Power) / 100 * max_mp / 100)% Max Energy (but no more than WIL) Has (5 * (Magic_Power + Geomantic_Power) / 100)% chance to cause Daze for 3 turns Applies with -5% Control Resistance and -10% Move Resistance (the effect stacks and persists until the spell expires)",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI VIT WIL"
+      ],
+      "requiredBy": [
+        "geomancy-11"
+      ],
+      "modifiedByLabel": "Magic Power, Geomantic Power, Bonus Range, Willpower"
+    },
+    {
+      "id": "geomancy-8",
+      "name": "Rune of Binding",
+      "treeId": "geomancy",
+      "x": 130,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-3",
+        "geomancy-4"
+      ],
+      "description": "Summoning a runic boulder grants +7.5% Energy Restoration for 5 turns and reduces the ability tree's cooldowns by 1 turn for each stack of \"Runic Empowerment\".",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI WIL"
+      ],
+      "requiredBy": [
+        "geomancy-12"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-9",
+      "name": "Rune of Unity",
+      "treeId": "geomancy",
+      "x": 206,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-5"
+      ],
+      "description": "Allows the character to simultaneously summon 4 runic boulders. If a boulder is within 2 tiles of the character, its destruction by enemies no longer Confuses or deals Arcane Damage.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in WIL"
+      ],
+      "requiredBy": [
+        "geomancy-13"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-10",
+      "name": "Petrification",
+      "treeId": "geomancy",
+      "x": 282,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 48,
+      "cooldown": 32,
+      "requires": [
+        "geomancy-5"
+      ],
+      "description": "Destroys the chosen runic boulder and with (66 * (Magic_Power + Geomantic_Power) / 100)% chance applies all targets adjacent to it with Petrification for 2 turns (+2 turns for each stack of \"Runic Empowerment\" over I). When a Petrified target receives damage, additionally deals math_round(6 * (1 + Geomantic_Power / 100)) Pure Damage to it and worsens the Condition of its body parts by 3% (no more than once per turn). Each Petrified enemy within Vision grants +20% Geomantic Power.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in PER VIT WIL"
+      ],
+      "requiredBy": [
+        "geomancy-14"
+      ],
+      "modifiedByLabel": "Magic Power, Geomantic Power"
+    },
+    {
+      "id": "geomancy-11",
+      "name": "Rune of Cycle",
+      "treeId": "geomancy",
+      "x": 54,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-7"
+      ],
+      "description": "Destroying a runic boulder to use the ability tree's spells deals Arcane Damage to all targets adjacent to it. The damage dealt is equal to 3% of the current Energy, increasing by 100% for each stack of \"Runic Empowerment\" above I.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "geomancy-12",
+      "name": "Runic Explosion",
+      "treeId": "geomancy",
+      "x": 130,
+      "y": 452,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 72,
+      "cooldown": 32,
+      "requires": [
+        "geomancy-8"
+      ],
+      "description": "Destroys the chosen runic boulder, dealing (8 * (1 + Geomantic_Power / 100) * Magic_Power / 100) Arcane and (10 * (Magic_Power + Geomantic_Power) / 100) Crushing Damage to all targets in a 5x5 tile area.  With (40 * (Magic_Power + Geomantic_Power) / 100)% chance knocks the affected targets back and with (25 * (Magic_Power + Geomantic_Power) / 100)% chance Stuns them. Replenishes 5% Max Energy for each enemy within the spell's area of effect.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Magic Power, Geomantic Power, Bonus Range"
+    },
+    {
+      "id": "geomancy-13",
+      "name": "Boulder Toss",
+      "treeId": "geomancy",
+      "x": 206,
+      "y": 452,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 5,
+      "energy": 64,
+      "cooldown": 28,
+      "requires": [
+        "geomancy-9"
+      ],
+      "description": "Throws the chosen runic boulder at a targeted tile, dealing (14 * ((Magic_Power + Geomantic_Power) / 100)) Crushing and (7 * (1 + Geomantic_Power / 100) * Magic_Power / 100) Arcane Damage. Hitting the target with (70 * (Magic_Power + Geomantic_Power) / 100)% chance knocks it back and with (15 * (Magic_Power + Geomantic_Power) / 100)% chance Stuns or Dazes it. Each tile of distance to the target increases the throw's damage by 12% and also increases the duration of the applied Stun or Daze.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in PER WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Magic Power, Geomantic Power, Bonus Range"
+    },
+    {
+      "id": "geomancy-14",
+      "name": "Rune of Absorption",
+      "treeId": "geomancy",
+      "x": 282,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "geomancy-10"
+      ],
+      "description": "Each turn, runic boulders burn 2% Max Energy of all enemies adjacent to them for each stack of \"Runic Empowerment\", replenishing the same amount of Energy to the character, and prolong all their active cooldowns by 1 turn. The effect doesn't stack.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in AGI VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "electromancy-1",
+      "name": "Jolt",
+      "treeId": "electromancy",
+      "x": 92,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 7,
+      "energy": 8,
+      "cooldown": 2,
+      "requires": [],
+      "description": "Shoots a bolt of electricity, dealing ((math_round(8 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage with (Spell_Hit_Chance + 10)% Accuracy. Hitting the target with math_round(35 * ((Magic_Power + Electromantic_Power) / 100))% chance knocks it back and with math_round(70 * ((Magic_Power + Electromantic_Power) / 100))% chance applies it with \"Resonance\" for 8 turns: -20% Shock Resistance -7.5% Move Resistance -5% Control Resistance +10% Cooldowns Duration If the target is affected by \"Impulse\", prolongs its duration by 6 turns without applying \"Resonance\".",
+      "unlockConditions": [],
+      "requiredBy": [
+        "electromancy-3",
+        "electromancy-4"
+      ],
+      "modifiedByLabel": "Magic Power, Electromantic Power, Perception, Bonus Range"
+    },
+    {
+      "id": "electromancy-2",
+      "name": "Impulse",
+      "treeId": "electromancy",
+      "x": 244,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Area",
+      "range": 1,
+      "energy": 12,
+      "cooldown": 10,
+      "requires": [],
+      "description": "Deals ((math_round(12 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage to all adjacent tiles. With math_round(40 * ((Magic_Power + Electromantic_Power) / 100))% chance knocks the affected targets back or with math_round(100 * ((Magic_Power + Electromantic_Power) / 100))% chance Staggers them if the knockback fails. With math_round(85 * ((Magic_Power + Electromantic_Power) / 100))% chance applies all affected targets with \"Impulse\" for 8 turns: -25% Shock Resistance -15% Move Resistance -10% Control Resistance +20% Cooldowns Duration Deals ((math_round(2 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage Has math_round(15 * ((Magic_Power + Electromantic_Power) / 100))% chance to knock back from the caster. If the target is affected by \"Resonance\", transforms it into \"Impulse\", inheriting most of the remaining duration. Targets with \"Impulse\" are treated as Resonating by the ability tree's spells.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "electromancy-5",
+        "electromancy-6"
+      ],
+      "modifiedByLabel": "Magic Power, Electromantic Power"
+    },
+    {
+      "id": "electromancy-3",
+      "name": "Residual Charge",
+      "treeId": "electromancy",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-1"
+      ],
+      "description": "Using the ability tree's spells grants strikes and shots (WIL * 0.2 * ((100 + Electromantic_Power) / 100)) Shock Damage for 4 turns. The effect doesn't stack. While this effect is active, strikes and shots apply their targets with -0.5% Shock Resistance for each learned Electromancy ability for 6 turns. The effect stacks up to 5 times. Lightning strikes within Vision grant +10% Electromantic Power for 1200 turns. The effect doesn't stack.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in STR AGI PER WIL"
+      ],
+      "requiredBy": [
+        "electromancy-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "electromancy-4",
+      "name": "Short Circuit",
+      "treeId": "electromancy",
+      "x": 130,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 24,
+      "cooldown": 16,
+      "requires": [
+        "electromancy-1"
+      ],
+      "description": "Deals ((math_round(8 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage to all Resonating targets within Vision and with math_round(40 * ((Magic_Power + Electromantic_Power) / 100))% chance Dazes them. The spell's damage increases by 25% for each Resonating target within Vision. If Resonating targets are adjacent to each other, the spell deals double damage to them.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "electromancy-7",
+        "electromancy-8"
+      ],
+      "modifiedByLabel": "Magic Power, Electromantic Power"
+    },
+    {
+      "id": "electromancy-5",
+      "name": "Static Field",
+      "treeId": "electromancy",
+      "x": 206,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 18,
+      "cooldown": 12,
+      "requires": [
+        "electromancy-2"
+      ],
+      "description": "Applies all Resonating targets within Vision with \"Static Field\" for 6 turns, creating a 3x3 tile area around each of them. Remaining in the spell's area of effect: Deals ((math_round(3 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage Applies with -4% Shock Resistance for 10 turns (the effect stacks up to 5 times). Has math_round(7 * ((Magic_Power + Electromantic_Power) / 100))% chance to cause Immobilization. \"Static Field\" doesn't affect the caster and deals double damage to Immobilized targets.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in AGI PER WIL"
+      ],
+      "requiredBy": [
+        "electromancy-9",
+        "electromancy-10"
+      ],
+      "modifiedByLabel": "Magic Power, Electromantic Power"
+    },
+    {
+      "id": "electromancy-6",
+      "name": "Potential Difference",
+      "treeId": "electromancy",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-2"
+      ],
+      "description": "Increases the damage dealt by \"Impulse\" by 100% for each Resonating enemy within Vision. If \"Impulse\" successfully knocks a target back, with math_round(50 * ((Magic_Power + Electromantic_Power) / 100))% chance also Immobilizes it.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in WIL"
+      ],
+      "requiredBy": [
+        "electromancy-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "electromancy-7",
+      "name": "Chain Lightning",
+      "treeId": "electromancy",
+      "x": 54,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 6,
+      "energy": 60,
+      "cooldown": 22,
+      "requires": [
+        "electromancy-3",
+        "electromancy-4"
+      ],
+      "description": "Deals ((math_round(10 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage and with math_round(80 * ((Magic_Power + Electromantic_Power) / 100))% applies the target with \"Resonance\" for 4 turns. Then jumps to all Resonating targets within 8 tiles, starting with the closest ones, dealing damage and prolonging the duration of \"Resonance\" by 3 turns. With math_round(50 * ((Magic_Power + Electromantic_Power) / 100))% chance Staggers all affected targets and reduces the ability tree's cooldowns by 2 for each affected target. The spell doesn't affect the same target twice.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in PER WIL"
+      ],
+      "requiredBy": [
+        "electromancy-11",
+        "electromancy-12",
+        "electromancy-13",
+        "electromancy-14"
+      ],
+      "modifiedByLabel": "Magic Power, Electromantic Power, Bonus Range"
+    },
+    {
+      "id": "electromancy-8",
+      "name": "Unlimited Power",
+      "treeId": "electromancy",
+      "x": 130,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-4"
+      ],
+      "description": "Grants +0.1% Magic Power for each remaining percent of Max Energy and +0.1% Energy Restoration for each missing percent.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "electromancy-11",
+        "electromancy-12",
+        "electromancy-13",
+        "electromancy-14"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "electromancy-9",
+      "name": "Conductivity",
+      "treeId": "electromancy",
+      "x": 206,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-5"
+      ],
+      "description": "While targets are within the \"Static Field's\" area of effect, burns their Energy for 20% of the Shock Damage dealt to them with the ability tree's spells and replenishes the same amount of Energy to the character. Killing enemies within the \"Static Field's\" area of effect reduces the ability tree's cooldowns by 3 turns.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in VIT WIL"
+      ],
+      "requiredBy": [
+        "electromancy-11",
+        "electromancy-12",
+        "electromancy-13",
+        "electromancy-14"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "electromancy-10",
+      "name": "Ball Lightning",
+      "treeId": "electromancy",
+      "x": 282,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 4,
+      "energy": 48,
+      "cooldown": 26,
+      "requires": [
+        "electromancy-5",
+        "electromancy-6"
+      ],
+      "description": "Creates a ball lightning on the targeted tile, which persists for 4 turns (+1 turn for each Resonating enemy within Vision). Each turn the ball lightning deals ((math_round(4 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage to all targets within 2 tiles and with math_round(14 * ((Magic_Power + Electromantic_Power) / 100))% chance pulls them closer. The ball lightning deals 25% more damage to adjacent targets and 200% of its damage when targets are pulled or knocked back into it.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in AGI WIL"
+      ],
+      "requiredBy": [
+        "electromancy-11",
+        "electromancy-12",
+        "electromancy-13",
+        "electromancy-14"
+      ],
+      "modifiedByLabel": "Magic Power, Electromantic Power"
+    },
+    {
+      "id": "electromancy-11",
+      "name": "Chain Reaction",
+      "treeId": "electromancy",
+      "x": 54,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-7",
+        "electromancy-8",
+        "electromancy-9",
+        "electromancy-10"
+      ],
+      "description": "Using the ability tree's spells applies all affected targets with -10% Shock Resistance for 6 turns for each Resonating target within Vision. The effect stacks up to 3 times.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in AGI PER WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "electromancy-12",
+      "name": "Resonance Cascade",
+      "treeId": "electromancy",
+      "x": 130,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-7",
+        "electromancy-8",
+        "electromancy-9",
+        "electromancy-10"
+      ],
+      "description": "Each third use of the ability tree's spells with math_round(75 * ((Magic_Power + Electromantic_Power) / 100))% chance applies \"Resonance\" for 3 turns to a random enemy within Vision without this effect. If there are no such enemies, prolongs the duration of \"Resonance\" or \"Impulse\" affecting a random Resonating target within Vision by 3 turns.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in PER WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Magic Power, Electromantic Power"
+    },
+    {
+      "id": "electromancy-13",
+      "name": "Tempest",
+      "treeId": "electromancy",
+      "x": 206,
+      "y": 452,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 72,
+      "cooldown": 32,
+      "requires": [
+        "electromancy-7",
+        "electromancy-8",
+        "electromancy-9",
+        "electromancy-10"
+      ],
+      "description": "Deals ((math_round(12 * ((100 + Electromantic_Power) / 100))) * Magic_Power / 100) Shock Damage to the target and two random enemies within Vision, prioritizing the ones affected by \"Resonance\". Removes \"Resonance\" from the affected targets and with math_round(20 + (Magic_Power + Electromantic_Power) / 100)% chance Stuns them. Each turn of removed \"Resonance\" increases the damage and the Stun Chance by 5%. If the spell Stuns the target, summons an additional lightning against a random enemy within Vision. Instantly kills the target if the spell puts its Health below 16% (but no more than math_round(20 * ((Magic_Power + Electromantic_Power) / 100))).",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in AGI WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Magic Power, Electromantic Power, Bonus Range"
+    },
+    {
+      "id": "electromancy-14",
+      "name": "Recharge",
+      "treeId": "electromancy",
+      "x": 282,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "electromancy-7",
+        "electromancy-8",
+        "electromancy-9",
+        "electromancy-10"
+      ],
+      "description": "Grants +3% Miracle Chance for each Resonating target within Vision. Killing enemies with the ability tree's spells grants -5% Spells Energy Cost and -5% Cooldowns Duration for 8 turns for each Resonating target within Vision.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in VIT WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-1",
+      "name": "Wormhole",
+      "treeId": "arcanistics",
+      "x": 54,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 4,
+      "energy": 16,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Applies the target with \"Wormhole\" for 3 turns and marks its tile. When the effect expires or is removed, teleports the target to the marked tile, dealing (10 * (1 + Arcanistic_Power / 100) * Magic_Power / 100) Arcane Damage. If the marked tile is occupied, teleports the target to the closest empty tile, dealing additional (12 * (1 + Arcanistic_Power / 100) * Magic_Power / 100) Arcane Damage and with (60 * ((Magic_Power + Arcanistic_Power) / 100))% chance Stunning it. While \"Wormhole\" is active, the spell doesn't go on cooldown and can be used again without spending Energy to remove the effect from the target. The spell can't be used on giant or stationary targets and doesn't harm the caster.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "arcanistics-4",
+        "arcanistics-5"
+      ],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Bonus Range"
+    },
+    {
+      "id": "arcanistics-2",
+      "name": "Dimensional Shift",
+      "treeId": "arcanistics",
+      "x": 168,
+      "y": 116,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 5,
+      "energy": 14,
+      "cooldown": 8,
+      "requires": [],
+      "description": "Marks two targets, then teleports them, swapping their positions and dealing (6 * (1 + Arcanistic_Power / 100) * Magic_Power / 100) Arcane Damage. Also deals (1 * (1 + Arcanistic_Power / 100) * Magic_Power / 100) Arcane Damage to both targets for each tile of distance between them, and with (80 * ((Magic_Power + Arcanistic_Power) / 100))% chance Confuses them for 3 turns or Dazes for 2 turns. Applies both targets with (-0.5 * WIL)% Weapon Damage, (-0.5 * WIL)% Accuracy, and (0.5 * WIL)% Fumble Chance for 3 turns. The effect stacks up to 2 times. The spell can't be used on giant or stationary targets, doesn't harm the caster, and doesn't apply penalties to entities summoned with Arcanistics.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "arcanistics-5",
+        "arcanistics-6",
+        "arcanistics-7"
+      ],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Willpower, Bonus Range"
+    },
+    {
+      "id": "arcanistics-3",
+      "name": "Arcane Might",
+      "treeId": "arcanistics",
+      "x": 282,
+      "y": 116,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [],
+      "description": "Dealing Arcane Damage with strikes, shots, and spells grants +2% Accuracy, -2% Fumble Chance, -2% Backfire Chance, +2% Crit Chance, and +2% Miracle Chance for 4 turns. The effect stacks up to 3 times. Teleporting grants +1 Range to Arcanistics spells and -5% Backfire Damage Change for 4 turns.",
+      "unlockConditions": [],
+      "requiredBy": [
+        "arcanistics-7"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-4",
+      "name": "Time Echo",
+      "treeId": "arcanistics",
+      "x": 54,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "arcanistics-1"
+      ],
+      "description": "When \"Wormhole\" expires or is removed after being applied to the character, replenishes 50% Health and Energy lost over the course of the effect. When \"Wormhole\" expires or is removed after being applied to an enemy, deals additional Arcane Damage equal to 33% of the damage they received over the course of the effect.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in WIL AGI"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-5",
+      "name": "Schism",
+      "treeId": "arcanistics",
+      "x": 130,
+      "y": 228,
+      "type": "passive",
+      "target": "Target Area",
+      "range": 5,
+      "energy": 20,
+      "cooldown": 10,
+      "requires": [
+        "arcanistics-1|arcanistics-2"
+      ],
+      "description": "Deals (9 * (1 + Arcanistic_Power / 100) * Magic_Power / 100) Arcane Damage to a 5x5 tile area (except the central tile) and with (40 * ((Magic_Power + Arcanistic_Power) / 100))% chance Staggers or Immobilizes all affected targets. With (90 * ((Magic_Power + Arcanistic_Power) / 100))% chance knocks back the targets adjacent to the area's center and pulls the targets that are 1 tile away from it. The spell doesn't harm the caster, aside from Arcane Damage.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in WIL STR AGI"
+      ],
+      "requiredBy": [
+        "arcanistics-8",
+        "arcanistics-9"
+      ],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Bonus Range"
+    },
+    {
+      "id": "arcanistics-6",
+      "name": "Transcendental Anchoring",
+      "treeId": "arcanistics",
+      "x": 206,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "arcanistics-2"
+      ],
+      "description": "Teleporting enemies burns 10% of their Max Energy and replenishes the same amount of Energy to the character. Using \"Dimensional Shift\" on the character or entities summoned with Arcanistics reduces the spell's cooldown by 2 turns.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in WIL PER"
+      ],
+      "requiredBy": [
+        "arcanistics-9",
+        "arcanistics-10"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-7",
+      "name": "Aether Shield",
+      "treeId": "arcanistics",
+      "x": 282,
+      "y": 228,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 26,
+      "cooldown": 18,
+      "requires": [
+        "arcanistics-2",
+        "arcanistics-3"
+      ],
+      "description": "Activates \"Aether Shield\" for 2 turns (+1 turn for each other learned Arcanistics spell): (15 + 1.5 * WIL)% Control Resistance (15 + 1.5 * WIL)% Move Resistance (15 + 1.5 * WIL)% Bleed Resistance (-((10 + 0.5 * WIL)))% Damage Taken Replenishes Energy for 20% of the damage received. Destroys all physical and magical projectiles (including thrown items) that would hit the caster, preventing their damage and effects. Teleporting prolongs the effect's duration by 3 turns (up to 8), and each destroyed projectile reduces it by 1 turn. While affected by \"Aether Shield\", teleporting also grants all strikes and shots (0.1 * WIL * (1 + Arcanistic_Power / 100) * Magic_Power / 100) Arcane Damage for 4 turns. The effect stacks up to 2 times.",
+      "unlockConditions": [
+        "Reach Level 10",
+        "Invest 8 AP in WIL STR"
+      ],
+      "requiredBy": [
+        "arcanistics-10"
+      ],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Willpower"
+    },
+    {
+      "id": "arcanistics-8",
+      "name": "Astral Tides",
+      "treeId": "arcanistics",
+      "x": 92,
+      "y": 340,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "arcanistics-5"
+      ],
+      "description": "If \"Schism\" (or \"Arcane Tether\" of the summoned Phantasm) successfully knocks back or pulls the target, applies it with -10% Magic Resistance and -10% Arcane Resistance for 3 turns. The effect stacks up to 2 times. If these spells fail to knock back or pull the target, deals (5 * (1 + Arcanistic_Power / 100)) Arcane Damage to it instead.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in WIL AGI PER"
+      ],
+      "requiredBy": [
+        "arcanistics-11",
+        "arcanistics-12"
+      ],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-9",
+      "name": "Mana Crystal",
+      "treeId": "arcanistics",
+      "x": 168,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 3,
+      "energy": 34,
+      "cooldown": 24,
+      "requires": [
+        "arcanistics-5",
+        "arcanistics-6"
+      ],
+      "description": "Summons a Mana Crystal on the targeted tile, which persists for 8 turns. Each turn, the Crystal shoots a bolt of Aether at the enemy with the lowest Health within 4 tiles, dealing ((1 + Arcanistic_Power / 100) * 10) Arcane Damage with (75 - Miscast_Chance + 100)% Accuracy, (PRC - 10 + 10)% Armor Penetration, (0.5 * Miracle_Chance + 3)% Crit Chance, and (0.5 * Miracle_Power + 100)% Crit Efficiency. The offensive capabilities and Max Health of the Crystal change dynamically depending on the caster's stats, decreasing with distance from the caster. The Crystal doesn't move and is immune to all effects (except \"Stasis\" and \"Wormhole\"). When teleported, the Crystal shoots 3 bolts at random enemies within 4 tiles, distributing them evenly.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in WIL AGI PER"
+      ],
+      "requiredBy": [
+        "arcanistics-12",
+        "arcanistics-13"
+      ],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Perception, Willpower, Backfire Chance, Miracle Chance, Miracle Potency, Bonus Range"
+    },
+    {
+      "id": "arcanistics-10",
+      "name": "Stasis",
+      "treeId": "arcanistics",
+      "x": 244,
+      "y": 340,
+      "type": "passive",
+      "target": "Target Object",
+      "range": 2,
+      "energy": 30,
+      "cooldown": 30,
+      "requires": [
+        "arcanistics-6|arcanistics-7"
+      ],
+      "description": "Applies the target with \"Stasis\" for 3 turns: +200% Move Resistance -50% Damage Taken Immunity to all damage types except Arcane. Immunity to all effects except \"Wormhole\". Can't perform any actions. Prevents death. Freezes all cooldowns and the duration of active effects. When the effect expires or is removed, deals (100 * ((Magic_Power + Arcanistic_Power) / 100))% of the Arcane Damage the target received over the course of \"Stasis\" to a 3x3 tile area, and with (80 * ((Magic_Power + Arcanistic_Power) / 100))% chance Dazes all affected targets. Teleporting a target affected by \"Stasis\" removes the effect and doubles the chance to Daze. The spell can't be used on giant targets.",
+      "unlockConditions": [
+        "Reach Level 16",
+        "Invest 14 AP in WIL AGI"
+      ],
+      "requiredBy": [
+        "arcanistics-14"
+      ],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Bonus Range"
+    },
+    {
+      "id": "arcanistics-11",
+      "name": "Phantasm",
+      "treeId": "arcanistics",
+      "x": 54,
+      "y": 452,
+      "type": "passive",
+      "target": "Target Tile",
+      "range": 2,
+      "energy": 56,
+      "cooldown": 36,
+      "requires": [
+        "arcanistics-8"
+      ],
+      "description": "Summons a Phantasm on the targeted tile, which persists for 8 turns. Each turn, the Phantasm deals ((1 + Arcanistic_Power / 100) * 26) Arcane Damage to a random adjacent enemy with ((-Miscast_Chance) + 110)% Accuracy, (PRC - 10 + 10)% Armor Penetration, (0.5 * Miracle_Chance + 12)% Crit Chance, and (0.5 * Miracle_Power + 120)% Crit Efficiency. The offensive capabilities and Max Health of the Phantasm change dynamically depending on the caster's stats, decreasing with distance from the caster. The Phantasm can move within 2 tiles of its summoning or teleportation spot, is immune to all effects (except \"Stasis\" and \"Wormhole\"), and replenishes Health upon taking Arcane Damage. The Phantasm has access to the following abilities: \"Arcane Tether\", which pulls enemies in, \"Mana Siphon\", which steals Energy, and \"Consonance\", which prolongs its summoning duration. Teleporting the Phantasm instantly refreshes all its cooldowns.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": "Magic Power, Arcanistic Power, Perception, Willpower, Backfire Chance, Miracle Chance, Miracle Potency, Bonus Range"
+    },
+    {
+      "id": "arcanistics-12",
+      "name": "Entropy Flare",
+      "treeId": "arcanistics",
+      "x": 130,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "arcanistics-8",
+        "arcanistics-9"
+      ],
+      "description": "Teleporting a Mana Crystal grants it +1 Range, +25% Damage, +10% Accuracy, and +25% Damage Reflection for 3 turns. The effect stacks up to 2 times. Each strike received by entities summoned with Arcanistics deals Arcane Damage to the attacker equal to 10% of the entities' Max Health.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in WIL PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-13",
+      "name": "Aether Harmony",
+      "treeId": "arcanistics",
+      "x": 206,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "arcanistics-9"
+      ],
+      "description": "Once per 10 turns, producing a miracle with \"Mana Crystal\" instantly refreshes the spell's cooldown and grants it -20% Energy Cost during the next use. Each entity currently summoned with Arcanistics grants -5% Backfire Damage Change and +10% Magic Power.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in WIL AGI PER"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    },
+    {
+      "id": "arcanistics-14",
+      "name": "Beyond the Veil",
+      "treeId": "arcanistics",
+      "x": 282,
+      "y": 452,
+      "type": "passive",
+      "target": "No Target",
+      "range": 1,
+      "energy": 0,
+      "cooldown": 0,
+      "requires": [
+        "arcanistics-10"
+      ],
+      "description": "When \"Stasis\" expires or is removed after being applied to the character, it no longer harms them and also activates \"Intangibility\" for 1 turn, making them untargetable by strikes, shots, and spells. While \"Stasis\" is active on the character, grants the effect +50% Arcanistics Power, +25% Miracle Chance, and prevents it from freezing cooldowns.",
+      "unlockConditions": [
+        "Reach Level 22",
+        "Invest 20 AP in WIL"
+      ],
+      "requiredBy": [],
+      "modifiedByLabel": ""
+    }
+  ]
+}

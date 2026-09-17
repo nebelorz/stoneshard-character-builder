@@ -1,0 +1,63 @@
+<div class="right-sidenav__route">
+  <button class="right-sidenav__route-header" (click)="toggleRoute()">
+    <span class="right-sidenav__route-title font-fantasy">Route</span>
+    <span
+      class="right-sidenav__route-chevron"
+      [class.right-sidenav__route-chevron--open]="routeExpanded()"
+    >
+      &#9656;
+    </span>
+  </button>
+  @if (routeExpanded()) {
+    <div class="right-sidenav__route-content" @fadeInOut>
+      @if (routeDisplay().length === 0) {
+        <div class="right-sidenav__route-empty">No actions yet</div>
+      }
+      <div class="right-sidenav__route-grid">
+        @for (level of routeDisplay(); track trackByLevel($index, level)) {
+          <div class="right-sidenav__route-level-cell">
+            <div class="right-sidenav__route-dot"></div>
+            <span class="right-sidenav__route-level-num font-ui">{{ level.level }}</span>
+          </div>
+          <div class="right-sidenav__route-slots-cell">
+            <div class="right-sidenav__route-row">
+              @for (ability of level.abilities; track trackByAbility($index, ability)) {
+                @if (ability) {
+                  <div
+                    class="right-sidenav__route-entry right-sidenav__route-entry--assigned"
+                    tabindex="0"
+                    (click)="onUnassignAbility(ability.id)"
+                    (mouseenter)="onAbilityHover(ability.ability)"
+                    (mouseleave)="onAbilityHover(null)"
+                    (focus)="onAbilityHover(ability.ability)"
+                    (blur)="onAbilityHover(null)"
+                  >
+                    @if (ability.icon) {
+                      <img [src]="ability.icon" class="right-sidenav__route-icon" alt="" />
+                    }
+                    <span class="right-sidenav__route-name">{{ ability.name }}</span>
+                  </div>
+                } @else {
+                  <div class="right-sidenav__route-entry right-sidenav__route-entry--empty">
+                    <span class="right-sidenav__route-name">--</span>
+                  </div>
+                }
+              }
+              @for (stat of level.stats; track trackByStat($index, stat)) {
+                @if (stat) {
+                  <div [class]="getStatClass(stat.stat)" (click)="onDecrementStatRoute(stat.stat)">
+                    <span class="right-sidenav__route-name">+1 {{ stat.stat }}</span>
+                  </div>
+                } @else {
+                  <div class="right-sidenav__route-entry right-sidenav__route-entry--empty">
+                    <span class="right-sidenav__route-name">--</span>
+                  </div>
+                }
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

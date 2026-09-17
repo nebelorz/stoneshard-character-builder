@@ -1,0 +1,34 @@
+<div class="build-options">
+  <div class="build-options__buttons">
+    <button
+      class="build-options__btn"
+      (click)="openPopup('reset', $event)"
+      appTooltip
+      [tooltipText]="'Reset'"
+      tooltipPlacement="right"
+      aria-label="Reset build"
+    >
+      <ng-icon name="phosphorTrash" />
+    </button>
+    <button
+      class="build-options__btn"
+      (click)="openPopup('share', $event)"
+      appTooltip
+      [tooltipText]="'Share'"
+      tooltipPlacement="right"
+      aria-label="Share build"
+    >
+      <ng-icon name="phosphorShareNetwork" />
+    </button>
+    <button
+      class="build-options__btn"
+      (click)="openPopup('ai-prompt', $event)"
+      appTooltip
+      [tooltipText]="'AI Prompt'"
+      tooltipPlacement="right"
+      aria-label="Generate AI prompt"
+    >
+      <ng-icon name="phosphorHeadCircuit" />
+    </button>
+  </div>
+</div>

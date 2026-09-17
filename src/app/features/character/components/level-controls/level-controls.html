@@ -1,0 +1,44 @@
+<div class="left-sidenav__level-section">
+  <div class="left-sidenav__level-row">
+    <span class="left-sidenav__stat-label font-ui">LEVEL</span>
+    <div class="left-sidenav__level-controls">
+      <button
+        class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
+        (click)="onLevelDown5()"
+        [disabled]="!canLevelDown5()"
+        title="Level -5"
+        aria-label="Decrease level by 5"
+      >
+        -5
+      </button>
+      <button
+        class="left-sidenav__btn left-sidenav__btn--sm"
+        (click)="onLevelDown()"
+        [disabled]="!canLevelDown()"
+        title="Level -1"
+        aria-label="Decrease level by 1"
+      >
+        -
+      </button>
+      <span class="left-sidenav__level-value font-ui-semibold">{{ level() }}</span>
+      <button
+        class="left-sidenav__btn left-sidenav__btn--sm"
+        (click)="onLevelUp()"
+        [disabled]="!canLevelUp()"
+        title="Level +1"
+        aria-label="Increase level by 1"
+      >
+        +
+      </button>
+      <button
+        class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
+        (click)="onLevelUp5()"
+        [disabled]="!canLevelUp5()"
+        title="Level +5"
+        aria-label="Increase level by 5"
+      >
+        +5
+      </button>
+    </div>
+  </div>
+</div>

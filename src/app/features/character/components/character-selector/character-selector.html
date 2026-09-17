@@ -1,0 +1,123 @@
+<div class="char-selector">
+  <div class="char-selector__row">
+    @if (currentCharacter(); as char) {
+      <button
+        #toggleBtn
+        id="char-selector-toggle"
+        class="char-selector__current"
+        [attr.aria-expanded]="dropdownOpen()"
+        aria-haspopup="listbox"
+        (click)="toggleDropdown()"
+        (keydown)="onToggleKeydown($event)"
+      >
+        <img
+          class="char-selector__portrait"
+          [src]="getPortraitPath(char)"
+          [alt]="char.name"
+          width="36"
+          height="36"
+        />
+        <div class="char-selector__char-info">
+          <span class="char-selector__char-name font-fantasy">{{ char.name }}</span>
+          <span class="char-selector__char-title font-ui">{{ char.title }}</span>
+        </div>
+        <span class="char-selector__arrow" [class.char-selector__arrow--open]="dropdownOpen()"
+          >&#9662;</span
+        >
+      </button>
+    }
+    @if (currentCharacter(); as c) {
+      <div
+        #traitIcon
+        class="char-selector__trait-icon"
+        tabindex="0"
+        role="img"
+        [attr.aria-label]="c.trait.name"
+        (mouseenter)="traitHovered.set(true)"
+        (mouseleave)="traitHovered.set(false)"
+        (focus)="traitHovered.set(true)"
+        (blur)="traitHovered.set(false)"
+      >
+        <span class="char-selector__trait-icon-letter font-fantasy">{{
+          c.trait.name.charAt(0)
+        }}</span>
+      </div>
+    }
+  </div>
+</div>
+
+<ng-template #dropdownTemplate>
+  @if (dropdownOpen()) {
+    <div
+      class="char-selector__dropdown font-neutral"
+      @fadeInOut
+      role="listbox"
+      tabindex="0"
+      aria-labelledby="char-selector-toggle"
+      [attr.aria-activedescendant]="getActiveItemId() ? 'char-option-' + getActiveItemId() : null"
+    >
+      @for (
+        character of allCharacters();
+        track trackByCharacterId($index, character);
+        let i = $index
+      ) {
+        <button
+          #optionBtn
+          class="char-selector__option"
+          [class.char-selector__option--selected]="character.id === currentCharacter()?.id"
+          [attr.data-index]="i"
+          [attr.id]="'char-option-' + character.id"
+          [attr.aria-selected]="getActiveItemId() === character.id"
+          tabindex="-1"
+          role="option"
+          (click)="selectCharacter(character.id)"
+          (mouseenter)="hoveredCharacter.set(character)"
+          (mouseleave)="hoveredCharacter.set(null)"
+          (keydown)="onOptionKeydown($event, i)"
+        >
+          <img
+            class="char-selector__option-portrait"
+            [src]="getPortraitPath(character)"
+            [alt]="character.name"
+            width="32"
+            height="32"
+          />
+          <div class="char-selector__option-info">
+            <span class="char-selector__option-name font-fantasy">{{ character.name }}</span>
+            <span class="char-selector__option-title font-ui">{{ character.title }}</span>
+            <span class="char-selector__option-trait font-ui">{{ character.trait.name }}</span>
+          </div>
+          @if (character.dlc) {
+            <span class="char-selector__dlc">{{ character.dlc }}</span>
+          }
+        </button>
+      }
+    </div>
+  }
+</ng-template>
+
+<ng-template #traitBubbleTemplate>
+  @if (traitHovered() && !dropdownOpen() && currentCharacter(); as char) {
+    <div class="char-selector__trait-bubble" role="tooltip">
+      <div class="char-selector__trait-bubble-name font-fantasy">
+        {{ char.trait.name }}
+      </div>
+      <div class="char-selector__trait-bubble-desc font-ui">
+        {{ char.trait.description }}
+      </div>
+    </div>
+  }
+</ng-template>
+
+<ng-template #traitTooltipTemplate>
+  @if (hoveredCharacter(); as hovered) {
+    @if (dropdownOpen()) {
+      <div class="char-selector__tooltip">
+        <div class="char-selector__trait">
+          <span class="char-selector__trait-name font-fantasy">{{ hovered.trait.name }}</span>
+          <span class="char-selector__trait-desc font-ui">{{ hovered.trait.description }}</span>
+        </div>
+      </div>
+    }
+  }
+</ng-template>

@@ -1,0 +1,54 @@
+<div class="tree-selector">
+  <div class="tree-selector__tab-bar" role="tablist">
+    @for (cat of categories(); track trackByCategory($index, cat)) {
+      <button
+        class="tree-selector__tab"
+        [class.tree-selector__tab--active]="expandedCategory() === cat.category"
+        [attr.aria-selected]="expandedCategory() === cat.category"
+        [attr.id]="'tree-tab-' + cat.category"
+        [attr.aria-controls]="'tree-panel-' + cat.category"
+        [tabindex]="tabIndexFor(cat)"
+        role="tab"
+        (click)="toggleCategory(cat)"
+        (keydown)="onCategoryKeydown($event, cat)"
+      >
+        <span class="tree-selector__tab-label font-fantasy">{{ cat.label }}</span>
+        @if (pinnedCount()[cat.category] > 0) {
+          <span class="tree-selector__tab-count">{{ pinnedCount()[cat.category] }}</span>
+        }
+      </button>
+    }
+  </div>
+
+  @if (expandedCategory(); as expanded) {
+    <div
+      class="tree-selector__panel"
+      [attr.id]="'tree-panel-' + expanded"
+      role="tabpanel"
+      [attr.aria-labelledby]="'tree-tab-' + expanded"
+      @expandCollapse
+      (@expandCollapse.done)="onPanelEnter()"
+    >
+      @for (tree of expandedCategoryTrees(); track trackByTreeId($index, tree); let i = $index) {
+        <button
+          class="tree-selector__tree-cell"
+          [class.tree-selector__tree-cell--pinned]="isPinned(tree.id)"
+          [tabindex]="focusedIndex() === i ? 0 : -1"
+          (click)="togglePin(tree, $event)"
+          (focus)="setFocusedIndex(i)"
+          (keydown)="onTreeKeydown($event, tree, i)"
+        >
+          <img
+            class="tree-selector__tree-icon"
+            [src]="getTreeIconPath(tree)"
+            [alt]="tree.name"
+            width="27"
+            height="54"
+            draggable="false"
+          />
+          <span class="tree-selector__tree-name font-fantasy">{{ tree.name }}</span>
+        </button>
+      }
+    </div>
+  }
+</div>

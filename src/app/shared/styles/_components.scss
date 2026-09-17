@@ -1,0 +1,165 @@
+@use 'variables' as *;
+
+@mixin game-button {
+  border: none;
+  background: $btn-bg;
+  color: $text-primary;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+// ── Side-nav button mixins ────────────────────────────────────────────────
+
+@mixin side-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid $border-dim;
+  border-radius: 3px;
+  background: $btn-bg;
+  color: $text-primary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+
+  &:hover:not(:disabled) {
+    background: $btn-hover;
+    border-color: $border-gold;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled {
+    background: $btn-disabled;
+    color: $text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+@mixin side-nav-btn-sm {
+  width: 24px;
+  height: 22px;
+  padding: 0;
+  font-size: $font-size-sm;
+}
+
+@mixin side-nav-btn-5 {
+  width: 28px;
+  font-size: 12px;
+  font-weight: $font-weight-bold;
+  letter-spacing: -0.3px;
+}
+
+// ── Side-nav stat display mixins ──────────────────────────────────────────
+
+@mixin side-nav-stat-label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $text-secondary;
+  letter-spacing: 0.5px;
+  min-width: 28px;
+}
+
+@mixin side-nav-resource {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@mixin side-nav-resource-label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $text-secondary;
+  letter-spacing: 0.5px;
+}
+
+@mixin side-nav-resource-value {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+  min-width: 20px;
+  text-align: center;
+}
+
+@mixin side-nav-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+@mixin side-nav-stat-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+@mixin side-nav-stat-value {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $text-primary;
+  min-width: 24px;
+  text-align: center;
+}
+
+// ── Side-nav level display mixins ─────────────────────────────────────────
+
+@mixin side-nav-level-section {
+  padding: 8px 14px;
+  border-bottom: 1px solid $border-dim;
+  background: rgba($gold-accent, 0.06);
+}
+
+@mixin side-nav-level-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@mixin side-nav-level-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+@mixin side-nav-level-value {
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+  color: $gold-accent;
+  min-width: 24px;
+  text-align: center;
+}
+
+// ── Game panel mixin ──────────────────────────────────────────────────────
+
+@mixin game-panel-gold {
+  background: $bg-panel;
+  border: 1px solid $border-gold;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-dropdown;
+}

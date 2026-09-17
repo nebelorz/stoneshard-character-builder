@@ -1,0 +1,54 @@
+@use 'variables' as *;
+@use 'components' as *;
+
+.character-info {
+  @include side-nav-level-section;
+
+  &__heading {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: $text-secondary;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 3px 6px;
+    background: transparent;
+    border: none;
+    border-radius: $radius-sm;
+    cursor: default;
+    text-align: left;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__tree-icon {
+    width: 20px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  &__tree-name {
+    font-size: $font-size-xs;
+    font-weight: 600;
+    color: $text-primary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "trees": [
+    {
+      "id": "swords",
+      "name": "Swords",
+      "category": "weaponry",
+      "focus": "One-handed sword combat with bleeds and counters",
+      "critEffect": "Deep lacerations causing severe bleeding",
+      "icon": "swords"
+    },
+    {
+      "id": "axes",
+      "name": "Axes",
+      "category": "weaponry",
+      "focus": "One-handed axe combat focused on injuries and body damage",
+      "critEffect": "Crippling wounds causing deep gashes",
+      "icon": "axes"
+    },
+    {
+      "id": "maces",
+      "name": "Maces",
+      "category": "weaponry",
+      "focus": "One-handed mace combat with daze and stagger effects",
+      "critEffect": "Concussive blow disorienting the target",
+      "icon": "maces"
+    },
+    {
+      "id": "daggers",
+      "name": "Daggers",
+      "category": "weaponry",
+      "focus": "Fast dagger strikes with bleed and counter mechanics",
+      "critEffect": "Precise strike to a vital spot",
+      "icon": "daggers"
+    },
+    {
+      "id": "two-handed_swords",
+      "name": "Two-Handed Swords",
+      "category": "weaponry",
+      "focus": "Two-handed sword combat with sweeping strikes and morale",
+      "critEffect": "Devastating cleave splitting armor",
+      "icon": "two-handed_swords"
+    },
+    {
+      "id": "two-handed_axes",
+      "name": "Two-Handed Axes",
+      "category": "weaponry",
+      "focus": "Two-handed axe combat with powerful finishers",
+      "critEffect": "Bone-crushing impact severing limbs",
+      "icon": "two-handed_axes"
+    },
+    {
+      "id": "two-handed_maces",
+      "name": "Two-Handed Maces",
+      "category": "weaponry",
+      "focus": "Two-handed mace combat with heavy stagger and stun",
+      "critEffect": "Skull-shattering blow causing concussion",
+      "icon": "two-handed_maces"
+    },
+    {
+      "id": "spears",
+      "name": "Spears",
+      "category": "weaponry",
+      "focus": "Spear combat with reach and positioning advantages",
+      "critEffect": "Piercing thrust through armor gaps",
+      "icon": "spears"
+    },
+    {
+      "id": "ranged_weapons",
+      "name": "Ranged Weapons",
+      "category": "weaponry",
+      "focus": "Ranged combat with precision shots and marking targets",
+      "critEffect": "Perfectly aimed shot hitting a weak point",
+      "icon": "ranged_weapons"
+    },
+    {
+      "id": "shields",
+      "name": "Shields",
+      "category": "weaponry",
+      "focus": "Shield-based defense with block and retaliation",
+      "critEffect": "Shield bash stunning the attacker",
+      "icon": "shields"
+    },
+    {
+      "id": "staves",
+      "name": "Staves",
+      "category": "weaponry",
+      "focus": "Staff combat combining melee strikes with mystical power",
+      "critEffect": "Channeling energy through the staff on impact",
+      "icon": "staves"
+    },
+    {
+      "id": "dual_wielding",
+      "name": "Dual Wielding",
+      "category": "utility",
+      "focus": "Fighting with two weapons for rapid strikes",
+      "critEffect": "Synchronized strike from both weapons",
+      "icon": "dual_wielding"
+    },
+    {
+      "id": "survival",
+      "name": "Survival",
+      "category": "utility",
+      "focus": "Survival skills to aid in harsh environments",
+      "critEffect": "Exploiting environmental advantages",
+      "icon": "survival"
+    },
+    {
+      "id": "warfare",
+      "name": "Warfare",
+      "category": "utility",
+      "focus": "Combat tactics, positioning, and battlefield control",
+      "critEffect": "Exploiting enemy openings with tactical precision",
+      "icon": "warfare"
+    },
+    {
+      "id": "athletics",
+      "name": "Athletics",
+      "category": "utility",
+      "focus": "Mobility, evasion, and physical conditioning",
+      "critEffect": "Overwhelming burst of speed and agility",
+      "icon": "athletics"
+    },
+    {
+      "id": "magic_mastery",
+      "name": "Magic Mastery",
+      "category": "utility",
+      "focus": "Arcane knowledge and spell enhancement",
+      "critEffect": "Surge of magical energy amplifying the spell",
+      "icon": "magic_mastery"
+    },
+    {
+      "id": "armored_combat",
+      "name": "Armored Combat",
+      "category": "utility",
+      "focus": "Heavy armor proficiency and defensive techniques",
+      "critEffect": "Absorbing impact and redirecting force",
+      "icon": "armored_combat"
+    },
+    {
+      "id": "pyromancy",
+      "name": "Pyromancy",
+      "category": "sorcery",
+      "focus": "Fire magic with area damage and burning effects",
+      "critEffect": "Intense heat igniting the target",
+      "icon": "pyromancy"
+    },
+    {
+      "id": "geomancy",
+      "name": "Geomancy",
+      "category": "sorcery",
+      "focus": "Earth magic with runes, stone armor, and area control",
+      "critEffect": "Seismic force cracking the ground beneath the target",
+      "icon": "geomancy"
+    },
+    {
+      "id": "electromancy",
+      "name": "Electromancy",
+      "category": "sorcery",
+      "focus": "Lightning magic with chain effects and static",
+      "critEffect": "Arc of electricity surging through the target",
+      "icon": "electromancy"
+    },
+    {
+      "id": "arcanistics",
+      "name": "Arcanistics",
+      "category": "sorcery",
+      "focus": "Planar magic with mana manipulation and teleportation",
+      "critEffect": "Reality warping at the point of impact",
+      "icon": "arcanistics"
+    }
+  ]
+}

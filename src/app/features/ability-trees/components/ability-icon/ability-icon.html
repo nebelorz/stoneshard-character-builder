@@ -1,0 +1,132 @@
+<div
+  #iconWrapper
+  class="ability-icon"
+  [class.ability-icon--locked]="isLocked()"
+  [class.ability-icon--unlocked]="isUnlocked()"
+  [class.ability-icon--obtained]="isObtained()"
+  [class.ability-icon--highlighted]="isHighlighted()"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="ability().name + ' - ' + state()"
+  [attr.aria-pressed]="isObtained() ? 'true' : isUnlocked() ? 'false' : null"
+  [attr.aria-disabled]="isLocked() ? 'true' : null"
+  [attr.aria-describedby]="tooltipId()"
+  (click)="onClick($event)"
+  (contextmenu)="onContextMenu($event)"
+  (keydown.enter)="onClick($event)"
+  (keydown.space)="onClick($event)"
+  (mouseenter)="onMouseEnter()"
+  (mousemove)="onMouseMove()"
+  (mouseleave)="onMouseLeave()"
+  (focus)="onMouseEnter()"
+  (blur)="onMouseLeave()"
+>
+  <img class="ability-icon__img" [src]="iconPath" [alt]="ability().name" draggable="false" />
+  @if (isLocked()) {
+    <div class="ability-icon__locked-overlay">
+      <img
+        class="ability-icon__locked-img"
+        src="assets/icons/ability_locked_overlay.png"
+        alt=""
+        draggable="false"
+      />
+    </div>
+  }
+  @if (isObtained() && !isDefaultActive()) {
+    <div class="ability-icon__level">{{ obtainedLevel() }}</div>
+  }
+</div>
+
+<div
+  #tooltip
+  [id]="tooltipId()"
+  class="ability-tooltip font-ui"
+  role="tooltip"
+  [class.ability-tooltip--visible]="tooltipVisible()"
+  [class.ability-tooltip--left]="tooltipPosition() === 'left'"
+  [style.left.px]="tooltipX()"
+  [style.top.px]="tooltipY()"
+>
+  <div class="ability-tooltip__header">
+    <span class="ability-tooltip__name font-fantasy">{{ ability().name }}</span>
+    <span class="ability-tooltip__type">{{ ability().type }}</span>
+  </div>
+
+  <div class="ability-tooltip__stats">
+    @if (ability().target) {
+      <div class="ability-tooltip__stat">
+        <span class="ability-tooltip__stat-label">Target:</span>
+        <span class="ability-tooltip__stat-value">{{ ability().target }}</span>
+      </div>
+    }
+    @if (ability().range) {
+      <div class="ability-tooltip__stat">
+        <span class="ability-tooltip__stat-label">Range:</span>
+        <span class="ability-tooltip__stat-value">{{ ability().range }}</span>
+      </div>
+    }
+    @if (ability().energy > 0) {
+      <div class="ability-tooltip__stat">
+        <span class="ability-tooltip__stat-label">Energy:</span>
+        <span class="ability-tooltip__stat-value">{{ ability().energy }}</span>
+      </div>
+    }
+    @if (ability().cooldown !== 0) {
+      <div class="ability-tooltip__stat">
+        <span class="ability-tooltip__stat-label">Cooldown:</span>
+        <span class="ability-tooltip__stat-value">{{ ability().cooldown }} turns</span>
+      </div>
+    }
+    @if (ability().modifiedByLabel) {
+      <div class="ability-tooltip__stat">
+        <span class="ability-tooltip__stat-label">Modified by:</span>
+        <span class="ability-tooltip__stat-value">{{ ability().modifiedByLabel }}</span>
+      </div>
+    }
+  </div>
+
+  <div class="ability-tooltip__description">{{ ability().description }}</div>
+
+  @if (isLocked() && resolvedRequirementGroups().length > 0) {
+    <div class="ability-tooltip__requires">
+      <div class="ability-tooltip__section-label">Requires:</div>
+      <div class="ability-tooltip__parents">
+        @for (
+          group of resolvedRequirementGroups();
+          track trackByGroup($index, group);
+          let lastGroup = $last
+        ) {
+          @for (
+            parent of group.alternatives;
+            track trackByParent($index, parent);
+            let last = $last
+          ) {
+            <div class="ability-tooltip__parent">
+              <img
+                class="ability-tooltip__parent-icon"
+                [src]="parent.iconPath"
+                [alt]="parent.ability.name"
+                draggable="false"
+              />
+              <span class="ability-tooltip__parent-name">{{ parent.ability.name }}</span>
+              @if (!last) {
+                <span class="ability-tooltip__or-separator"> or </span>
+              }
+            </div>
+          }
+        }
+      </div>
+    </div>
+  }
+
+  @if (isLocked() && ability().unlockConditions.length > 0) {
+    <div class="ability-tooltip__unlock">
+      <div class="ability-tooltip__section-label">Unlock:</div>
+      @for (condition of ability().unlockConditions; track trackByCondition($index, condition)) {
+        <div class="ability-tooltip__unlock-text">
+          {{ condition }}
+        </div>
+      }
+    </div>
+  }
+</div>

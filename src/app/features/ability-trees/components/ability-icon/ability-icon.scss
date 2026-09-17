@@ -1,0 +1,268 @@
+@use 'variables' as *;
+
+@mixin tooltip-base {
+  position: fixed;
+  z-index: 2147483647;
+  width: 280px;
+  padding: 10px 12px;
+  background: $bg-dark;
+  border: 1px solid $border-gold;
+  border-radius: $radius-sm;
+  color: $text-primary;
+  font-size: $font-size-base;
+  line-height: 1.4;
+  pointer-events: none;
+  box-shadow: $shadow-tooltip;
+}
+
+@mixin tooltip-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid $border-dim;
+}
+
+@mixin tooltip-name {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $gold-bright;
+}
+
+@mixin tooltip-type {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  text-transform: capitalize;
+}
+
+@mixin tooltip-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 6px;
+}
+
+@mixin tooltip-stat {
+  display: flex;
+  gap: 6px;
+}
+
+@mixin tooltip-stat-label {
+  color: $text-secondary;
+  min-width: 70px;
+}
+
+@mixin tooltip-description {
+  color: $text-primary;
+  font-size: $font-size-sm;
+  opacity: 0.9;
+}
+
+.ability-icon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid $border-dim;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.15s;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__locked-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  &__locked-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.7;
+  }
+
+  &__level {
+    position: absolute;
+    bottom: 1px;
+    right: 2px;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $gold-bright;
+    text-shadow:
+      0 0 3px rgba(0, 0, 0, 0.9),
+      0 0 6px rgba(0, 0, 0, 0.7),
+      1px 1px 2px rgba(0, 0, 0, 0.8);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  &--locked {
+    filter: saturate(0.3) brightness(0.6);
+    cursor: not-allowed;
+
+    &:hover {
+      border-color: $border-dim;
+      transform: none;
+    }
+  }
+
+  &--unlocked {
+    border-color: $border-dim;
+
+    &:hover {
+      border-color: $gold-accent;
+      box-shadow: 0 0 8px rgba($gold-accent, 0.4);
+      transform: scale(1.08);
+      z-index: 10;
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+  }
+
+  &--obtained {
+    border-color: $gold-accent;
+    box-shadow: 0 0 6px rgba($gold-accent, 0.3);
+
+    &:hover {
+      border-color: $gold-bright;
+      box-shadow: 0 0 10px rgba($gold-accent, 0.5);
+      transform: scale(1.05);
+      z-index: 10;
+    }
+  }
+
+  &--highlighted {
+    border-color: $gold-bright !important;
+    box-shadow:
+      0 0 8px rgba($gold-accent, 0.8),
+      0 0 16px rgba($gold-accent, 0.6),
+      0 0 24px rgba($gold-accent, 0.4) !important;
+    transform: scale(1.1);
+    z-index: 10;
+  }
+}
+
+.ability-tooltip {
+  @include tooltip-base;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.15s;
+  position: absolute;
+
+  &--visible {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &--left {
+    transform: translateX(-100%);
+  }
+
+  &__header {
+    @include tooltip-header;
+  }
+
+  &__name {
+    @include tooltip-name;
+  }
+
+  &__type {
+    @include tooltip-type;
+  }
+
+  &__stats {
+    @include tooltip-stats;
+  }
+
+  &__stat {
+    @include tooltip-stat;
+  }
+
+  &__stat-label {
+    @include tooltip-stat-label;
+  }
+
+  &__stat-value {
+    color: $text-primary;
+    font-weight: 500;
+  }
+
+  &__description {
+    @include tooltip-description;
+    margin-bottom: 8px;
+  }
+
+  &__requires,
+  &__unlock {
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid $border-dim;
+  }
+
+  &__section-label {
+    font-size: $font-size-xs;
+    font-weight: 600;
+    color: $text-secondary;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  &__parents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  &__parent {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__parent-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 2px;
+    border: 1px solid $border-dim;
+    object-fit: cover;
+  }
+
+  &__parent-name {
+    font-size: $font-size-xs;
+    color: $text-primary;
+  }
+
+  &__or-separator {
+    font-size: $font-size-xs;
+    color: $text-secondary;
+    font-style: italic;
+  }
+
+  &__unlock-text {
+    font-size: $font-size-xs;
+    color: $text-secondary;
+    margin-bottom: 2px;
+  }
+}

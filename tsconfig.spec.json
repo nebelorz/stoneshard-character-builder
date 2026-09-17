@@ -1,0 +1,22 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@shared/*": ["app/shared/*"],
+      "@shared": ["app/shared/index.ts"],
+      "@features/*": ["app/features/*"],
+      "@features/build/services": ["app/features/build/services/index.ts"],
+      "@features/character/services": ["app/features/character/services/index.ts"],
+      "@features/ability/services": ["app/features/ability/services/index.ts"],
+      "@models/*": ["app/models/*"],
+      "@models": ["app/models/index.ts"],
+      "@layout/*": ["app/layout/*"]
+    },
+    "types": ["vitest/globals"],
+    "ignoreDeprecations": "6.0"
+  },
+  "include": ["src/**/*.d.ts", "src/**/*.spec.ts"]
+}

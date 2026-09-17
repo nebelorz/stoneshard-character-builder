@@ -1,0 +1,29 @@
+<div class="pin-area">
+  <div class="pin-area__selector">
+    <app-tree-selector></app-tree-selector>
+  </div>
+
+  <div class="pin-area__grid">
+    @for (tree of pinnedTreeData(); track trackByTreeId($index, tree)) {
+      <div class="pin-area__card">
+        <button
+          class="pin-area__unpin-btn"
+          (click)="unpinTree(tree.id)"
+          [attr.aria-label]="'Unpin ' + tree.name"
+          title="Unpin tree"
+        >
+          <img
+            src="assets/icons/close_menu_x.png"
+            alt="Unpin"
+            width="16"
+            height="16"
+            draggable="false"
+          />
+        </button>
+        <div class="pin-area__card-content">
+          <app-ability-tree [tree]="tree" />
+        </div>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<aside
+  class="right-sidenav"
+  [class.right-sidenav--closed]="!isOpen()"
+  aria-label="More information"
+  id="right-sidenav-panel"
+>
+  <div class="right-sidenav__content">
+    <app-route-display></app-route-display>
+  </div>
+</aside>
+<button
+  class="right-sidenav__toggle-strip"
+  (click)="toggle()"
+  aria-label="Toggle more information panel"
+  [attr.aria-expanded]="isOpen()"
+  aria-controls="right-sidenav-panel"
+>
+  <span class="right-sidenav__toggle-label font-fantasy">MORE INFO</span>
+</button>

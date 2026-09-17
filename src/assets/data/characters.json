@@ -1,0 +1,215 @@
+{
+  "characters": [
+    {
+      "id": "velmir",
+      "name": "Velmir",
+      "title": "Revenger",
+      "race": "Human (Skadian)",
+      "gender": "Male",
+      "trait": {
+        "name": "With Great Vengeance",
+        "description": "If there's a Boss, Mini-Boss, or more than 4 enemies within Vision, applies all enemies within Vision with +1.5% Damage Taken for each Mini-Boss killed for the first time (up to +30%). Killing a Mini-Boss applies all enemies on the location with half of this penalty (doesn't stack with the full effect) and replenishes Situatinal Morale and Sanity. Grants +1% Experience Gain for each Mini-Boss killed for the first time. Grants +10% Reputation Gain and 2 Stat Points for each killed Boss."
+      },
+      "baseStats": {
+        "STR": 11,
+        "AGI": 11,
+        "PER": 11,
+        "VIT": 10,
+        "WIL": 10
+      },
+      "traitsUnlockedOnStart": [
+        "spears",
+        "two_handed_axes",
+        "two_handed_maces",
+        "ranged_weapons",
+        "athletics",
+        "warfare"
+      ]
+    },
+    {
+      "id": "jorgrim",
+      "name": "Jorgrim",
+      "title": "Reaver",
+      "race": "Dwarf (Fjall)",
+      "gender": "Male",
+      "trait": {
+        "name": "Gore and Glory",
+        "description": "Allows Butchering to harvest various Trophies from Mini-Bosses. Delivering a trophy while turning in a contract grants additional +10% Reward and +10% Reputation. Also grants 1 Stat Point and +2% Weapon Damage for every 3 trophies delivered for the first time (up to 5 times). Killing enemies grants +5% Experience Gain for 30 turns (the effect stacks up to 10 times)."
+      },
+      "baseStats": {
+        "STR": 11,
+        "AGI": 10,
+        "PER": 11,
+        "VIT": 11,
+        "WIL": 10
+      },
+      "traitsUnlockedOnStart": [
+        "swords",
+        "axes",
+        "maces",
+        "two_handed_axes",
+        "dual_wielding",
+        "warfare"
+      ]
+    },
+    {
+      "id": "arna",
+      "name": "Arna",
+      "title": "Maiden Knight",
+      "race": "Human (Aldor)",
+      "gender": "Female",
+      "trait": {
+        "name": "Vow of the Feat",
+        "description": "Each enemy within Vision increases the rate of Heroism, Optimism, and Second Wind activation by 20% (up to 100%). Increase the duration of positive Psyche states by 100% and improves their effects by 40% (+2% for each character level). While affected by Second Wind, with 50% chance allows the character to avoid death an unlimited number of times. Killing dangerous enemies grants additional Experience depending on the character's level."
+      },
+      "baseStats": {
+        "STR": 11,
+        "AGI": 11,
+        "PER": 10,
+        "VIT": 11,
+        "WIL": 10
+      },
+      "traitsUnlockedOnStart": [
+        "swords",
+        "two_handed_swords",
+        "two_handed_maces",
+        "shields",
+        "armored_combat",
+        "warfare"
+      ]
+    },
+    {
+      "id": "dirwin",
+      "name": "Dirwin",
+      "title": "Woodward",
+      "race": "Human (Aldor)",
+      "gender": "Male",
+      "trait": {
+        "name": "Ranger's Grit",
+        "description": "Starts the game with Make a Halt already learned. Grants Butchering 20% chance to harvest pelts, regardless of the damage type used to kill the animal. Increases this chance by 1% and grants 1% Experience Gain (up to +20%) for each Den or Hunting Ground visited for the first time. Grants 1 Stat Point for every 4 types of Dens, Hunting Grounds, or Caves cleared out for the first time (up to 3 times). Discovering a Hunting Ground and killing at least one animal there counts as clearing it. Grants 1 Ability Point for every 3 learned 'Survival' abilities."
+      },
+      "baseStats": {
+        "STR": 10,
+        "AGI": 11,
+        "PER": 11,
+        "VIT": 11,
+        "WIL": 10
+      },
+      "traitsUnlockedOnStart": [
+        "daggers",
+        "axes",
+        "two_handed_axes",
+        "staves",
+        "ranged_weapons",
+        "athletics"
+      ]
+    },
+    {
+      "id": "jonna",
+      "name": "Jonna",
+      "title": "Runaway Sorceress",
+      "race": "Human (Aldor)",
+      "gender": "Female",
+      "trait": {
+        "name": "Magical Erudition",
+        "description": "Grants +6% Power of the corresponding School and +7.5% Miracle Potency for each unique Sorcery treatise in the Inventory (up to 4 times). Grants -1% Backfire Chance for each Sorcery treatise read for the first time. Reading a complete set of four treatises grants +2% Miracle Chance. Grants +1% Experience Gain (up to +15%) for each learned Sorcery ability."
+      },
+      "baseStats": {
+        "STR": 10,
+        "AGI": 10,
+        "PER": 11,
+        "VIT": 11,
+        "WIL": 11
+      },
+      "traitsUnlockedOnStart": [
+        "staves",
+        "pyromancy",
+        "geomancy",
+        "electromancy",
+        "arcanistics",
+        "magic_mastery"
+      ]
+    },
+    {
+      "id": "leosthenes",
+      "name": "Leosthenes",
+      "title": "Agemon",
+      "race": "Human (Nistra)",
+      "gender": "Male",
+      "trait": {
+        "name": "Might and Magic",
+        "description": "Grants +2% Magic Power and +1% Experience Gain for each learned Weaponry ability. Grants +2% Weapon Damage and +1% Experience Gain for each learned Sorcery ability. Grants +2 Max Health, and +2 Max Energy for each learned Utility ability (the abilities learned by default don't count). All effects stack up to 15 times."
+      },
+      "baseStats": {
+        "STR": 11,
+        "AGI": 10,
+        "PER": 10,
+        "VIT": 11,
+        "WIL": 11
+      },
+      "traitsUnlockedOnStart": [
+        "maces",
+        "two_handed_maces",
+        "shields",
+        "armored_combat",
+        "warfare",
+        "geomancy"
+      ],
+      "dlc": "Character Pack"
+    },
+    {
+      "id": "mahir",
+      "name": "Mahir",
+      "title": "Dervish",
+      "race": "Elf (Jacinth)",
+      "gender": "Male",
+      "trait": {
+        "name": "Lifelong Journey",
+        "description": "Grants +0.4% Experience Gain and +0.4% Fatigue Resistance (up to 20%) for each location visited for the first time. Activates Vigor for 600 turns upon visiting a location for the first time (1200 turns if it's a Dungeon). Grants 1 Ability Point for each 6 abilities learned in any ability tree (once per tree, no more than 5 times)."
+      },
+      "baseStats": {
+        "STR": 10,
+        "AGI": 11,
+        "PER": 11,
+        "VIT": 10,
+        "WIL": 11
+      },
+      "traitsUnlockedOnStart": [
+        "daggers",
+        "dual_wielding",
+        "staves",
+        "athletics",
+        "pyromancy",
+        "arcanistics"
+      ],
+      "dlc": "Character Pack"
+    },
+    {
+      "id": "hilda",
+      "name": "Hilda",
+      "title": "Monster Slayer",
+      "race": "Dwarf (Fjall)",
+      "gender": "Female",
+      "trait": {
+        "name": "Wild Hunt",
+        "description": "Start the game with Resourcefulness already learned and a bone charm that allows the character to sacrifice special hunting trophies. Sacrifices grants the bone charm various bonuses that can be further empowered by killing respective animals and beastly Bosses. Each character level increases the threshold for activating negative effects caused by Hunger, Thirst, Pain, Intoxication, and Fatigue by +0.33%."
+      },
+      "baseStats": {
+        "STR": 11,
+        "AGI": 11,
+        "PER": 10,
+        "VIT": 11,
+        "WIL": 10
+      },
+      "traitsUnlockedOnStart": [
+        "spears",
+        "ranged_weapons",
+        "athletics",
+        "magic_mastery",
+        "axes",
+        "two_handed_axes"
+      ],
+      "dlc": "Character Pack"
+    }
+  ]
+}

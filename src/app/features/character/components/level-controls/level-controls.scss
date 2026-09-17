@@ -1,0 +1,34 @@
+@use 'variables' as *;
+@use 'components' as *;
+
+.left-sidenav__level-section {
+  @include side-nav-level-section;
+}
+
+.left-sidenav__level-row {
+  @include side-nav-level-row;
+}
+
+.left-sidenav__level-controls {
+  @include side-nav-level-controls;
+}
+
+.left-sidenav__level-value {
+  @include side-nav-level-value;
+}
+
+.left-sidenav__stat-label {
+  @include side-nav-stat-label;
+}
+
+.left-sidenav__btn {
+  @include side-nav-btn;
+
+  &--sm {
+    @include side-nav-btn-sm;
+  }
+
+  &--5 {
+    @include side-nav-btn-5;
+  }
+}

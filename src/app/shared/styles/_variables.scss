@@ -1,0 +1,73 @@
+// Stoneshard Dark Theme Variables
+// Centralized theme for consistent styling across all components
+// Palette: purple-tinted darks, bronze/gold accents, rust reds
+
+// ── Backgrounds (darkest to lightest) ──────────────────────────────────────
+$bg-deepest: #121119;
+$bg-dark: #1b1926;
+$bg-panel: #20202a;
+$bg-hover: #252531;
+
+// ── Purples (core UI tone) ────────────────────────────────────────────────
+$purple-mid: #3d3060;
+$purple-light: #5a4a80;
+
+// ── Accents (gold/bronze) ─────────────────────────────────────────────────
+$gold-accent: #d3bc72;
+$gold-bright: #e8d088;
+$gold-dim: #9a8a50;
+
+// ── Borders ────────────────────────────────────────────────────────────────
+$border-gold: #8b7340;
+$border-dim: #3a3a3e;
+
+// ── Text (readability layers) ──────────────────────────────────────────────
+$text-primary: #e0dcd0;
+$text-secondary: #9a9688;
+$text-disabled: #555558;
+
+// ── Semantic (action-specific colors) ──────────────────────────────────────
+$rust: #8b4040;
+$rust-hover: #4a2020;
+
+// ── Stat Colors ───────────────────────────────────────────────────────────
+$stat-str: #ffae00;
+$stat-agi: #00ff00;
+$stat-per: #65e8ff;
+$stat-vit: #ff0000;
+$stat-wil: #cb7cff;
+
+// ── Buttons ────────────────────────────────────────────────────────────────
+$btn-bg: #333338;
+$btn-hover: #44444a;
+$btn-disabled: #2a2a2e;
+
+// ── Shadows (depth and elevation) ──────────────────────────────────────────
+$shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.5);
+$shadow-tooltip: 0 4px 16px rgba(0, 0, 0, 0.6);
+
+// ── Typography ────────────────────────────────────────────────────────────
+$font-fantasy: 'IM Fell English SC', serif;
+$font-ui: 'Alegreya Sans SC', sans-serif;
+$font-size-xxs: 10px;
+$font-size-xs: 11px;
+$font-size-sm: 13px;
+$font-size-base: 14px;
+$font-size-md: 15px;
+$font-size-lg: 16px;
+$font-size-xl: 20px;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// ── Layout ───────────────────────────────────────────────────────────────
+$right-sidenav-width: 350px;
+$toggle-strip-width: 24px;
+
+// ── Border Radius ─────────────────────────────────────────────────────────
+$radius-sm: 4px;
+
+// ── Focus ring mixin ──────────────────────────────────────────────────────
+@mixin focus-ring {
+  outline: 2px solid $gold-accent;
+  outline-offset: 2px;
+}

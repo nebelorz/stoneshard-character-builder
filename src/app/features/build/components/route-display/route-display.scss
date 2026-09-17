@@ -1,0 +1,195 @@
+@use 'variables' as *;
+
+.right-sidenav__route {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.right-sidenav__route-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid $border-dim;
+  color: $text-primary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $bg-hover;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.right-sidenav__route-title {
+  color: $text-secondary;
+  text-transform: uppercase;
+}
+
+.right-sidenav__route-chevron {
+  font-size: $font-size-xl;
+  color: $text-secondary;
+  transition: transform 0.2s;
+  transform: rotate(0deg);
+
+  &--open {
+    transform: rotate(90deg);
+  }
+}
+
+.right-sidenav__route-content {
+  flex: 1;
+  padding: 8px 0;
+}
+
+.right-sidenav__route-empty {
+  padding: 12px 14px;
+  color: $text-secondary;
+  font-size: $font-size-base;
+  font-style: italic;
+}
+
+.right-sidenav__route-grid {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 19px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $border-dim;
+  }
+}
+
+.right-sidenav__route-level-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 16px 0;
+}
+
+.right-sidenav__route-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $gold-accent;
+  margin-bottom: 4px;
+  z-index: 1;
+}
+
+.right-sidenav__route-level-num {
+  position: absolute;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $text-secondary;
+  bottom: 2px;
+}
+
+.right-sidenav__route-slots-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6px 12px 6px 0;
+}
+
+.right-sidenav__route-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.right-sidenav__route-entry {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: $font-size-md;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  outline: none;
+
+  &--assigned {
+    color: $gold-bright;
+    cursor: pointer;
+    background: rgba($gold-accent, 0.1);
+
+    &:hover {
+      background: rgba($gold-accent, 0.2);
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &--empty {
+    color: $text-disabled;
+    font-style: italic;
+  }
+}
+
+.right-sidenav__route-icon {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.right-sidenav__route-name {
+  white-space: nowrap;
+}
+
+.right-sidenav__route-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: $font-size-base;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 5px;
+  letter-spacing: 0.3px;
+  outline: none;
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &--str {
+    color: $stat-str;
+    background: rgba($stat-str, 0.15);
+  }
+
+  &--agi {
+    color: $stat-agi;
+    background: rgba($stat-agi, 0.15);
+  }
+
+  &--per {
+    color: $stat-per;
+    background: rgba($stat-per, 0.15);
+  }
+
+  &--vit {
+    color: $stat-vit;
+    background: rgba($stat-vit, 0.15);
+  }
+
+  &--wil {
+    color: $stat-wil;
+    background: rgba($stat-wil, 0.15);
+  }
+}

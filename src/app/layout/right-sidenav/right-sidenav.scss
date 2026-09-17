@@ -1,0 +1,73 @@
+@use 'variables' as *;
+
+:host {
+  display: block;
+}
+
+.right-sidenav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: $right-sidenav-width;
+  height: 100vh;
+  background: $bg-panel;
+  border-left: 1px solid $border-dim;
+  color: $text-primary;
+  transform: translateX(0);
+  transition:
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.2s;
+
+  &--closed {
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  &__content {
+    flex: 1;
+    overflow-y: auto;
+    min-width: $right-sidenav-width;
+    padding-right: 24px;
+  }
+}
+
+.right-sidenav__toggle-strip {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: $toggle-strip-width;
+  height: 100vh;
+  background: $bg-dark;
+  border: none;
+  border-left: 1px solid $border-dim;
+  color: $text-secondary;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $bg-hover;
+    color: $text-primary;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.right-sidenav__toggle-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: $text-secondary;
+  text-transform: uppercase;
+}

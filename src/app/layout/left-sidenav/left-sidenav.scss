@@ -1,0 +1,20 @@
+@use 'variables' as *;
+
+.left-sidenav {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: $bg-panel;
+  border-right: 1px solid $border-dim;
+  color: $text-primary;
+  user-select: none;
+  overflow-y: auto;
+}
+
+.left-sidenav app-build-options {
+  margin-top: auto;
+}

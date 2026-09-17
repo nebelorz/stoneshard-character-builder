@@ -1,0 +1,57 @@
+@use 'variables' as *;
+@use 'components' as *;
+
+.left-sidenav__resources {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 8px 14px;
+}
+
+.left-sidenav__resource {
+  @include side-nav-resource;
+}
+
+.left-sidenav__resource-label {
+  @include side-nav-resource-label;
+}
+
+.left-sidenav__resource-value {
+  @include side-nav-resource-value;
+}
+
+.left-sidenav__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 14px;
+  border-bottom: 1px solid $border-dim;
+}
+
+.left-sidenav__stat {
+  @include side-nav-stat;
+}
+
+.left-sidenav__stat-label {
+  @include side-nav-stat-label;
+}
+
+.left-sidenav__stat-controls {
+  @include side-nav-stat-controls;
+}
+
+.left-sidenav__stat-value {
+  @include side-nav-stat-value;
+}
+
+.left-sidenav__btn {
+  @include side-nav-btn;
+
+  &--sm {
+    @include side-nav-btn-sm;
+  }
+
+  &--5 {
+    @include side-nav-btn-5;
+  }
+}

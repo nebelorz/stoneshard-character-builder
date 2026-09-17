@@ -1,0 +1,259 @@
+@use 'variables' as *;
+@use 'components' as *;
+
+.char-selector {
+  position: relative;
+  padding: 6px 14px;
+  border-bottom: 1px solid $border-dim;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__current {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 8px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: $radius-sm;
+    cursor: pointer;
+    flex: 1;
+    min-width: 0;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+
+    &:hover {
+      background: $bg-hover;
+      border-color: $border-dim;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__portrait {
+    width: 36px;
+    height: 36px;
+    border-radius: $radius-sm;
+    border: 1px solid $border-gold;
+    object-fit: cover;
+  }
+
+  &__char-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__char-name {
+    font-size: $font-size-base;
+    font-weight: 600;
+    color: $gold-bright;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__char-title {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+
+  &__trait-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: $radius-sm;
+    border: 1px solid $border-gold;
+    background: $bg-panel;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      background 0.15s,
+      border-color 0.15s;
+
+    &:hover {
+      background: $btn-hover;
+      border-color: $gold-accent;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__trait-icon-letter {
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    color: $gold-accent;
+    line-height: 1;
+  }
+
+  &__trait-bubble {
+    @include game-panel-gold;
+    width: 240px;
+    max-width: 240px;
+    margin-top: 4px;
+    padding: 10px 12px;
+    pointer-events: none;
+  }
+
+  &__trait-bubble-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $gold-bright;
+    margin-bottom: 4px;
+  }
+
+  &__trait-bubble-desc {
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    color: $text-secondary;
+  }
+
+  &__arrow {
+    font-size: $font-size-xl;
+    color: $text-secondary;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__dropdown {
+    @include game-panel-gold;
+    min-width: 240px;
+    max-height: 400px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid $border-dim;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &:hover {
+      background: $bg-hover;
+    }
+
+    &:focus-visible {
+      @include focus-ring;
+    }
+
+    &--selected {
+      background: rgba($gold-accent, 0.1);
+
+      &:hover {
+        background: rgba($gold-accent, 0.15);
+      }
+    }
+
+    &--active-descendant {
+      background: rgba($gold-accent, 0.1);
+
+      &:hover {
+        background: rgba($gold-accent, 0.15);
+      }
+    }
+  }
+
+  &__option-portrait {
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    border: 1px solid $border-dim;
+    object-fit: cover;
+  }
+
+  &__option-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__option-name {
+    font-size: $font-size-sm;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  &__option-title {
+    font-size: $font-size-sm;
+    color: $text-secondary;
+  }
+
+  &__option-trait {
+    font-size: $font-size-xs;
+    color: $gold-accent;
+    font-style: italic;
+    margin-top: 1px;
+  }
+
+  &__dlc {
+    font-size: $font-size-xxs;
+    padding: 2px 6px;
+    background: rgba($gold-accent, 0.15);
+    color: $gold-accent;
+    border-radius: 3px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  &__tooltip {
+    @include game-panel-gold;
+    width: 260px;
+    padding: 10px 12px;
+    pointer-events: none;
+  }
+
+  &__trait {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__trait-name {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $gold-bright;
+  }
+
+  &__trait-desc {
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    color: $text-secondary;
+  }
+}

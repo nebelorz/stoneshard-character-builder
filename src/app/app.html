@@ -1,0 +1,61 @@
+<div class="app-layout">
+  <app-left-sidenav></app-left-sidenav>
+  <div class="app-content" [class.app-content--right-sidenav-closed]="!isRightSidenavOpen()">
+    @if (errorMessage(); as error) {
+      <app-error [message]="error" [retry]="loadInitialData" @fadeInOut></app-error>
+    } @else if (isLoading()) {
+      <div class="app-loading" @fadeInOut>
+        <div class="app-loading__spinner"></div>
+        <div class="app-loading__text">Loading...</div>
+      </div>
+    } @else {
+      <main class="app-main" id="main-content">
+        <app-pin-area></app-pin-area>
+      </main>
+    }
+  </div>
+  <app-right-sidenav [(isOpen)]="isRightSidenavOpen"></app-right-sidenav>
+</div>
+<app-toast />
+
+@if (popupService.isOpen()) {
+  @switch (popupService.type()) {
+    @case ('share') {
+      <app-popover
+        [isOpen]="popupService.isOpen()"
+        [triggerElement]="popupService.trigger()"
+        ariaLabel="Share build"
+      >
+        <div class="popup-content">
+          <p class="popup-label">Share your build</p>
+          <button class="popup-copy-btn" (click)="onShare()">
+            {{ shareUrlCopied() ? 'Copied!' : 'Copy URL' }}
+          </button>
+        </div>
+      </app-popover>
+    }
+    @case ('ai-prompt') {
+      <app-popover
+        [isOpen]="popupService.isOpen()"
+        [triggerElement]="popupService.trigger()"
+        ariaLabel="AI prompt"
+      >
+        <div class="popup-content">
+          <p class="popup-label">Ask AI how to use this build.</p>
+          <p class="popup-label">Paste into your AI agent.</p>
+          <button class="popup-copy-btn" (click)="onCopyAiPrompt()">
+            {{ aiPromptCopied() ? 'Copied!' : 'Copy Prompt' }}
+          </button>
+        </div>
+      </app-popover>
+    }
+    @case ('reset') {
+      <app-confirm-popup
+        [isOpen]="popupService.isOpen()"
+        [triggerElement]="popupService.trigger()"
+        [message]="'Reset your build to default?'"
+        (confirm)="onResetConfirm()"
+      />
+    }
+  }
+}

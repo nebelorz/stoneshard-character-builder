@@ -1,0 +1,22 @@
+<div class="ability-tree">
+  <div class="ability-tree__canvas" [style.aspect-ratio]="aspectRatio">
+    <img
+      class="ability-tree__background"
+      [src]="'assets/icons/' + tree().id + '/' + tree().id + '_background.png'"
+      alt=""
+      draggable="false"
+    />
+
+    @for (placed of placedAbilities(); track trackByAbility($index, placed)) {
+      <app-ability-icon
+        class="ability-tree__icon"
+        [ability]="placed.ability"
+        [treeId]="tree().id"
+        [style.left.%]="placed.left"
+        [style.top.%]="placed.top"
+        (obtain)="onObtain($event)"
+        (refund)="onRefund($event)"
+      />
+    }
+  </div>
+</div>
