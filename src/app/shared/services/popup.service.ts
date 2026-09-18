@@ -18,6 +18,14 @@ export class PopupService {
     this._isOpen.set(true);
   }
 
+  toggle(type: PopupType, triggerElement: HTMLElement): void {
+    if (this._isOpen() && this._type() === type) {
+      this.close();
+    } else {
+      this.open(type, triggerElement);
+    }
+  }
+
   close(): void {
     this._isOpen.set(false);
     this._type.set(null);

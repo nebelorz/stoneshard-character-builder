@@ -26,6 +26,6 @@ export class BuildOptionsComponent {
 
   openPopup(type: 'share' | 'ai-prompt' | 'reset', event: Event): void {
     const trigger = event.currentTarget as HTMLElement;
-    this.popupService.open(type, trigger);
+    this.popupService.toggle(type, trigger);
   }
 }
