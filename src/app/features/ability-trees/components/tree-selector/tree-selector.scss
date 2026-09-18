@@ -61,6 +61,18 @@
     color: $text-primary;
   }
 
+  &__tab-chevron {
+    font-size: $font-size-xl;
+    color: $text-secondary;
+    transition: transform 0.2s;
+    transform: rotate(0deg);
+    margin-left: auto;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
   &__tab-count {
     font-size: $font-size-xs;
     font-weight: 600;

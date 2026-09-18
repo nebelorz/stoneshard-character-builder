@@ -57,6 +57,10 @@
         filter: brightness(1.3);
       }
     }
+
+    &:active {
+      transform: scale(0.95);
+    }
   }
 
   &__reset-btn {
@@ -94,6 +98,10 @@
       img {
         filter: brightness(1.3);
       }
+    }
+
+    &:active {
+      transform: scale(0.95);
     }
   }
 
