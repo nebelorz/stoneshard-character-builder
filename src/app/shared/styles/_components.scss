@@ -155,6 +155,24 @@
   text-align: center;
 }
 
+// ── Progress bar mixins ──────────────────────────────────────────────────
+
+@mixin progress-bar {
+  width: 100%;
+  height: 4px;
+  background: $bg-deepest;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+@mixin progress-bar__fill {
+  width: var(--progress-width, 0%);
+  height: 100%;
+  background: $button-purple-hover;
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+
 // ── Game panel mixin ──────────────────────────────────────────────────────
 
 @mixin game-panel-gold {

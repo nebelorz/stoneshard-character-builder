@@ -3,13 +3,26 @@
 
 .left-sidenav__resources {
   display: flex;
-  justify-content: center;
-  gap: 20px;
+  flex-direction: column;
+  gap: 8px;
   padding: 8px 14px;
 }
 
 .left-sidenav__resource {
-  @include side-nav-resource;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.left-sidenav__resource-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.left-sidenav__resource-icon {
+  color: $text-secondary;
+  font-size: 18px;
 }
 
 .left-sidenav__resource-label {
@@ -18,6 +31,14 @@
 
 .left-sidenav__resource-value {
   @include side-nav-resource-value;
+}
+
+.left-sidenav__progress-bar {
+  @include progress-bar;
+}
+
+.left-sidenav__progress-bar-fill {
+  @include progress-bar__fill;
 }
 
 .left-sidenav__stats {

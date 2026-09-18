@@ -44,12 +44,31 @@
 
   <div class="left-sidenav__resources">
     <div class="left-sidenav__resource">
-      <span class="left-sidenav__resource-label font-ui">AP</span>
-      <span class="left-sidenav__resource-value font-ui-semibold">{{ ap() }}</span>
+      <div class="left-sidenav__resource-header">
+        <ng-icon class="left-sidenav__resource-icon" name="phosphorPlusSquare"></ng-icon>
+        <span class="left-sidenav__resource-label font-ui">SP</span>
+        <span class="left-sidenav__resource-value font-ui-semibold">{{ sp() }}</span>
+      </div>
+      <div class="left-sidenav__progress-bar">
+        <div
+          class="left-sidenav__progress-bar-fill"
+          [style.--progress-width]="(sp() / 29) * 100 + '%'"
+        ></div>
+      </div>
     </div>
+
     <div class="left-sidenav__resource">
-      <span class="left-sidenav__resource-label font-ui">SP</span>
-      <span class="left-sidenav__resource-value font-ui-semibold">{{ sp() }}</span>
+      <div class="left-sidenav__resource-header">
+        <ng-icon class="left-sidenav__resource-icon" name="phosphorSquareLogo"></ng-icon>
+        <span class="left-sidenav__resource-label font-ui">AP</span>
+        <span class="left-sidenav__resource-value font-ui-semibold">{{ ap() }}</span>
+      </div>
+      <div class="left-sidenav__progress-bar">
+        <div
+          class="left-sidenav__progress-bar-fill"
+          [style.--progress-width]="(ap() / 31) * 100 + '%'"
+        ></div>
+      </div>
     </div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component, inject, computed } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { phosphorSquareLogo, phosphorPlusSquare } from '@ng-icons/phosphor-icons/regular';
 import { BuildStore } from '@features/build/services';
 import { STAT_KEYS, StatKey } from '@models';
 
@@ -6,6 +8,8 @@ import { STAT_KEYS, StatKey } from '@models';
   selector: 'app-stat-controls',
   templateUrl: './stat-controls.html',
   styleUrl: './stat-controls.scss',
+  imports: [NgIcon],
+  providers: [provideIcons({ phosphorSquareLogo, phosphorPlusSquare })],
 })
 export class StatControlsComponent {
   private readonly buildStore = inject(BuildStore);
