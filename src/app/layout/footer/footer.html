@@ -10,6 +10,9 @@
       [tooltipText]="'Discord'"
       tooltipPlacement="top"
       aria-label="Discord profile"
+      [@iconHover]="discordHovered ? 'active' : 'idle'"
+      (mouseenter)="discordHovered = true"
+      (mouseleave)="discordHovered = false"
     >
       <ng-icon name="phosphorDiscordLogo" />
     </a>
@@ -22,6 +25,9 @@
       [tooltipText]="'GitHub'"
       tooltipPlacement="top"
       aria-label="GitHub repository"
+      [@iconHover]="githubHovered ? 'active' : 'idle'"
+      (mouseenter)="githubHovered = true"
+      (mouseleave)="githubHovered = false"
     >
       <ng-icon name="phosphorGithubLogo" />
     </a>
@@ -34,6 +40,9 @@
       [tooltipText]="nstratosThanksTo"
       tooltipPlacement="top"
       aria-label="Thanks to Nstratos for his previous work <3"
+      [@iconHover]="heartHovered ? 'active' : 'idle'"
+      (mouseenter)="heartHovered = true"
+      (mouseleave)="heartHovered = false"
     >
       <ng-icon name="phosphorHeart" />
     </a>
@@ -44,6 +53,9 @@
       tooltipPlacement="top"
       aria-label="Stoneshard game data version"
       role="img"
+      [@iconHover]="infoHovered ? 'active' : 'idle'"
+      (mouseenter)="infoHovered = true"
+      (mouseleave)="infoHovered = false"
     >
       <ng-icon name="phosphorInfo" />
     </span>

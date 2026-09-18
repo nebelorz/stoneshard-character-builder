@@ -17,7 +17,7 @@ The system SHALL display the current app version string in the footer, prefixed 
 
 ### Requirement: Footer displays Discord link
 
-The system SHALL display a Discord profile link in the footer that opens in a new tab.
+The system SHALL display a Discord profile link in the footer that opens in a new tab. The link icon SHALL have a hover animation providing visual feedback.
 
 #### Scenario: Discord link opens profile
 
@@ -29,9 +29,14 @@ The system SHALL display a Discord profile link in the footer that opens in a ne
 - **WHEN** the Discord link renders
 - **THEN** it has an aria-label describing its purpose
 
+#### Scenario: Discord icon animates on hover
+
+- **WHEN** the user hovers over the Discord link
+- **THEN** the icon performs a subtle zoom and jiggle animation
+
 ### Requirement: Footer displays GitHub link
 
-The system SHALL display a GitHub repository link in the footer that opens in a new tab.
+The system SHALL display a GitHub repository link in the footer that opens in a new tab. The link icon SHALL have a hover animation providing visual feedback.
 
 #### Scenario: GitHub link opens repository
 
@@ -43,9 +48,14 @@ The system SHALL display a GitHub repository link in the footer that opens in a 
 - **WHEN** the GitHub link renders
 - **THEN** it has an aria-label describing its purpose
 
+#### Scenario: GitHub icon animates on hover
+
+- **WHEN** the user hovers over the GitHub link
+- **THEN** the icon performs a subtle zoom and jiggle animation
+
 ### Requirement: Footer displays info icon with tooltip
 
-The system SHALL display an info icon in the footer that shows a tooltip on hover with the Stoneshard game data version.
+The system SHALL display an info icon in the footer that shows a tooltip on hover with the Stoneshard game data version. The icon SHALL have a hover animation providing visual feedback.
 
 #### Scenario: Tooltip appears on hover
 
@@ -61,6 +71,11 @@ The system SHALL display an info icon in the footer that shows a tooltip on hove
 
 - **WHEN** the tooltip is visible and the user presses Escape
 - **THEN** the tooltip is hidden
+
+#### Scenario: Info icon animates on hover
+
+- **WHEN** the user hovers over the info icon
+- **THEN** the icon performs a subtle zoom and jiggle animation
 
 ### Requirement: Footer sits at the bottom of the left sidenav
 

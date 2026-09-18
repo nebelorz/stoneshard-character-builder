@@ -7,6 +7,7 @@ import {
   phosphorHeart,
 } from '@ng-icons/phosphor-icons/regular';
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
+import { iconHover } from '@shared/animations/icon-hover';
 
 const VERSION = 'v0.0.1b';
 const DISCORD_URL = 'https://discord.com/users/neBelorz%238759';
@@ -18,6 +19,7 @@ const NSTRATOS_URL = 'https://github.com/nstratos/stoneshard-talent-calculator';
 @Component({
   selector: 'app-footer',
   imports: [NgIcon, TooltipDirective],
+  animations: [iconHover],
   providers: [
     provideIcons({
       phosphorDiscordLogo,
@@ -36,4 +38,9 @@ export class FooterComponent {
   readonly stoneshardDataVersion = STONESHARD_DATA_VERSION;
   readonly nstratosThanksTo = NSTRATOS_THANKS_TO;
   readonly nstratosUrl = NSTRATOS_URL;
+
+  discordHovered = false;
+  githubHovered = false;
+  heartHovered = false;
+  infoHovered = false;
 }
