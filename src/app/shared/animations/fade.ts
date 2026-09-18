@@ -1,4 +1,4 @@
-import { trigger, transition, style, animate, query, stagger, group } from '@angular/animations';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 
 export const fadeInOut = trigger('fadeInOut', [
   transition(':enter', [
@@ -27,18 +27,15 @@ export const expandCollapse = trigger('expandCollapse', [
 
 export const cardReflow = trigger('cardReflow', [
   transition(':leave', [
-    group([
-      query(
-        '.pin-area__card',
-        [
-          stagger(80, [
-            style({ transform: 'translateX(-10px)' }),
-            animate('120ms ease-out', style({ transform: 'translateX(0)' })),
-          ]),
-        ],
-        { optional: true },
-      ),
-      animate('150ms ease-in', style({ opacity: 0, transform: 'translateY(-4px)' })),
-    ]),
+    query(
+      '.pin-area__card',
+      [
+        stagger(80, [
+          style({ transform: 'translateX(-10px)' }),
+          animate('120ms ease-out', style({ transform: 'translateX(0)' })),
+        ]),
+      ],
+      { optional: true },
+    ),
   ]),
 ]);
