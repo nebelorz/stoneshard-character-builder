@@ -13,15 +13,15 @@
         (keydown)="onCategoryKeydown($event, cat)"
       >
         <span class="tree-selector__tab-label font-fantasy">{{ cat.label }}</span>
+        @if (pinnedCount()[cat.category] > 0) {
+          <span class="tree-selector__tab-count">{{ pinnedCount()[cat.category] }}</span>
+        }
         <span
           class="tree-selector__tab-chevron"
           [class.tree-selector__tab-chevron--open]="expandedCategory() === cat.category"
         >
           &#9656;
         </span>
-        @if (pinnedCount()[cat.category] > 0) {
-          <span class="tree-selector__tab-count">{{ pinnedCount()[cat.category] }}</span>
-        }
       </button>
     }
   </div>
