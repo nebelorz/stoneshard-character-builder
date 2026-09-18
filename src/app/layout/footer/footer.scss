@@ -30,6 +30,18 @@
     color: $text-primary;
   }
 
+  &__thanksTo {
+    color: $button-red;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+
+    &:hover {
+      color: $button-red-hover;
+    }
+  }
+
   ng-icon {
     font-size: 14px;
   }

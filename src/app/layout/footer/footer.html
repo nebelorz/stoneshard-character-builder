@@ -25,10 +25,22 @@
     >
       <ng-icon name="phosphorGithubLogo" />
     </a>
+    <a
+      class="footer__link__thanksTo"
+      [href]="nstratosUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      appTooltip
+      [tooltipText]="nstratosThanksTo"
+      tooltipPlacement="top"
+      aria-label="Thanks to Nstratos for his previous work <3"
+    >
+      <ng-icon name="phosphorHeart" />
+    </a>
     <span
       class="footer__info"
       appTooltip
-      [tooltipText]="stonesshardDataVersion"
+      [tooltipText]="stoneshardDataVersion"
       tooltipPlacement="top"
       aria-label="Stoneshard game data version"
       role="img"
