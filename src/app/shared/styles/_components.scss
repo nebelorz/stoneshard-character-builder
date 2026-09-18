@@ -130,7 +130,7 @@
 @mixin side-nav-level-section {
   padding: 8px 14px;
   border-bottom: 1px solid $border-dim;
-  background: rgba($gold-accent, 0.06);
+  background: $bg-deepest;
 }
 
 @mixin side-nav-level-row {
