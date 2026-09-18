@@ -5,12 +5,14 @@ import { AbilityTree } from '@models';
 import { AbilityTreeComponent } from './ability-tree/ability-tree';
 import { TreeSelectorComponent } from './tree-selector/tree-selector';
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
+import { cardReflow } from '@shared/animations/fade';
 
 @Component({
   selector: 'app-pin-area',
   imports: [AbilityTreeComponent, TreeSelectorComponent, TooltipDirective],
   templateUrl: './pin-area.html',
   styleUrl: './pin-area.scss',
+  animations: [cardReflow],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PinAreaComponent {
