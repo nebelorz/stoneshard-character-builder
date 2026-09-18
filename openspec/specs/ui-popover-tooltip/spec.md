@@ -8,22 +8,22 @@ Provide popover containers for action menus and themed tooltips for interactive 
 
 ### Requirement: Popover display
 
-The popover SHALL use CDK Overlay for positioning and support focus trapping.
+The popover SHALL use CDK Overlay for positioning and support focus trapping. The popover SHALL fade in when opened and fade out when closed.
 
-#### Scenario: Popover opens on trigger
+#### Scenario: Popover opens on trigger with fade-in
 
 - **WHEN** the user clicks an action button (Share, AI Prompt, Reset)
-- **THEN** a CDK Overlay-based popover appears positioned relative to the trigger
+- **THEN** a CDK Overlay-based popover fades in and appears positioned relative to the trigger
 
-#### Scenario: Popover closes on outside click
+#### Scenario: Popover closes on outside click with fade-out
 
 - **WHEN** the user clicks outside the popover
-- **THEN** the popover closes
+- **THEN** the popover fades out and closes
 
-#### Scenario: Popover closes on Escape
+#### Scenario: Popover closes on Escape with fade-out
 
 - **WHEN** the user presses Escape while a popover is open
-- **THEN** focus returns to the trigger element and the popover closes
+- **THEN** focus returns to the trigger element and the popover fades out and closes
 
 #### Scenario: Popover closes on scroll
 
@@ -39,6 +39,11 @@ The popover SHALL use CDK Overlay for positioning and support focus trapping.
 
 - **WHEN** a popover is open
 - **THEN** Tab key cycles through focusable elements within the popover
+
+#### Scenario: Popover toggles on trigger re-click
+
+- **WHEN** the user clicks the same action button while its popover is already open
+- **THEN** the popover fades out and closes
 
 ### Requirement: Confirm popup
 

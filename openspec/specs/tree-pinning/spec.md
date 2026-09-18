@@ -8,12 +8,12 @@ Allow users to pin multiple ability trees for viewing and interacting with them 
 
 ### Requirement: Pin a tree
 
-The system SHALL pin a tree when the user clicks its pin icon in the tree selector, adding it to the pinned trees area.
+The system SHALL pin a tree when the user clicks its pin icon in the tree selector, adding it to the pinned trees area with a fade-in transition.
 
-#### Scenario: Pin adds tree to view
+#### Scenario: Pin adds tree to view with fade-in
 
 - **WHEN** the user clicks the pin icon for a tree
-- **THEN** the tree appears in the pinned trees area
+- **THEN** the tree card fades in and appears in the pinned trees area
 
 #### Scenario: Duplicate prevention
 
@@ -22,12 +22,17 @@ The system SHALL pin a tree when the user clicks its pin icon in the tree select
 
 ### Requirement: Unpin a tree
 
-The system SHALL unpin a tree when the user clicks the close/unpin icon on the tree card, removing it from the pinned area. Each pinned tree card SHALL also display a reset button to the left of the unpin button, with matching size and hover behavior.
+The system SHALL unpin a tree when the user clicks the close/unpin icon on the tree card, removing it from the pinned area with a fade-out transition. Each pinned tree card SHALL also display a reset button to the left of the unpin button, with matching size and hover behavior. When a tree is unpinned, the remaining pinned tree cards SHALL animate with a staggered shift into their new grid positions.
 
-#### Scenario: Unpin removes tree
+#### Scenario: Unpin removes tree with fade-out
 
 - **WHEN** the user clicks the unpin icon on a pinned tree
-- **THEN** the tree is removed from the pinned area
+- **THEN** the tree card fades out and is removed from the pinned area
+
+#### Scenario: Remaining cards reflow with stagger
+
+- **WHEN** the user unpins a tree and other trees remain pinned
+- **THEN** the remaining tree cards shift smoothly into their new positions with a staggered delay
 
 #### Scenario: Reset button positioned left of unpin
 
