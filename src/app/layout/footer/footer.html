@@ -16,6 +16,7 @@
     >
       <ng-icon name="phosphorDiscordLogo" />
     </a>
+
     <a
       class="footer__link"
       [href]="githubUrl"
@@ -31,6 +32,21 @@
     >
       <ng-icon name="phosphorGithubLogo" />
     </a>
+
+    <span
+      class="footer__info"
+      appTooltip
+      [tooltipText]="stoneshardDataVersion"
+      tooltipPlacement="top"
+      aria-label="Stoneshard game data version"
+      role="img"
+      [@iconHover]="infoHovered ? 'active' : 'idle'"
+      (mouseenter)="infoHovered = true"
+      (mouseleave)="infoHovered = false"
+    >
+      <ng-icon name="phosphorInfo" />
+    </span>
+
     <a
       class="footer__link__thanksTo"
       [href]="nstratosUrl"
@@ -46,18 +62,5 @@
     >
       <ng-icon name="phosphorHeart" />
     </a>
-    <span
-      class="footer__info"
-      appTooltip
-      [tooltipText]="stoneshardDataVersion"
-      tooltipPlacement="top"
-      aria-label="Stoneshard game data version"
-      role="img"
-      [@iconHover]="infoHovered ? 'active' : 'idle'"
-      (mouseenter)="infoHovered = true"
-      (mouseleave)="infoHovered = false"
-    >
-      <ng-icon name="phosphorInfo" />
-    </span>
   </div>
 </div>
