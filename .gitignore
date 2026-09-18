@@ -50,10 +50,9 @@ Thumbs.db
 /coverage
 *.lcov
 
-# Environment files (if added later)
-.env
-.env.local
-.env.*.local
+# Environment files
+.env*
+.vercel
 
 # Logs
 *.log
@@ -62,5 +61,3 @@ logs/
 # OS generated files
 ehthumbs.db
 Desktop.ini
-
-
