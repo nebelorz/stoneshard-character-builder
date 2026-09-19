@@ -23,6 +23,7 @@ const createMockState = (overrides: Partial<BuildState> = {}): BuildState => ({
   obtainedAbilities: [],
   pinnedTrees: [],
   statHistory: [],
+  boulderCircleStat: null,
   ...overrides,
 });
 

@@ -22,6 +22,7 @@ function restoreLevelState(s: BuildStore, level: number): void {
     obtainedAbilities: [],
     pinnedTrees: [],
     statHistory: [],
+    boulderCircleStat: null,
   });
 }
 
@@ -518,12 +519,71 @@ describe('BuildStore', () => {
         obtainedAbilities: [{ abilityId: 'warfare-1', level: 1, order: 1 }],
         pinnedTrees: ['warfare'],
         statHistory: [{ level: 2, order: 1, stat: 'STR' as const }],
+        boulderCircleStat: null,
       };
       store.restoreState(state);
       const restored = getReadyState(store);
       expect(restored.level).toBe(5);
       expect(restored.obtainedAbilities.length).toBe(1);
       expect(restored.pinnedTrees).toContain('warfare');
+    });
+  });
+
+  describe('Boulder Circle allocation', () => {
+    it('should initialize with boulderCircleStat as null', () => {
+      const state = getReadyState(store);
+      expect(state.boulderCircleStat).toBeNull();
+    });
+
+    it('should allocate boulder circle bonus to a stat', () => {
+      store.allocateBoulderCircle('STR');
+      const state = getReadyState(store);
+      expect(state.boulderCircleStat).toBe('STR');
+    });
+
+    it('should deallocate boulder circle bonus', () => {
+      store.allocateBoulderCircle('STR');
+      store.deallocateBoulderCircle();
+      const state = getReadyState(store);
+      expect(state.boulderCircleStat).toBeNull();
+    });
+
+    it('should allow allocating to a different stat', () => {
+      store.allocateBoulderCircle('STR');
+      store.allocateBoulderCircle('AGI');
+      const state = getReadyState(store);
+      expect(state.boulderCircleStat).toBe('AGI');
+    });
+
+    it('should return true from canAllocateBoulderCircle when stat is different', () => {
+      store.allocateBoulderCircle('STR');
+      expect(store.canAllocateBoulderCircle('AGI')).toBe(true);
+    });
+
+    it('should return false from canAllocateBoulderCircle when stat is the same', () => {
+      store.allocateBoulderCircle('STR');
+      expect(store.canAllocateBoulderCircle('STR')).toBe(false);
+    });
+
+    it('should persist boulder circle across character changes', () => {
+      store.allocateBoulderCircle('STR');
+      store.selectCharacter('aldor');
+      const state = getReadyState(store);
+      expect(state.boulderCircleStat).toBe('STR');
+    });
+
+    it('should clear boulder circle on full reset', () => {
+      store.allocateBoulderCircle('STR');
+      store.reset();
+      const state = getReadyState(store);
+      expect(state.boulderCircleStat).toBeNull();
+    });
+
+    it('should allow incrementing stat above MAX_STAT with boulder circle bonus', () => {
+      store.allocateBoulderCircle('STR');
+      const state = getReadyState(store);
+      expect(state.stats['STR']).toBe(10);
+      expect(store.canIncrementStat1('STR')).toBe(true);
     });
   });
 });

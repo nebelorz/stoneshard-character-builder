@@ -180,6 +180,7 @@ function buildState(obtainedAbilities: { abilityId: string; level: number; order
   obtainedAbilities: { abilityId: string; level: number; order: number }[];
   pinnedTrees: string[];
   statHistory: never[];
+  boulderCircleStat: null;
 } {
   return {
     characterId: 'jorna',
@@ -190,6 +191,7 @@ function buildState(obtainedAbilities: { abilityId: string; level: number; order
     obtainedAbilities,
     pinnedTrees: [],
     statHistory: [],
+    boulderCircleStat: null,
   };
 }
 

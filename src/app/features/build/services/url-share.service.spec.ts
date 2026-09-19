@@ -39,6 +39,7 @@ const KNOWN_STATE: BuildState = {
   obtainedAbilities: [],
   pinnedTrees: [],
   statHistory: [],
+  boulderCircleStat: null,
 };
 
 function setCurrentUrl(url: string): void {

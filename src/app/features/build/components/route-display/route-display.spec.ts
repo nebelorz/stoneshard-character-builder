@@ -106,6 +106,7 @@ describe('RouteDisplayComponent', () => {
       obtainedAbilities: [],
       pinnedTrees: [],
       statHistory: [],
+      boulderCircleStat: null,
     });
   }
 
@@ -146,14 +147,14 @@ describe('RouteDisplayComponent', () => {
     buildTwoLevelRoute();
     const level1Slots = getLevelSlotsCell(1);
     expect(level1Slots.querySelectorAll('.right-sidenav__route-entry--assigned').length).toBe(2);
-    expect(level1Slots.querySelectorAll('.right-sidenav__route-stat-chip').length).toBe(0);
+    expect(level1Slots.querySelectorAll('.stat-chip').length).toBe(0);
   });
 
   it('renders a Level 2 row with one ability entry and one stat chip', () => {
     buildTwoLevelRoute();
     const level2Slots = getLevelSlotsCell(2);
     expect(level2Slots.querySelectorAll('.right-sidenav__route-entry--assigned').length).toBe(1);
-    expect(level2Slots.querySelectorAll('.right-sidenav__route-stat-chip').length).toBe(1);
+    expect(level2Slots.querySelectorAll('.stat-chip').length).toBe(1);
   });
 
   it('highlights the shared hover service on hover and renders no tooltip', () => {
@@ -207,9 +208,7 @@ describe('RouteDisplayComponent', () => {
 
   it('shows the pointer cursor on assigned stat chips', () => {
     buildTwoLevelRoute();
-    const chip = fixture.nativeElement.querySelector(
-      '.right-sidenav__route-stat-chip',
-    ) as HTMLElement;
+    const chip = fixture.nativeElement.querySelector('.stat-chip') as HTMLElement;
     expect(chip).toBeTruthy();
     expect(getComputedStyle(chip).cursor).toBe('pointer');
   });
