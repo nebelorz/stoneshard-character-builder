@@ -21,4 +21,5 @@ export interface BuildState {
   readonly obtainedAbilities: readonly ObtainedAbility[];
   readonly pinnedTrees: readonly string[];
   readonly statHistory: readonly StatAssignment[];
+  readonly boulderCircleStat: StatKey | null;
 }

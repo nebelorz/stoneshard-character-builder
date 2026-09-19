@@ -1,9 +1,9 @@
 import { Component, model } from '@angular/core';
-import { RouteDisplayComponent } from '@features/build/components';
+import { RouteDisplayComponent, ExtrasDisplayComponent } from '@features/build/components';
 
 @Component({
   selector: 'app-right-sidenav',
-  imports: [RouteDisplayComponent],
+  imports: [RouteDisplayComponent, ExtrasDisplayComponent],
   templateUrl: './right-sidenav.html',
   styleUrl: './right-sidenav.scss',
 })

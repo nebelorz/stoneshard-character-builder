@@ -1,0 +1,121 @@
+@use 'variables' as *;
+@use 'stat-chips' as *;
+
+.right-sidenav__extras {
+  display: flex;
+  flex-direction: column;
+}
+
+.right-sidenav__extras-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 14px;
+  border-bottom: 1px solid $border-dim;
+}
+
+.right-sidenav__extras-title {
+  color: $text-secondary;
+  text-transform: uppercase;
+  font-size: $font-size-base;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.right-sidenav__extras-content {
+  padding: 8px 14px;
+}
+
+.right-sidenav__extras-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.right-sidenav__extras-label-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.right-sidenav__extras-icon {
+  font-size: $font-size-sm;
+  color: $text-secondary;
+  cursor: help;
+}
+
+.right-sidenav__extras-label {
+  color: $text-primary;
+  font-size: $font-size-base;
+}
+
+.right-sidenav__extras-dropdown {
+  position: relative;
+}
+
+.right-sidenav__extras-dropdown-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 80px;
+  padding: 4px 8px;
+  background: $btn-bg;
+  color: $text-primary;
+  border: 1px solid $border-dim;
+  border-radius: $radius-sm;
+  font-size: $font-size-base;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $btn-hover;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.right-sidenav__extras-placeholder {
+  color: $text-secondary;
+  font-style: italic;
+}
+
+.right-sidenav__extras-dropdown-overlay {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: $bg-panel;
+  border: 1px solid $border-dim;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-dropdown;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+}
+
+.right-sidenav__extras-dropdown-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  background: none;
+  border: none;
+  color: $text-primary;
+  font-size: $font-size-base;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $bg-hover;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}

@@ -242,6 +242,24 @@ export class BuildStore {
     return this.statStore.canDecrementStat(state, stat, character);
   }
 
+  allocateBoulderCircle(stat: StatKey): void {
+    const state = this._state();
+    if (!state) return;
+    this.pushState({ ...state, boulderCircleStat: stat });
+  }
+
+  deallocateBoulderCircle(): void {
+    const state = this._state();
+    if (!state) return;
+    this.pushState({ ...state, boulderCircleStat: null });
+  }
+
+  canAllocateBoulderCircle(stat: StatKey): boolean {
+    const state = this._state();
+    if (!state) return false;
+    return state.boulderCircleStat !== stat;
+  }
+
   private applyPinTree(state: BuildState, treeId: string): BuildState | null {
     if (state.pinnedTrees.includes(treeId)) return null;
     return {
@@ -287,6 +305,7 @@ export class BuildStore {
       obtainedAbilities: [],
       pinnedTrees: this._state()?.pinnedTrees ?? [],
       statHistory: [],
+      boulderCircleStat: null,
     };
     this.levelStore.setLevel(initialState.level);
     this._state.set(initialState);

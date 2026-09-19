@@ -1,0 +1,43 @@
+<div class="right-sidenav__extras">
+  <div class="right-sidenav__extras-header">
+    <span class="right-sidenav__extras-title font-fantasy">Extras</span>
+  </div>
+  <div class="right-sidenav__extras-content">
+    <div class="right-sidenav__extras-row">
+      <div class="right-sidenav__extras-label-group">
+        <ng-icon
+          name="phosphorInfo"
+          class="right-sidenav__extras-icon"
+          appTooltip
+          tooltipText="Boulder Circle quest gives +1 SP"
+          tooltipPlacement="top"
+        ></ng-icon>
+        <span class="right-sidenav__extras-label">Boulder Circle</span>
+      </div>
+      <div class="right-sidenav__extras-dropdown">
+        <button class="right-sidenav__extras-dropdown-btn" (click)="toggleDropdown()">
+          @if (selectedStat()) {
+            <span [class]="getStatClass(selectedStat()!)">+1 {{ selectedStat() }}</span>
+          } @else {
+            <span class="right-sidenav__extras-placeholder">-</span>
+          }
+        </button>
+        @if (dropdownOpen()) {
+          <div class="right-sidenav__extras-dropdown-overlay">
+            <button class="right-sidenav__extras-dropdown-option" (click)="selectStat(null)">
+              <span class="right-sidenav__extras-placeholder">-</span>
+            </button>
+            @for (option of statOptions; track option.value) {
+              <button
+                class="right-sidenav__extras-dropdown-option"
+                (click)="selectStat(option.value)"
+              >
+                <span [class]="getStatClass(option.value)">+1 {{ option.value }}</span>
+              </button>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
