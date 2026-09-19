@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'stat-chips' as *;
 
 .right-sidenav__route {
   display: flex;
@@ -19,32 +20,11 @@
   font-size: $font-size-base;
   font-weight: 600;
   letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: background 0.15s;
-
-  &:hover {
-    background: $bg-hover;
-  }
-
-  &:focus-visible {
-    @include focus-ring;
-  }
 }
 
 .right-sidenav__route-title {
   color: $text-secondary;
   text-transform: uppercase;
-}
-
-.right-sidenav__route-chevron {
-  font-size: $font-size-xl;
-  color: $text-secondary;
-  transition: transform 0.2s;
-  transform: rotate(0deg);
-
-  &--open {
-    transform: rotate(90deg);
-  }
 }
 
 .right-sidenav__route-content {
@@ -166,30 +146,5 @@
 
   &:focus-visible {
     @include focus-ring;
-  }
-
-  &--str {
-    color: $stat-str;
-    background: rgba($stat-str, 0.15);
-  }
-
-  &--agi {
-    color: $stat-agi;
-    background: rgba($stat-agi, 0.15);
-  }
-
-  &--per {
-    color: $stat-per;
-    background: rgba($stat-per, 0.15);
-  }
-
-  &--vit {
-    color: $stat-vit;
-    background: rgba($stat-vit, 0.15);
-  }
-
-  &--wil {
-    color: $stat-wil;
-    background: rgba($stat-wil, 0.15);
   }
 }

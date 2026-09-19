@@ -1,8 +1,7 @@
-import { Component, inject, signal, computed, effect } from '@angular/core';
+import { Component, inject, computed, effect } from '@angular/core';
 import { BuildStore } from '@features/build/services/build-store';
 import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
 import { Ability, StatKey } from '@models';
-import { fadeInOut } from '@shared/animations/fade';
 
 interface RouteAbility {
   id: string;
@@ -26,14 +25,11 @@ interface RouteLevel {
   selector: 'app-route-display',
   templateUrl: './route-display.html',
   styleUrl: './route-display.scss',
-  animations: [fadeInOut],
 })
 export class RouteDisplayComponent {
   private readonly buildStore = inject(BuildStore);
   private readonly abilityData = inject(AbilityDataService);
   private readonly hoverService = inject(AbilityHoverService);
-
-  routeExpanded = signal(true);
 
   private allAbilities: Ability[] = [];
 
@@ -97,10 +93,6 @@ export class RouteDisplayComponent {
     return levels;
   });
 
-  toggleRoute(): void {
-    this.routeExpanded.update((v) => !v);
-  }
-
   onUnassignAbility(abilityId: string): void {
     this.buildStore.refundAbility(abilityId);
     this.hoverService.setHovered(null);
@@ -132,7 +124,7 @@ export class RouteDisplayComponent {
   }
 
   getStatClass(stat: StatKey): string {
-    return `right-sidenav__route-stat-chip right-sidenav__route-stat-chip--${stat.toLowerCase()}`;
+    return `stat-chip stat-chip--${stat.toLowerCase()}`;
   }
 
   trackByLevel(_index: number, level: RouteLevel): number {
