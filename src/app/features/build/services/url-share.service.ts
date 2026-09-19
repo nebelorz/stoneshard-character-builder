@@ -122,6 +122,14 @@ export class UrlShareService {
       return false;
     }
 
+    if (
+      s['boulderCircleStat'] !== undefined &&
+      s['boulderCircleStat'] !== null &&
+      typeof s['boulderCircleStat'] !== 'string'
+    ) {
+      return false;
+    }
+
     const loadedCharacters = characters ?? [];
     if (!loadedCharacters.some((c) => c.id === s['characterId'])) return false;
 

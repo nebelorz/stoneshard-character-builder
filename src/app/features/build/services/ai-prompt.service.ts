@@ -138,12 +138,15 @@ export class AiPromptService {
     const trait = this.sanitizeTableCell(
       `${character.trait.name} - ${character.trait.description}`,
     );
+    const boulderCircle = state.boulderCircleStat
+      ? `+1 ${state.boulderCircleStat}`
+      : 'Not allocated';
     const lines = [
       '## Character',
       '',
-      '| Name | Title | Race | Trait | Level |',
-      '| ---- | ----- | ---- | ----- | ----- |',
-      `| ${character.name} | ${character.title} | ${character.race} | ${trait} | ${state.level} |`,
+      '| Name | Title | Race | Trait | Level | Boulder Circle |',
+      '| ---- | ----- | ---- | ----- | ----- | -------------- |',
+      `| ${character.name} | ${character.title} | ${character.race} | ${trait} | ${state.level} | ${boulderCircle} |`,
     ];
     return lines.join('\n');
   }
