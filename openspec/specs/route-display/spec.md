@@ -84,15 +84,6 @@ The system SHALL compute the route display from existing obtainedAbilities and s
 - **WHEN** the user obtains or unassigns an ability, or allocates or deallocates a stat
 - **THEN** the Route display updates automatically
 
-### Requirement: Route toggle
-
-The system SHALL allow the user to collapse and expand the Route section.
-
-#### Scenario: Toggle route
-
-- **WHEN** the user clicks the Route header
-- **THEN** the section collapses or expands
-
 ### Requirement: Route click-to-remove cursor affordance
 
 The system SHALL display the same pointer cursor on assigned ability entries and assigned stat chips in the Route display, signaling that both can be clicked to remove them from the route.

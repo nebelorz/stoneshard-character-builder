@@ -1,10 +1,4 @@
-# url-sharing Specification
-
-## Purpose
-
-Serialize and deserialize build state into shareable URLs with gzip compression.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Build serialization
 
@@ -14,24 +8,6 @@ The system SHALL serialize the complete build state (character ID, level, AP, SP
 
 - **WHEN** a build is exported
 - **THEN** the JSON includes all fields of the BuildState model, including `boulderCircleStat`
-
-### Requirement: URL encoding
-
-The system SHALL compress the serialized build using gzip and encode it as base64url for use as a query parameter.
-
-#### Scenario: Shareable URL generated
-
-- **WHEN** the user clicks "Share"
-- **THEN** a URL with `?build=<compressed-data>` is copied to the clipboard
-
-### Requirement: URL import
-
-The system SHALL detect a `?build=` query parameter on page load and restore the build state from it.
-
-#### Scenario: Build restored from URL
-
-- **WHEN** a user opens a URL with a valid build parameter
-- **THEN** the app loads with the exact build state (character, level, stats, abilities, pinned trees, stat history)
 
 ### Requirement: Invalid build handling
 
@@ -71,15 +47,6 @@ The system SHALL gracefully handle invalid or corrupted build data in the URL wi
 
 - **WHEN** a URL is loaded that does not contain `boulderCircleStat`
 - **THEN** the system treats it as null (unallocated)
-
-### Requirement: Build param cleanup
-
-The system SHALL remove the `build` query parameter from the URL after successful restoration to keep the URL clean.
-
-#### Scenario: URL cleaned after restore
-
-- **WHEN** a build is successfully restored from URL
-- **THEN** the `?build=` parameter is removed from the browser URL bar
 
 ### Requirement: Backward compatibility
 

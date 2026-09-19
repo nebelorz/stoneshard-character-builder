@@ -1,10 +1,4 @@
-# ai-prompt-export Specification
-
-## Purpose
-
-Generate a formatted markdown prompt summarizing the build for AI analysis.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: AI prompt generation
 
@@ -25,20 +19,6 @@ The system SHALL generate a markdown document containing: character name, title,
 - **WHEN** no abilities have been obtained and no default active abilities exist
 - **THEN** the prompt includes "_No abilities obtained._" in the abilities section
 
-### Requirement: Copy to clipboard
-
-The system SHALL copy the generated markdown to the user's clipboard when the "Copy AI Prompt" button is clicked.
-
-#### Scenario: Clipboard updated
-
-- **WHEN** the user clicks "Copy AI Prompt"
-- **THEN** the markdown is copied to clipboard and a confirmation is shown
-
-#### Scenario: Clipboard failure
-
-- **WHEN** the clipboard API is unavailable or denied
-- **THEN** a toast notification appears with "Failed to copy to clipboard"
-
 ### Requirement: Prompt format
 
 The system SHALL format the AI prompt with clear sections: Character, Stats, Abilities, and Trees. The template instructions SHALL require the AI to answer with a single fixed table summary of build gameplay covering playstyle, win condition, ideal range, main combat loop, 1v1 and 1vX gameplans, core abilities, key synergies, stat priority, biggest strength, biggest weakness, and biggest mistake. The prompt SHALL NOT instruct the AI to analyze equipment, armor classes, or items.
@@ -53,20 +33,6 @@ The system SHALL format the AI prompt with clear sections: Character, Stats, Abi
 
 - **WHEN** the AI prompt is generated
 - **THEN** the prompt does not ask the AI to analyze or recommend equipment, armor classes, or items
-
-### Requirement: Stat allocation display
-
-The system SHALL show stat values with base and allocated amounts when points have been invested.
-
-#### Scenario: Stat with allocation
-
-- **WHEN** a stat has been incremented above base
-- **THEN** the prompt shows "current (base+allocated)" format
-
-#### Scenario: Stat at base
-
-- **WHEN** a stat equals the base value
-- **THEN** the prompt shows just the value
 
 ### Requirement: Boulder Circle display in prompt
 
