@@ -2,7 +2,7 @@
 
 A build planner for [StoneShard](https://store.steampowered.com/app/625960/STONESHARD/). Plan stat allocations, map out ability trees, and share your builds with others.
 
-![Stoneshard-Main-Page](src\assets\readme-screenshots\image.png)
+![Stoneshard-Main-Page](src/assets/readme-screenshots/image.png)
 
 ---
 
@@ -24,8 +24,8 @@ A build planner for [StoneShard](https://store.steampowered.com/app/625960/STONE
 
 Pick any character in the left panel. Each one has its unique trait, stats and unlocked treatises.
 
-![Character-Selector](src\assets\readme-screenshots\image-1.png)  
-![Unlocked-Treatises](src\assets\readme-screenshots\image-2.png)
+![Character-Selector](src/assets/readme-screenshots/image-1.png)  
+![Unlocked-Treatises](src/assets/readme-screenshots/image-2.png)
 
 ### 2. Set Your Level
 
@@ -33,13 +33,13 @@ Use the level controls to set your build level. You can go up or down by 1 or 5 
 
 Spend stat points across STR, AGI, PER, VIT, and WIL. The counters show how many Ability Points (AP) and Stat Points (SP) you have left.  
 
-![Character-Stats](src\assets\readme-screenshots\image-3.png)
+![Character-Stats](src/assets/readme-screenshots/image-3.png)
 
 ### 3. Pick Your Trees
 
 Browse trees in the main area by category (Weaponry, Utility, Sorcery). Click a tree to pin it to your build.
 
-![Tree-Selector](src\assets\readme-screenshots\image-4.png)
+![Tree-Selector](src/assets/readme-screenshots/image-4.png)
 
 ### 4. Obtain Abilities
 
@@ -48,13 +48,13 @@ Browse trees in the main area by category (Weaponry, Utility, Sorcery). Click a 
 
 Each ability displays its requirements, energy cost, cooldown, and what stats it scales with.
 
-![Ability-Tooltip](src\assets\readme-screenshots\image-5.png)
+![Ability-Tooltip](src/assets/readme-screenshots/image-5.png)
 
 ### 5. Follow Your Route
 
 The right panel shows a level-by-level breakdown of your build, so you know exactly when to assign each stat and ability as you level up in-game.
 
-![Route-Display](src\assets\readme-screenshots\image-6.png)
+![Route-Display](src/assets/readme-screenshots/image-6.png)
 
 ### 6. Share Your Build
 
@@ -63,8 +63,8 @@ Send it to anyone.
 
 There's also an option to ask your preferred AI agent how the build works, strengths/weaknesses and overall insights of the build via a prompt.
 
-![Share-Build](src\assets\readme-screenshots\image-7.png)
-![AI-Prompt](src\assets\readme-screenshots\image-8.png)
+![Share-Build](src/assets/readme-screenshots/image-7.png)
+![AI-Prompt](src/assets/readme-screenshots/image-8.png)
 ---
 
 ## For Developers
