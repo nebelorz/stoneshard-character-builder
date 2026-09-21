@@ -42,7 +42,6 @@
 .right-sidenav__extras-icon {
   font-size: $font-size-sm;
   color: $text-secondary;
-  cursor: help;
 }
 
 .right-sidenav__extras-label {
@@ -60,7 +59,7 @@
   justify-content: center;
   min-width: 80px;
   padding: 4px 8px;
-  background: $btn-bg;
+  background: transparent;
   color: $text-primary;
   border: 1px solid $border-dim;
   border-radius: $radius-sm;
@@ -118,4 +117,50 @@
   &:focus-visible {
     @include focus-ring;
   }
+}
+
+.right-sidenav__extras-row--notes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 8px;
+  padding: 4px;
+  margin: 8px -4px 0;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition:
+    color 0.15s,
+    background 0.15s;
+
+  &:hover {
+    background: $btn-hover;
+  }
+}
+
+.right-sidenav__extras-notes-title,
+.right-sidenav__extras-notes-author {
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.right-sidenav__extras-notes-preview {
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.right-sidenav__extras-notes-placeholder {
+  color: $text-secondary;
+  font-size: $font-size-sm;
+  font-style: italic;
 }

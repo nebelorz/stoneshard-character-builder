@@ -19,13 +19,13 @@
           @if (selectedStat()) {
             <span [class]="getStatClass(selectedStat()!)">+1 {{ selectedStat() }}</span>
           } @else {
-            <span class="right-sidenav__extras-placeholder">-</span>
+            <span class="right-sidenav__extras-placeholder">--</span>
           }
         </button>
         @if (dropdownOpen()) {
           <div class="right-sidenav__extras-dropdown-overlay">
             <button class="right-sidenav__extras-dropdown-option" (click)="selectStat(null)">
-              <span class="right-sidenav__extras-placeholder">-</span>
+              <span class="right-sidenav__extras-placeholder">--</span>
             </button>
             @for (option of statOptions; track option.value) {
               <button
@@ -38,6 +38,25 @@
           </div>
         }
       </div>
+    </div>
+    <div class="right-sidenav__extras-row--notes" (click)="openNotes.emit()">
+      <div class="right-sidenav__extras-label-group">
+        <ng-icon
+          name="phosphorNote"
+          class="right-sidenav__extras-icon"
+          appTooltip
+          tooltipText="Author notes about this build"
+          tooltipPlacement="top"
+        ></ng-icon>
+        <span class="right-sidenav__extras-label">Notes</span>
+      </div>
+      @if (notesPreview(); as preview) {
+        <span class="right-sidenav__extras-notes-title">▸ Name {{ preview.buildName || '--' }}</span>
+        <span class="right-sidenav__extras-notes-author">▸ Author: {{ preview.author || '--' }}</span>
+        <span class="right-sidenav__extras-notes-preview">▸ Notes: {{ preview.contentPreview || '--' }}</span>
+      } @else {
+        <span class="right-sidenav__extras-notes-placeholder">No notes for this build</span>
+      }
     </div>
   </div>
 </div>

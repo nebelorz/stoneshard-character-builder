@@ -1,8 +1,8 @@
-import { Component, inject, signal, computed, ElementRef, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, output } from '@angular/core';
 import { BuildStore } from '@features/build/services/build-store';
 import { StatKey, STAT_KEYS } from '@models';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
+import { phosphorInfo, phosphorNote } from '@ng-icons/phosphor-icons/regular';
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
 
 interface StatOption {
@@ -15,11 +15,13 @@ interface StatOption {
   templateUrl: './extras-display.html',
   styleUrl: './extras-display.scss',
   imports: [NgIcon, TooltipDirective],
-  providers: [provideIcons({ phosphorInfo })],
+  providers: [provideIcons({ phosphorInfo, phosphorNote })],
+  host: {
+    '(document:click)': 'onDocumentClick($event)',
+  },
 })
 export class ExtrasDisplayComponent {
   private readonly buildStore = inject(BuildStore);
-  private readonly elementRef = inject(ElementRef);
 
   readonly statOptions: StatOption[] = STAT_KEYS.map((stat) => ({
     value: stat,
@@ -31,7 +33,19 @@ export class ExtrasDisplayComponent {
     return state?.boulderCircleStat ?? null;
   });
 
+  readonly notesPreview = computed(() => {
+    const state = this.buildStore.state();
+    if (!state?.notes) return null;
+    const { buildName, author, content } = state.notes;
+    return {
+      buildName,
+      author,
+      contentPreview: content.length > 80 ? content.substring(0, 80) + '...' : content,
+    };
+  });
+
   dropdownOpen = signal(false);
+  readonly openNotes = output<void>();
 
   toggleDropdown(): void {
     this.dropdownOpen.update((v) => !v);
@@ -46,10 +60,10 @@ export class ExtrasDisplayComponent {
     this.dropdownOpen.set(false);
   }
 
-  @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     const target = event.target as HTMLElement;
-    if (!this.elementRef.nativeElement.contains(target)) {
+    const host = document.querySelector('app-extras-display');
+    if (host && !host.contains(target)) {
       this.dropdownOpen.set(false);
     }
   }
