@@ -14,7 +14,10 @@
       </main>
     }
   </div>
-  <app-right-sidenav [(isOpen)]="isRightSidenavOpen"></app-right-sidenav>
+  <app-right-sidenav
+    [(isOpen)]="isRightSidenavOpen"
+    (openNotes)="onOpenNotes()"
+  ></app-right-sidenav>
 </div>
 <app-toast />
 
@@ -59,3 +62,12 @@
     }
   }
 }
+
+<app-notes-modal
+  [(isOpen)]="notesModalOpen"
+  [initialBuildName]="notesBuildName()"
+  [initialAuthor]="notesAuthor()"
+  [initialContent]="notesContent()"
+  (save)="onSaveNotes($event)"
+  (close)="onCloseNotes()"
+/>

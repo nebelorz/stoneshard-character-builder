@@ -8,12 +8,14 @@ import { ErrorComponent } from '@shared/ui/error/error';
 import { ToastComponent } from '@shared/ui/toast/toast';
 import { PopoverComponent } from '@shared/ui/popover/popover';
 import { ConfirmPopupComponent } from '@shared/ui/confirm-popup/confirm-popup';
+import { NotesModalComponent } from '@shared/ui/notes-modal/notes-modal';
 import { ToastService, PopupService } from '@shared/services';
 import { copyWithFeedback } from '@shared/utils/clipboard';
 import { BuildStore, UrlShareService, AiPromptService } from '@features/build/services';
 import { AbilityDataService } from '@features/ability-trees/services';
 import { CharacterDataService } from '@features/character/services';
 import { fadeInOut } from '@shared/animations/fade';
+import { BuildNotes } from '@models';
 
 @Component({
   imports: [
@@ -24,6 +26,7 @@ import { fadeInOut } from '@shared/animations/fade';
     ToastComponent,
     PopoverComponent,
     ConfirmPopupComponent,
+    NotesModalComponent,
   ],
   selector: 'app-root',
   styleUrl: './app.scss',
@@ -39,6 +42,11 @@ export class AppComponent {
 
   readonly shareUrlCopied = signal(false);
   readonly aiPromptCopied = signal(false);
+
+  readonly notesModalOpen = signal(false);
+  readonly notesBuildName = signal('');
+  readonly notesAuthor = signal('');
+  readonly notesContent = signal('');
 
   @ViewChild(LeftSidenavComponent, { read: ElementRef })
   private leftSidenavRef!: ElementRef<HTMLElement>;
@@ -135,5 +143,28 @@ export class AppComponent {
   onResetConfirm(): void {
     this.buildStore.reset();
     this.popupService.close();
+  }
+
+  onOpenNotes(): void {
+    const state = this.buildStore.state();
+    if (state?.notes) {
+      this.notesBuildName.set(state.notes.buildName);
+      this.notesAuthor.set(state.notes.author);
+      this.notesContent.set(state.notes.content);
+    } else {
+      this.notesBuildName.set('');
+      this.notesAuthor.set('');
+      this.notesContent.set('');
+    }
+    this.notesModalOpen.set(true);
+  }
+
+  onSaveNotes(notes: BuildNotes): void {
+    this.buildStore.applySetNotes(notes);
+    this.notesModalOpen.set(false);
+  }
+
+  onCloseNotes(): void {
+    this.notesModalOpen.set(false);
   }
 }

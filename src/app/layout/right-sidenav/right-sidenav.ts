@@ -1,4 +1,4 @@
-import { Component, model } from '@angular/core';
+import { Component, model, output } from '@angular/core';
 import { RouteDisplayComponent, ExtrasDisplayComponent } from '@features/build/components';
 
 @Component({
@@ -9,6 +9,7 @@ import { RouteDisplayComponent, ExtrasDisplayComponent } from '@features/build/c
 })
 export class RightSidenavComponent {
   isOpen = model(true);
+  readonly openNotes = output<void>();
 
   toggle(): void {
     this.isOpen.update((v) => !v);

@@ -9,7 +9,7 @@ import {
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
 import { iconHover } from '@shared/animations/icon-hover';
 
-const VERSION = 'v0.0.3b';
+const VERSION = 'v0.0.4b';
 const DISCORD_URL = 'https://discord.com/users/neBelorz%238759';
 const GITHUB_URL = 'https://github.com/nebelorz/stoneshard-character-builder';
 const STONESHARD_DATA_VERSION = 'Data extracted from Stoneshard v0.9.4.25';

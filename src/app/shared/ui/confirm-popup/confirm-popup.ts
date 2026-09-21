@@ -16,6 +16,9 @@ import { PopoverComponent } from '@shared/ui/popover/popover';
         <button class="confirm-popup__btn confirm-popup__btn--confirm" (click)="onConfirm()">
           Confirm
         </button>
+        <button class="confirm-popup__btn confirm-popup__btn--cancel" (click)="onCancel()">
+          Cancel
+        </button>
       </div>
     </app-popover>
   `,
@@ -63,16 +66,31 @@ import { PopoverComponent } from '@shared/ui/popover/popover';
         background: $button-red-hover;
       }
     }
+
+    .confirm-popup__btn--cancel {
+      background: $btn-bg;
+      color: $text-primary;
+
+      &:hover {
+        background: $btn-hover;
+      }
+    }
   `,
 })
 export class ConfirmPopupComponent {
   readonly message = input<string>('Are you sure?');
   readonly isOpen = model(false);
   readonly confirm = output<void>();
+  readonly cancel = output<void>();
   readonly triggerElement = input<HTMLElement | null>(null);
 
   onConfirm(): void {
     this.confirm.emit();
+    this.isOpen.set(false);
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
     this.isOpen.set(false);
   }
 }
