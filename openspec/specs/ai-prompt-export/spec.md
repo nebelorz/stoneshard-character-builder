@@ -8,12 +8,22 @@ Generate a formatted markdown prompt summarizing the build for AI analysis.
 
 ### Requirement: AI prompt generation
 
-The system SHALL generate a markdown document containing: character name, title, race, trait, level, stat allocations, all obtained abilities in acquisition order plus all default active abilities, with their full descriptions, metadata for each referenced ability tree, and Boulder Circle bonus information, formatted as compact markdown tables.
+The system SHALL generate a markdown document containing: character name, title, race, trait, level, stat allocations, all obtained abilities in acquisition order plus all default active abilities, with their full descriptions, metadata for each referenced ability tree, Boulder Circle bonus information, and build notes (if present), formatted as compact markdown tables.
 
 #### Scenario: Prompt includes all build data
 
 - **WHEN** the user clicks "Copy AI Prompt"
-- **THEN** a markdown string is generated with character info, stats, an ordered ability table that includes both obtained and default active abilities, tree metadata, and Boulder Circle allocation
+- **THEN** a markdown string is generated with character info, stats, an ordered ability table that includes both obtained and default active abilities, tree metadata, Boulder Circle allocation, and notes section
+
+#### Scenario: Notes section included when present
+
+- **WHEN** the build has non-empty notes (any of buildName, author, or content)
+- **THEN** the prompt includes a "## Notes" section after the existing sections containing the user's notes text, preceded by the line "The user provides these notes and insights about this character build:"
+
+#### Scenario: Notes section omitted when empty
+
+- **WHEN** the build has no notes (all fields empty)
+- **THEN** the prompt does not include a Notes section
 
 #### Scenario: Default active ability always included
 
@@ -41,12 +51,12 @@ The system SHALL copy the generated markdown to the user's clipboard when the "C
 
 ### Requirement: Prompt format
 
-The system SHALL format the AI prompt with clear sections: Character, Stats, Abilities, and Trees. The template instructions SHALL require the AI to answer with a single fixed table summary of build gameplay covering playstyle, win condition, ideal range, main combat loop, 1v1 and 1vX gameplans, core abilities, key synergies, stat priority, biggest strength, biggest weakness, and biggest mistake. The prompt SHALL NOT instruct the AI to analyze equipment, armor classes, or items.
+The system SHALL format the AI prompt with clear sections: Character, Stats, Abilities, Trees, and Notes (when present). The template instructions SHALL require the AI to answer with a single fixed table summary of build gameplay covering playstyle, win condition, ideal range, main combat loop, 1v1 and 1vX gameplans, core abilities, key synergies, stat priority, biggest strength, biggest weakness, and biggest mistake. The prompt SHALL NOT instruct the AI to analyze equipment, armor classes, or items.
 
 #### Scenario: Structured prompt
 
 - **WHEN** the AI prompt is generated
-- **THEN** it contains markdown sections for Character, Stats, Abilities, and Trees
+- **THEN** it contains markdown sections for Character, Stats, Abilities, Trees, and Notes (if present)
 - **AND** the template instructs a single table summary output
 
 #### Scenario: No equipment analysis
