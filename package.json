@@ -1,6 +1,6 @@
 {
   "name": "stoneshard-character-builder",
-  "version": "0.0.3b",
+  "version": "0.0.4b",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
