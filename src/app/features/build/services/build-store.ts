@@ -1,5 +1,5 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { BuildState, Character, Ability, StatKey } from '@models';
+import { BuildState, BuildNotes, Character, Ability, StatKey } from '@models';
 import { CharacterDataService, LevelStore, StatStore } from '@features/character/services';
 import { AbilityDataService, AbilityStore } from '@features/ability-trees/services';
 
@@ -106,7 +106,10 @@ export class BuildStore {
     }
 
     this.levelStore.setLevel(state.level);
-    this._state.set({ ...state });
+    this._state.set({
+      ...state,
+      notes: state.notes ?? { buildName: '', author: '', content: '' },
+    });
   }
 
   levelUp(): void {
@@ -254,6 +257,15 @@ export class BuildStore {
     this.pushState({ ...state, boulderCircleStat: null });
   }
 
+  applySetNotes(notes: Partial<BuildNotes>): void {
+    const state = this._state();
+    if (!state) return;
+    this.pushState({
+      ...state,
+      notes: { ...state.notes, ...notes },
+    });
+  }
+
   canAllocateBoulderCircle(stat: StatKey): boolean {
     const state = this._state();
     if (!state) return false;
@@ -306,6 +318,7 @@ export class BuildStore {
       pinnedTrees: this._state()?.pinnedTrees ?? [],
       statHistory: [],
       boulderCircleStat: null,
+      notes: { buildName: '', author: '', content: '' },
     };
     this.levelStore.setLevel(initialState.level);
     this._state.set(initialState);

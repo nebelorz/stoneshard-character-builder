@@ -84,11 +84,20 @@ export class UrlShareService {
       if (!buildParam) return { error: 'no_build' };
 
       const json = await decompress(buildParam);
-      const state = JSON.parse(json) as BuildState;
+      const parsed = JSON.parse(json) as Record<string, unknown>;
 
-      if (!this.isValidBuildState(state, this.characterData.characters.value())) {
+      if (!this.isValidBuildState(parsed, this.characterData.characters.value())) {
         return { error: 'Could not restore build from URL, starting fresh' };
       }
+
+      const state: BuildState = {
+        ...(parsed as unknown as BuildState),
+        notes: (parsed['notes'] as BuildState['notes']) ?? {
+          buildName: '',
+          author: '',
+          content: '',
+        },
+      };
 
       return { state };
     } catch {
@@ -128,6 +137,18 @@ export class UrlShareService {
       typeof s['boulderCircleStat'] !== 'string'
     ) {
       return false;
+    }
+
+    if (s['notes'] !== undefined && s['notes'] !== null) {
+      if (typeof s['notes'] !== 'object') return false;
+      const notes = s['notes'] as Record<string, unknown>;
+      if (
+        (notes['buildName'] !== undefined && typeof notes['buildName'] !== 'string') ||
+        (notes['author'] !== undefined && typeof notes['author'] !== 'string') ||
+        (notes['content'] !== undefined && typeof notes['content'] !== 'string')
+      ) {
+        return false;
+      }
     }
 
     const loadedCharacters = characters ?? [];

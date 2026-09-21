@@ -12,6 +12,12 @@ export interface StatAssignment {
   readonly stat: StatKey;
 }
 
+export interface BuildNotes {
+  readonly buildName: string;
+  readonly author: string;
+  readonly content: string;
+}
+
 export interface BuildState {
   readonly characterId: string;
   readonly level: number;
@@ -22,4 +28,5 @@ export interface BuildState {
   readonly pinnedTrees: readonly string[];
   readonly statHistory: readonly StatAssignment[];
   readonly boulderCircleStat: StatKey | null;
+  readonly notes: BuildNotes;
 }

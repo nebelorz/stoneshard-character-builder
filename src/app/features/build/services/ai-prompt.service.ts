@@ -51,6 +51,11 @@ export class AiPromptService {
     sections.push(this.buildAbilitiesSection(state, allAbilities));
     sections.push(this.buildTreesSection(relevantTrees));
 
+    const notesSection = this.buildNotesSection(state);
+    if (notesSection) {
+      sections.push(notesSection);
+    }
+
     return template + '\n\n' + sections.join('\n\n');
   }
 
@@ -206,6 +211,24 @@ export class AiPromptService {
         `| ${tree.name} | ${tree.category} | ${tree.focus} | ${this.sanitizeTableCell(tree.critEffect)} |`,
       );
     }
+
+    return lines.join('\n');
+  }
+
+  private buildNotesSection(state: BuildState): string | null {
+    const { buildName, author, content } = state.notes;
+    if (!buildName && !author && !content) return null;
+
+    const lines = [
+      '## Notes',
+      '',
+      'The user provides these notes and insights about this character build:',
+      '',
+    ];
+
+    if (buildName) lines.push(`**Build Name:** ${buildName}`);
+    if (author) lines.push(`**Author:** ${author}`);
+    if (content) lines.push(content);
 
     return lines.join('\n');
   }
