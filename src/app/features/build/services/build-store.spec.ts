@@ -23,6 +23,7 @@ function restoreLevelState(s: BuildStore, level: number): void {
     pinnedTrees: [],
     statHistory: [],
     boulderCircleStat: null,
+    notes: { buildName: '', author: '', content: '' },
   });
 }
 
@@ -520,6 +521,7 @@ describe('BuildStore', () => {
         pinnedTrees: ['warfare'],
         statHistory: [{ level: 2, order: 1, stat: 'STR' as const }],
         boulderCircleStat: null,
+        notes: { buildName: '', author: '', content: '' },
       };
       store.restoreState(state);
       const restored = getReadyState(store);

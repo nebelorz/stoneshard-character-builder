@@ -40,6 +40,7 @@ const KNOWN_STATE: BuildState = {
   pinnedTrees: [],
   statHistory: [],
   boulderCircleStat: null,
+  notes: { buildName: '', author: '', content: '' },
 };
 
 function setCurrentUrl(url: string): void {

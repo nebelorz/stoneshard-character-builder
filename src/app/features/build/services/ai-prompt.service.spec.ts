@@ -181,6 +181,7 @@ function buildState(obtainedAbilities: { abilityId: string; level: number; order
   pinnedTrees: string[];
   statHistory: never[];
   boulderCircleStat: null;
+  notes: { buildName: string; author: string; content: string };
 } {
   return {
     characterId: 'jorna',
@@ -192,6 +193,7 @@ function buildState(obtainedAbilities: { abilityId: string; level: number; order
     pinnedTrees: [],
     statHistory: [],
     boulderCircleStat: null,
+    notes: { buildName: '', author: '', content: '' },
   };
 }
 

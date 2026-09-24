@@ -107,6 +107,7 @@ describe('RouteDisplayComponent', () => {
       pinnedTrees: [],
       statHistory: [],
       boulderCircleStat: null,
+      notes: { buildName: '', author: '', content: '' },
     });
   }
 
