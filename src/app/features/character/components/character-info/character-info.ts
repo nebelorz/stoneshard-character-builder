@@ -22,8 +22,22 @@ export class CharacterInfoComponent {
       .filter((tree): tree is AbilityTree => tree !== undefined);
   });
 
+  readonly pinnedTrees = computed(() => this.buildStore.state()?.pinnedTrees ?? []);
+
   getTreeIconPath(tree: AbilityTree): string {
     return `assets/icons/${tree.id}/${tree.id}_tree_icon.png`;
+  }
+
+  isPinned(treeId: string): boolean {
+    return this.pinnedTrees().includes(treeId);
+  }
+
+  togglePin(tree: AbilityTree): void {
+    if (this.isPinned(tree.id)) {
+      this.buildStore.unpinTree(tree.id);
+    } else {
+      this.buildStore.pinTree(tree.id);
+    }
   }
 
   trackByTreeId(_index: number, tree: AbilityTree): string {

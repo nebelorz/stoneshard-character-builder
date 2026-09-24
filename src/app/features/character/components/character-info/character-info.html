@@ -1,10 +1,15 @@
 @if (startingTrees().length > 0) {
   <section class="character-info">
-    <div class="character-info__heading font-fantasy">Unlocked at start</div>
+    <div class="character-info__heading font-fantasy">Character Unlocked Trees</div>
     <ul class="character-info__list">
       @for (tree of startingTrees(); track trackByTreeId($index, tree)) {
         <li class="character-info__item">
-          <button class="character-info__row">
+          <button
+            class="character-info__row"
+            [class.character-info__row--pinned]="isPinned(tree.id)"
+            [attr.aria-pressed]="isPinned(tree.id) ? 'true' : 'false'"
+            (click)="togglePin(tree)"
+          >
             <img
               class="character-info__tree-icon"
               [src]="getTreeIconPath(tree)"

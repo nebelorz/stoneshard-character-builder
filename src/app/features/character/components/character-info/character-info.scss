@@ -28,11 +28,24 @@
     background: transparent;
     border: none;
     border-radius: $radius-sm;
-    cursor: default;
+    cursor: pointer;
     text-align: left;
+    transition: all 0.15s;
+
+    &:hover {
+      background: $bg-hover;
+    }
 
     &:focus-visible {
       @include focus-ring;
+    }
+
+    &--pinned {
+      background: rgba($gold-accent, 0.1);
+
+      &:hover {
+        background: rgba($gold-accent, 0.15);
+      }
     }
   }
 
