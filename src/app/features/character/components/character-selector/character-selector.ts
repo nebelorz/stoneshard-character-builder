@@ -20,6 +20,8 @@ import { BuildStore } from '@features/build/services';
 import { CharacterDataService } from '@features/character/services';
 import { Character } from '@models';
 import { fadeInOut } from '@shared/animations/fade';
+import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
+import { TraitTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
 
 interface CharacterOptionItem extends Highlightable {
   id: string;
@@ -33,24 +35,17 @@ const DROPDOWN_POSITIONS: ConnectedPosition[] = [
   { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom', offsetY: -4 },
 ];
 
-const TOOLTIP_POSITIONS: ConnectedPosition[] = [
-  { originX: 'end', originY: 'top', overlayX: 'start', overlayY: 'top', offsetX: 8 },
-  { originX: 'start', originY: 'top', overlayX: 'end', overlayY: 'top', offsetX: -8 },
-];
-
 @Component({
   selector: 'app-character-selector',
   host: { '(document:click)': 'onDocumentClick($event)' },
   templateUrl: './character-selector.html',
   styleUrl: './character-selector.scss',
   animations: [fadeInOut],
+  imports: [EnrichedTooltipDirective],
 })
 export class CharacterSelectorComponent implements OnInit, OnDestroy {
   @ViewChild('toggleBtn') toggleBtnRef!: ElementRef<HTMLButtonElement>;
-  @ViewChild('traitIcon') traitIconRef!: ElementRef<HTMLDivElement>;
   @ViewChild('dropdownTemplate') dropdownTemplate!: TemplateRef<unknown>;
-  @ViewChild('traitBubbleTemplate') traitBubbleTemplate!: TemplateRef<unknown>;
-  @ViewChild('traitTooltipTemplate') traitTooltipTemplate!: TemplateRef<unknown>;
   @ViewChildren('optionBtn') optionBtns!: QueryList<ElementRef<HTMLButtonElement>>;
 
   keyManager!: ActiveDescendantKeyManager<CharacterOptionItem>;
@@ -59,8 +54,26 @@ export class CharacterSelectorComponent implements OnInit, OnDestroy {
   currentCharacter = computed(() => this.buildStore.character());
   allCharacters = signal<Character[]>([]);
   dropdownOpen = signal(false);
-  hoveredCharacter = signal<Character | null>(null);
-  traitHovered = signal(false);
+
+  readonly currentTraitContent = computed<TraitTooltipContent | null>(() => {
+    const character = this.currentCharacter();
+    if (!character) {
+      return null;
+    }
+    return {
+      kind: 'trait',
+      name: character.trait.name,
+      description: character.trait.description,
+    };
+  });
+
+  traitContentFor(character: Character): TraitTooltipContent {
+    return {
+      kind: 'trait',
+      name: character.trait.name,
+      description: character.trait.description,
+    };
+  }
 
   private readonly buildStore = inject(BuildStore);
   private readonly characterData = inject(CharacterDataService);
@@ -70,8 +83,6 @@ export class CharacterSelectorComponent implements OnInit, OnDestroy {
   private scrollListener: (() => void) | null = null;
 
   private dropdownOverlayRef: OverlayRef | null = null;
-  private traitBubbleOverlayRef: OverlayRef | null = null;
-  private traitTooltipOverlayRef: OverlayRef | null = null;
 
   private readonly charactersEffect = effect(() => {
     const chars = this.characterData.characters.value();
@@ -122,26 +133,6 @@ export class CharacterSelectorComponent implements OnInit, OnDestroy {
     }
   });
 
-  private readonly traitBubbleEffect = effect(() => {
-    const hovered = this.traitHovered();
-    const isOpen = this.dropdownOpen();
-    if (hovered && !isOpen) {
-      this.showTraitBubble();
-    } else {
-      this.hideTraitBubble();
-    }
-  });
-
-  private readonly traitTooltipEffect = effect(() => {
-    const hovered = this.hoveredCharacter();
-    const isOpen = this.dropdownOpen();
-    if (hovered && isOpen) {
-      this.showTraitTooltip(hovered);
-    } else {
-      this.hideTraitTooltip();
-    }
-  });
-
   ngOnInit(): void {
     const sideNav = this.elementRef.nativeElement.closest('.left-sidenav');
     if (sideNav) {
@@ -154,8 +145,6 @@ export class CharacterSelectorComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.hideDropdown();
-    this.hideTraitBubble();
-    this.hideTraitTooltip();
     if (this.scrollListener) {
       const sideNav = this.elementRef.nativeElement.closest('.left-sidenav');
       if (sideNav) {
@@ -269,84 +258,6 @@ export class CharacterSelectorComponent implements OnInit, OnDestroy {
       this.dropdownOverlayRef.detach();
       this.dropdownOverlayRef.dispose();
       this.dropdownOverlayRef = null;
-    }
-  }
-
-  private showTraitBubble(): void {
-    if (this.traitBubbleOverlayRef || !this.traitIconRef) {
-      return;
-    }
-
-    const strategy = this.overlay
-      .position()
-      .flexibleConnectedTo(this.traitIconRef)
-      .withPositions([
-        { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top', offsetY: 4 },
-      ]);
-
-    this.traitBubbleOverlayRef = this.overlay.create({
-      positionStrategy: strategy,
-      hasBackdrop: false,
-    });
-
-    const portal = new TemplatePortal(this.traitBubbleTemplate, this.viewContainerRef);
-    this.traitBubbleOverlayRef.attach(portal);
-  }
-
-  private hideTraitBubble(): void {
-    if (this.traitBubbleOverlayRef) {
-      this.traitBubbleOverlayRef.detach();
-      this.traitBubbleOverlayRef.dispose();
-      this.traitBubbleOverlayRef = null;
-    }
-  }
-
-  private showTraitTooltip(character: Character): void {
-    this.hideTraitTooltip();
-
-    const index = this.allCharacters().indexOf(character);
-    if (index === -1) {
-      return;
-    }
-
-    if (!this.dropdownOverlayRef) {
-      return;
-    }
-
-    const dropdownEl = this.dropdownOverlayRef.hostElement.querySelector(
-      '.char-selector__dropdown',
-    );
-    if (!dropdownEl) {
-      return;
-    }
-
-    const options = dropdownEl.querySelectorAll('.char-selector__option');
-    const optionEl = options[index] as HTMLElement;
-    if (!optionEl) {
-      return;
-    }
-
-    const optionRef = new ElementRef(optionEl);
-    const strategy = this.overlay
-      .position()
-      .flexibleConnectedTo(optionRef)
-      .withPositions(TOOLTIP_POSITIONS);
-
-    this.traitTooltipOverlayRef = this.overlay.create({
-      positionStrategy: strategy,
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      hasBackdrop: false,
-    });
-
-    const portal = new TemplatePortal(this.traitTooltipTemplate, this.viewContainerRef);
-    this.traitTooltipOverlayRef.attach(portal);
-  }
-
-  private hideTraitTooltip(): void {
-    if (this.traitTooltipOverlayRef) {
-      this.traitTooltipOverlayRef.detach();
-      this.traitTooltipOverlayRef.dispose();
-      this.traitTooltipOverlayRef = null;
     }
   }
 

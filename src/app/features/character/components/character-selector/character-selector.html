@@ -28,15 +28,13 @@
     }
     @if (currentCharacter(); as c) {
       <div
-        #traitIcon
         class="char-selector__trait-icon"
         tabindex="0"
         role="img"
         [attr.aria-label]="c.trait.name"
-        (mouseenter)="traitHovered.set(true)"
-        (mouseleave)="traitHovered.set(false)"
-        (focus)="traitHovered.set(true)"
-        (blur)="traitHovered.set(false)"
+        appEnrichedTooltip
+        [content]="currentTraitContent()"
+        tooltipPlacement="bottom"
       >
         <span class="char-selector__trait-icon-letter font-fantasy">{{
           c.trait.name.charAt(0)
@@ -71,8 +69,9 @@
           tabindex="-1"
           role="option"
           (click)="selectCharacter(character.id)"
-          (mouseenter)="hoveredCharacter.set(character)"
-          (mouseleave)="hoveredCharacter.set(null)"
+          appEnrichedTooltip
+          [content]="traitContentFor(character)"
+          tooltipPlacement="right"
           (keydown)="onOptionKeydown($event, i)"
         >
           <img
@@ -93,31 +92,5 @@
         </button>
       }
     </div>
-  }
-</ng-template>
-
-<ng-template #traitBubbleTemplate>
-  @if (traitHovered() && !dropdownOpen() && currentCharacter(); as char) {
-    <div class="char-selector__trait-bubble" role="tooltip">
-      <div class="char-selector__trait-bubble-name font-fantasy">
-        {{ char.trait.name }}
-      </div>
-      <div class="char-selector__trait-bubble-desc font-ui">
-        {{ char.trait.description }}
-      </div>
-    </div>
-  }
-</ng-template>
-
-<ng-template #traitTooltipTemplate>
-  @if (hoveredCharacter(); as hovered) {
-    @if (dropdownOpen()) {
-      <div class="char-selector__tooltip">
-        <div class="char-selector__trait">
-          <span class="char-selector__trait-name font-fantasy">{{ hovered.trait.name }}</span>
-          <span class="char-selector__trait-desc font-ui">{{ hovered.trait.description }}</span>
-        </div>
-      </div>
-    }
   }
 </ng-template>

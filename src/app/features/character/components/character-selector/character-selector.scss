@@ -100,28 +100,6 @@
     line-height: 1;
   }
 
-  &__trait-bubble {
-    @include game-panel-gold;
-    width: 240px;
-    max-width: 240px;
-    margin-top: 4px;
-    padding: 10px 12px;
-    pointer-events: none;
-  }
-
-  &__trait-bubble-name {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold;
-    color: $gold-bright;
-    margin-bottom: 4px;
-  }
-
-  &__trait-bubble-desc {
-    font-size: $font-size-sm;
-    line-height: 1.5;
-    color: $text-secondary;
-  }
-
   &__arrow {
     font-size: $font-size-xl;
     color: $text-secondary;
@@ -230,30 +208,5 @@
     border-radius: 3px;
     white-space: nowrap;
     flex-shrink: 0;
-  }
-
-  &__tooltip {
-    @include game-panel-gold;
-    width: 260px;
-    padding: 10px 12px;
-    pointer-events: none;
-  }
-
-  &__trait {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  &__trait-name {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-bold;
-    color: $gold-bright;
-  }
-
-  &__trait-desc {
-    font-size: $font-size-sm;
-    line-height: 1.5;
-    color: $text-secondary;
   }
 }
