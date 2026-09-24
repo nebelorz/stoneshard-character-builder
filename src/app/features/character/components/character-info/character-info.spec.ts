@@ -119,9 +119,9 @@ describe('CharacterInfoComponent', () => {
     });
   });
 
-  it('labels the panel "Unlocked at start"', () => {
+  it('labels the panel ">Character Unlocked Trees"', () => {
     const heading = fixture.nativeElement.querySelector('.character-info__heading') as HTMLElement;
-    expect(heading.textContent?.trim()).toBe('Unlocked at start');
+    expect(heading.textContent?.trim()).toBe('>Character Unlocked Trees');
   });
 
   it('collapses to nothing when the selected character has no starting trees', () => {
@@ -150,5 +150,98 @@ describe('CharacterInfoComponent', () => {
       row.focus();
       expect(document.activeElement).toBe(row);
     });
+  });
+
+  it('does not pin any starting tree on load', () => {
+    expect(buildStore.state()?.pinnedTrees ?? []).toEqual([]);
+
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    rows.forEach((row) => {
+      expect(row.classList.contains('character-info__row--pinned')).toBe(false);
+      expect(row.getAttribute('aria-pressed')).toBe('false');
+    });
+  });
+
+  it('pins a tree when its row is clicked', () => {
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    (rows[0] as HTMLElement).click();
+    fixture.detectChanges();
+
+    expect(buildStore.state()?.pinnedTrees).toContain('warfare');
+    expect(rows[0].classList.contains('character-info__row--pinned')).toBe(true);
+    expect(rows[0].getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('unpins a tree when its pinned row is clicked again', () => {
+    buildStore.pinTree('warfare');
+    fixture.detectChanges();
+
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    expect(rows[0].getAttribute('aria-pressed')).toBe('true');
+
+    (rows[0] as HTMLElement).click();
+    fixture.detectChanges();
+
+    expect(buildStore.state()?.pinnedTrees).not.toContain('warfare');
+    expect(rows[0].classList.contains('character-info__row--pinned')).toBe(false);
+    expect(rows[0].getAttribute('aria-pressed')).toBe('false');
+  });
+
+  it('toggles a tree pin with Enter on a focused row', () => {
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    const row = rows[0] as HTMLElement;
+    row.focus();
+
+    row.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    row.click();
+    fixture.detectChanges();
+
+    expect(buildStore.state()?.pinnedTrees).toContain('warfare');
+    expect(row.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('toggles a tree pin with Space on a focused row', () => {
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    const row = rows[0] as HTMLElement;
+    row.focus();
+
+    row.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+    row.click();
+    fixture.detectChanges();
+
+    expect(buildStore.state()?.pinnedTrees).toContain('warfare');
+    expect(row.getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('reflects pin state pinned through the build store', () => {
+    buildStore.pinTree('staves');
+    fixture.detectChanges();
+
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    expect(rows[1].classList.contains('character-info__row--pinned')).toBe(true);
+    expect(rows[1].getAttribute('aria-pressed')).toBe('true');
+    expect(rows[0].classList.contains('character-info__row--pinned')).toBe(false);
+    expect(rows[0].getAttribute('aria-pressed')).toBe('false');
+  });
+
+  it('keeps pins and updates rows when switching characters', () => {
+    const rows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    (rows[0] as HTMLElement).click();
+    fixture.detectChanges();
+
+    expect(buildStore.state()?.pinnedTrees).toContain('warfare');
+
+    buildStore.selectCharacter('dirwin');
+    fixture.detectChanges();
+
+    expect(buildStore.state()?.pinnedTrees).toContain('warfare');
+
+    const newRows = fixture.nativeElement.querySelectorAll('.character-info__row') as HTMLElement[];
+    expect(newRows.length).toBe(1);
+    const names = Array.from(newRows).map((row) =>
+      row.querySelector('.character-info__tree-name')?.textContent?.trim(),
+    );
+    expect(names).toEqual(['Staves']);
+    expect(newRows[0].getAttribute('aria-pressed')).toBe('false');
   });
 });
