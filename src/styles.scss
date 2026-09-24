@@ -39,6 +39,10 @@ button {
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
+.cdk-overlay-pane.enriched-tooltip-pane {
+  pointer-events: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
