@@ -32,12 +32,12 @@ The system SHALL display the selected character's starting trees in a side-nav c
 
 ### Requirement: Pin a starting tree
 
-The system SHALL title the side-nav starting-trees panel "Unlocked Trees" and SHALL let the user toggle a tree's pinned state by clicking its row. A pinned row SHALL display a gold highlight and `aria-pressed="true"`. The panel SHALL NOT pin starting trees automatically. Pinning through the panel SHALL use the same pinned-trees state as the tree selector and pinned-tree cards so all views stay in sync, and pinned trees SHALL remain pinned when the user switches characters.
+The system SHALL title the side-nav starting-trees panel "Character Unlocked Trees" and SHALL let the user toggle a tree's pinned state by clicking its row. A pinned row SHALL display a gold highlight and `aria-pressed="true"`. The panel SHALL NOT pin starting trees automatically. Pinning through the panel SHALL use the same pinned-trees state as the tree selector and pinned-tree cards so all views stay in sync, and pinned trees SHALL remain pinned when the user switches characters.
 
 #### Scenario: Panel title
 
 - **WHEN** the selected character has starting trees
-- **THEN** the panel heading reads "Unlocked Trees"
+- **THEN** the panel heading reads "Character Unlocked Trees"
 
 #### Scenario: Click pins a tree
 
@@ -62,7 +62,7 @@ The system SHALL title the side-nav starting-trees panel "Unlocked Trees" and SH
 #### Scenario: Pin state stays in sync
 
 - **WHEN** a starting tree is pinned or unpinned through the tree selector or its pinned card
-- **THEN** the tree's row in the "Unlocked Trees" panel reflects the same pinned state
+- **THEN** the tree's row in the "Character Unlocked Trees" panel reflects the same pinned state
 
 #### Scenario: Pins persist across character switch
 
