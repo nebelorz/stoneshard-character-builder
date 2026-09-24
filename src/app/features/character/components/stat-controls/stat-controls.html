@@ -2,6 +2,17 @@
   @for (stat of statKeys; track trackByStat($index, stat)) {
     <div class="left-sidenav__stat">
       <span class="left-sidenav__stat-label font-ui">{{ stat }}</span>
+      <span
+        class="left-sidenav__stat-info"
+        tabindex="0"
+        role="img"
+        [attr.aria-label]="'Show ' + getStatName(stat) + ' description'"
+        appEnrichedTooltip
+        tooltipPlacement="right"
+        [content]="getStatInfo(stat)"
+      >
+        <ng-icon name="phosphorInfo" aria-hidden="true"></ng-icon>
+      </span>
       <div class="left-sidenav__stat-controls">
         <button
           class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"

@@ -1,15 +1,21 @@
 import { Component, inject, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorSquareLogo, phosphorPlusSquare } from '@ng-icons/phosphor-icons/regular';
+import {
+  phosphorSquareLogo,
+  phosphorPlusSquare,
+  phosphorInfo,
+} from '@ng-icons/phosphor-icons/regular';
 import { BuildStore } from '@features/build/services';
-import { STAT_KEYS, StatKey } from '@models';
+import { STAT_KEYS, STAT_INFO, StatKey } from '@models';
+import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
+import { StatTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
 
 @Component({
   selector: 'app-stat-controls',
   templateUrl: './stat-controls.html',
   styleUrl: './stat-controls.scss',
-  imports: [NgIcon],
-  providers: [provideIcons({ phosphorSquareLogo, phosphorPlusSquare })],
+  imports: [NgIcon, EnrichedTooltipDirective],
+  providers: [provideIcons({ phosphorSquareLogo, phosphorPlusSquare, phosphorInfo })],
 })
 export class StatControlsComponent {
   private readonly buildStore = inject(BuildStore);
@@ -67,5 +73,9 @@ export class StatControlsComponent {
       WIL: 'Willpower',
     };
     return names[stat];
+  }
+
+  getStatInfo(stat: StatKey): StatTooltipContent {
+    return STAT_INFO[stat];
   }
 }
