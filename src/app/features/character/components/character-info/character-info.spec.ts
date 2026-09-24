@@ -119,9 +119,9 @@ describe('CharacterInfoComponent', () => {
     });
   });
 
-  it('labels the panel ">Character Unlocked Trees"', () => {
+  it('labels the panel "Character Unlocked Trees"', () => {
     const heading = fixture.nativeElement.querySelector('.character-info__heading') as HTMLElement;
-    expect(heading.textContent?.trim()).toBe('>Character Unlocked Trees');
+    expect(heading.textContent?.trim()).toBe('Character Unlocked Trees');
   });
 
   it('collapses to nothing when the selected character has no starting trees', () => {
