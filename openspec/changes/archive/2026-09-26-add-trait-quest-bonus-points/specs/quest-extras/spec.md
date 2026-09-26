@@ -1,10 +1,6 @@
-# quest-extras Specification
+# quest-extras delta
 
-## Purpose
-
-Manage optional quest reward allocations that are independent of the normal SP/AP system, allowing players to plan builds that include special bonuses like the Boulder Circle quest reward.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Quest extras state tracking
 
@@ -75,3 +71,17 @@ The system SHALL clear quest bonus slot allocations when the user performs a ful
 
 - **WHEN** the user clicks the reset button
 - **THEN** all quest bonus slots are cleared
+
+## REMOVED Requirements
+
+### Requirement: Bonus stat bypasses cap
+
+**Reason**: Bonus points now use the direct grant model - an allocated quest point adds +1 directly to the stat value instead of raising the spending cap. Cap behavior is specified by the bonus-points capability.
+
+**Migration**: Previously the Boulder allocation only lifted a stat's cap to 31 while its value was paid from SP; after this change the point is granted directly. Shared URLs created before the change are migrated to a directly granted Boulder slot.
+
+### Requirement: Bonus in URL sharing
+
+**Reason**: Serialization of bonus slots is owned by the url-sharing capability, which now covers `bonusSlots` and legacy migration for all bonus sources.
+
+**Migration**: See the url-sharing delta; legacy `boulderCircleStat` values map to a `boulder-circle` slot entry.

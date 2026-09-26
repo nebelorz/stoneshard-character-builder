@@ -1,10 +1,22 @@
-# stat-allocation Specification
+# stat-allocation delta
 
-## Purpose
+## ADDED Requirements
 
-Allow users to allocate and deallocate stat points across five attributes (STR, AGI, PER, VIT, WIL) with defined limits.
+### Requirement: Stat value includes bonus points
 
-## Requirements
+The stats panel SHALL display each stat as the route value (character base plus level-up increments, held in the build state) plus the count of bonus slots allocated to that stat, with visible markers distinguishing the bonus portion. The route stat values held in the build state SHALL NOT include bonus points.
+
+#### Scenario: Bonus visible in stats panel
+
+- **WHEN** a stat has route increments and allocated bonus slots
+- **THEN** the displayed value is the sum of both, with markers for the bonus portion
+
+#### Scenario: Route value excludes bonus
+
+- **WHEN** a bonus slot is allocated to a stat
+- **THEN** the route value stored in the build state is unchanged and only the displayed value increases
+
+## MODIFIED Requirements
 
 ### Requirement: Stat increment
 
@@ -48,30 +60,6 @@ The system SHALL allow the user to deallocate a route stat point, returning 1 SP
 
 - **WHEN** a stat has base 10, one route increment, and one allocated bonus slot (displayed 12)
 - **THEN** a single decrement brings the displayed value to 11 with the bonus count unchanged, and further decrements are blocked because the route value is at base
-
-### Requirement: Increment by 5
-
-The system SHALL allow the user to increment a stat by up to 5 points in a single action, limited by available SP and the flat 30-point route cap on the route value.
-
-#### Scenario: Increment 5 within limits
-
-- **WHEN** the user clicks +5 for a stat with at least 5 SP remaining and a route value below 25
-- **THEN** 5 SP are deducted and the stat increases by 5
-
-#### Scenario: Increment 5 partial
-
-- **WHEN** the user clicks +5 for a stat with fewer than 5 SP remaining
-- **THEN** all remaining SP are deducted and the stat increases by that amount
-
-#### Scenario: Increment 5 partial at route cap
-
-- **WHEN** the user clicks +5 for a stat whose route value is 28 with sufficient SP
-- **THEN** the route value increases to 30 and 2 SP are deducted
-
-#### Scenario: Increment 5 blocked at route cap
-
-- **WHEN** the user clicks +5 for a stat whose route value is 30
-- **THEN** no stat change occurs, even with bonus slots allocated to it
 
 ### Requirement: Decrement by 5
 
@@ -124,16 +112,26 @@ Decrementing a route stat SHALL also remove the record that blocked level-down f
 - **WHEN** the user decrements a stat by 5 and the removed assignments were the only actions at their levels
 - **THEN** 5 SP are returned and every affected level becomes eligible for level-down
 
-### Requirement: Stat value includes bonus points
+### Requirement: Increment by 5
 
-The stats panel SHALL display each stat as the route value (character base plus level-up increments, held in the build state) plus the count of bonus slots allocated to that stat, with visible markers distinguishing the bonus portion. The route stat values held in the build state SHALL NOT include bonus points.
+The system SHALL allow the user to increment a stat by up to 5 points in a single action, limited by available SP and the flat 30-point route cap on the route value.
 
-#### Scenario: Bonus visible in stats panel
+#### Scenario: Increment 5 within limits
 
-- **WHEN** a stat has route increments and allocated bonus slots
-- **THEN** the displayed value is the sum of both, with markers for the bonus portion
+- **WHEN** the user clicks +5 for a stat with at least 5 SP remaining and a route value below 25
+- **THEN** 5 SP are deducted and the stat increases by 5
 
-#### Scenario: Route value excludes bonus
+#### Scenario: Increment 5 partial
 
-- **WHEN** a bonus slot is allocated to a stat
-- **THEN** the route value stored in the build state is unchanged and only the displayed value increases
+- **WHEN** the user clicks +5 for a stat with fewer than 5 SP remaining
+- **THEN** all remaining SP are deducted and the stat increases by that amount
+
+#### Scenario: Increment 5 partial at route cap
+
+- **WHEN** the user clicks +5 for a stat whose route value is 28 with sufficient SP
+- **THEN** the route value increases to 30 and 2 SP are deducted
+
+#### Scenario: Increment 5 blocked at route cap
+
+- **WHEN** the user clicks +5 for a stat whose route value is 30
+- **THEN** no stat change occurs, even with bonus slots allocated to it
