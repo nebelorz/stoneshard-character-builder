@@ -4,7 +4,9 @@
 
 Define the target application architecture for the Stoneshard Character Builder, establishing principles for Angular, state management, data layer, UI foundation, styling, component architecture, shared layer, and testing.
 
-## Angular Framework
+## Requirements
+
+**Angular Framework**
 
 ### Requirement: Angular 22 with modern APIs
 
@@ -25,7 +27,7 @@ The application SHALL use Angular 22 with standalone components, signal-based re
 - **WHEN** components receive data from parents
 - **THEN** they use input() signal-based inputs; for two-way binding, model() is preferred
 
-## State Management
+**State Management**
 
 ### Requirement: Canonical state ownership
 
@@ -78,7 +80,7 @@ Angular effects SHALL be used only for genuine side effects (e.g., syncing sub-s
 - **WHEN** a value can be computed from signals
 - **THEN** computed() is used instead of effect()
 
-## Data Layer
+**Data Layer**
 
 ### Requirement: Angular-native reactive data loading
 
@@ -122,7 +124,7 @@ Each data file SHALL be validated against its data model shape at load time.
 - **WHEN** a data file matches its data model shape
 - **THEN** the load succeeds and the parsed data is available to consumers
 
-## UI Foundation
+**UI Foundation**
 
 ### Requirement: Angular CDK where appropriate
 
@@ -133,7 +135,7 @@ Angular CDK SHALL be used for overlay positioning, focus management, and accessi
 - **WHEN** tooltips need to escape overflow containers
 - **THEN** CDK overlay or document.body appending is used
 
-## Styling
+**Styling**
 
 ### Requirement: Minimal global CSS/SCSS
 
@@ -144,7 +146,7 @@ Global CSS/SCSS SHALL be minimal. Component-level SCSS SHALL handle most styling
 - **WHEN** components need styling
 - **THEN** styles are defined in component SCSS files
 
-## Component Architecture
+**Component Architecture**
 
 ### Requirement: Cohesive components
 
@@ -157,14 +159,17 @@ Each component SHALL have a single, well-defined responsibility. Components SHAL
 
 ### Requirement: Presentation vs domain logic
 
-Components SHALL delegate domain logic to services/stores. Templates SHALL handle presentation logic only.
+Components SHALL delegate domain logic to services/stores. Templates SHALL handle presentation logic only. Templates SHALL NOT compute derived domain values such as row counts or slot indices; those values SHALL be exposed by the component or store.
 
 #### Scenario: Domain logic in stores
 
 - **WHEN** business rules need to be applied
 - **THEN** they live in store/service methods, not in component templates or classes
 
-## Shared Layer
+#### Scenario: No index arithmetic in templates
+
+- **WHEN** a template renders indexed items such as trait or quest point slots
+- **THEN** the index and row values are provided by the component, not calculated inline in the template
 
 ### Requirement: Shared layer strategy
 
@@ -180,7 +185,7 @@ The shared layer SHALL contain truly cross-cutting concerns: toast service, popu
 - **WHEN** a component is only used by one feature
 - **THEN** it stays in that feature's directory
 
-## Testing
+**Testing**
 
 ### Requirement: Pure domain logic unit testing
 
@@ -220,9 +225,47 @@ Playwright SHALL be used for end-to-end testing of critical user journeys that c
 
 ### Requirement: Avoid low-value tests
 
-Tests that only verify template rendering or Angular boilerplate SHALL NOT be written. Tests SHALL verify behavior, not implementation.
+Tests that only verify template rendering or Angular boilerplate SHALL NOT be written. Tests SHALL verify behavior, not implementation. Tests SHALL NOT rely on computed CSS values, layout geometry (such as bounding boxes), or the absence of removed DOM as their primary assertion, and tests whose only purpose is to exercise code that no longer exists SHALL be deleted.
 
 #### Scenario: No template tests
 
 - **WHEN** tests are written
 - **THEN** they verify behavioral outcomes, not DOM structure
+
+#### Scenario: No layout or computed-style assertions
+
+- **WHEN** a UI interaction is tested
+- **THEN** the assertion verifies resulting state, emitted output, or another observable behavior rather than computed styles or element geometry
+
+#### Scenario: Dead-code tests removed
+
+- **WHEN** a public member is removed
+- **THEN** tests that only covered that member are deleted instead of being rewritten to assert its absence
+
+### Requirement: Feature dependency direction
+
+Application code SHALL NOT introduce circular dependencies between feature modules. Domain logic needed by more than one feature SHALL be obtained from a shared or domain module that features depend on, rather than one feature importing another feature's internal services.
+
+#### Scenario: Shared domain logic has a shared home
+
+- **WHEN** two features need the same domain logic (for example bonus point formulas)
+- **THEN** the logic is provided by a shared/domain module and each feature imports it from there, not from the other feature
+
+#### Scenario: No bidirectional feature dependency
+
+- **WHEN** the import graph of feature modules is inspected
+- **THEN** no two features depend on each other in both directions
+
+### Requirement: Single source of truth for configuration constants
+
+Shared numeric limits and key lists (point budgets, bonus ceilings, and stat keys) SHALL be defined once and consumed from that definition. Duplicate literal values or parallel copies of the same list SHALL NOT be maintained.
+
+#### Scenario: Shared budget referenced once
+
+- **WHEN** a point budget or bonus ceiling is used by more than one component or service
+- **THEN** every use resolves to a single exported definition
+
+#### Scenario: Stat keys from one list
+
+- **WHEN** stat keys are validated, iterated, or rendered
+- **THEN** the same exported stat key list is the source of truth
