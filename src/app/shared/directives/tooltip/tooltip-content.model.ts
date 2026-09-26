@@ -13,4 +13,17 @@ export interface StatTooltipContent {
   cap: string;
 }
 
-export type TooltipContent = TraitTooltipContent | StatTooltipContent;
+export interface TreeTooltipContent {
+  kind: 'tree';
+  name: string;
+  description?: string;
+}
+
+export interface QuestTooltipContent {
+  kind: 'quest';
+  name: string;
+  description: string;
+}
+
+export type TooltipContent =
+  TraitTooltipContent | StatTooltipContent | TreeTooltipContent | QuestTooltipContent;

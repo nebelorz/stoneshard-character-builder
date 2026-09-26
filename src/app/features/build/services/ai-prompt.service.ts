@@ -2,8 +2,8 @@ import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { BuildStore } from './build-store';
+import { BonusService, ToastService } from '@shared/services';
 import { AbilityDataService } from '@features/ability-trees/services';
-import { ToastService } from '@shared/services';
 import {
   BuildState,
   Character,
@@ -17,10 +17,18 @@ const TEMPLATE_URL = 'assets/ia/prompt_template.md';
 const BUILD_DATA_HEADING = '# BUILD DATA';
 const EMPTY_TEMPLATE_FALLBACK = '';
 
+interface BonusGroup {
+  label: string;
+  order: number;
+  allocations: string[];
+  unallocated: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class AiPromptService {
   private readonly http = inject(HttpClient);
   private readonly buildStore = inject(BuildStore);
+  private readonly bonusService = inject(BonusService);
   private readonly abilityData = inject(AbilityDataService);
   private readonly toastService = inject(ToastService);
 
@@ -48,6 +56,10 @@ export class AiPromptService {
 
     sections.push(this.buildCharacterSection(character, state));
     sections.push(this.buildStatsSection(character, state));
+    const bonusSection = this.buildBonusSection(character, state);
+    if (bonusSection) {
+      sections.push(bonusSection);
+    }
     sections.push(this.buildAbilitiesSection(state, allAbilities));
     sections.push(this.buildTreesSection(relevantTrees));
 
@@ -143,15 +155,12 @@ export class AiPromptService {
     const trait = this.sanitizeTableCell(
       `${character.trait.name} - ${character.trait.description}`,
     );
-    const boulderCircle = state.boulderCircleStat
-      ? `+1 ${state.boulderCircleStat}`
-      : 'Not allocated';
     const lines = [
       '## Character',
       '',
-      '| Name | Title | Race | Trait | Level | Boulder Circle |',
-      '| ---- | ----- | ---- | ----- | ----- | -------------- |',
-      `| ${character.name} | ${character.title} | ${character.race} | ${trait} | ${state.level} | ${boulderCircle} |`,
+      '| Name | Title | Race | Trait | Level |',
+      '| ---- | ----- | ---- | ----- | ----- |',
+      `| ${character.name} | ${character.title} | ${character.race} | ${trait} | ${state.level} |`,
     ];
     return lines.join('\n');
   }
@@ -166,12 +175,57 @@ export class AiPromptService {
 
     const values = STAT_KEYS.map((stat) => {
       const base = character.baseStats[stat];
-      const current = state.stats[stat] ?? base;
+      const route = state.stats[stat] ?? base;
+      const current = route + this.bonusService.bonusCount(state, stat);
       const allocated = current - base;
       return allocated > 0 ? `${current} (${base}+${allocated})` : `${current}`;
     });
 
     lines.push(`| ${values.join(' | ')} |`);
+    return lines.join('\n');
+  }
+
+  private sourceLabel(
+    sourceId: string,
+    character: Character | null,
+  ): { label: string; kind: 'quest' | 'trait' } {
+    const quest = this.bonusService.findQuest(sourceId);
+    if (quest) return { label: `Quest - ${quest.label}`, kind: 'quest' };
+    const gain = character ? this.bonusService.findTraitGain(character, sourceId) : null;
+    if (gain) return { label: `Trait - ${gain.label}`, kind: 'trait' };
+    return { label: sourceId, kind: 'trait' };
+  }
+
+  buildBonusSection(character: Character | null, state: BuildState): string | null {
+    if (state.bonusSlots.length === 0) return null;
+
+    const groups = new Map<string, BonusGroup>();
+    for (const slot of state.bonusSlots) {
+      const { label, kind } = this.sourceLabel(slot.sourceId, character);
+      let group = groups.get(slot.sourceId);
+      if (!group) {
+        group = { label, order: kind === 'quest' ? 0 : 1, allocations: [], unallocated: 0 };
+        groups.set(slot.sourceId, group);
+      }
+      if (slot.stat) {
+        group.allocations.push(`+1 ${slot.stat}`);
+      } else {
+        group.unallocated++;
+      }
+    }
+
+    const rows = [...groups.values()].filter((g) => g.allocations.length > 0 || g.unallocated > 0);
+    if (rows.length === 0) return null;
+
+    const lines = ['## Bonus Points', '', '| Source | Allocation |', '| ------ | ---------- |'];
+    rows.sort((a, b) => a.order - b.order);
+    for (const group of rows) {
+      const parts = [...group.allocations];
+      if (group.unallocated > 0) {
+        parts.push(`${group.unallocated} unallocated`);
+      }
+      lines.push(`| ${this.sanitizeTableCell(group.label)} | ${parts.join(', ')} |`);
+    }
     return lines.join('\n');
   }
 

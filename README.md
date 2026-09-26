@@ -31,7 +31,7 @@ Pick any character in the left panel. Each one has its unique trait, stats and u
 
 Use the level controls to set your build level. You can go up or down by 1 or 5 at a time.
 
-Spend stat points across STR, AGI, PER, VIT, and WIL. The counters show how many Ability Points (AP) and Stat Points (SP) you have left.  
+Spend stat points across STR, AGI, PER, VIT, and WIL. The counters show how many Ability Points (AP) and Stat Points (SP) you have left.
 
 ![Character-Stats](src/assets/readme-screenshots/image-3.png)
 
@@ -44,7 +44,7 @@ Browse trees in the main area by category (Weaponry, Utility, Sorcery). Click a 
 ### 4. Obtain Abilities
 
 **Click ability** icons to unlock them.  
-**Right-click to refund**.  
+**Right-click to refund**.
 
 Each ability displays its requirements, energy cost, cooldown, and what stats it scales with.
 
@@ -59,7 +59,7 @@ The right panel shows a level-by-level breakdown of your build, so you know exac
 ### 6. Share Your Build
 
 Click the share button to copy a URL that encodes your entire build.  
-Send it to anyone.  
+Send it to anyone.
 
 There's also an option to ask your preferred AI agent how the build works, strengths/weaknesses and overall insights of the build via a prompt.
 
@@ -73,14 +73,16 @@ Built with Angular 22, TypeScript, and SCSS. Uses signals for state management a
 
 ```
 src/app/
-  models/              # Domain types and data guards
+  models/              # Domain types, pure bonus/requirement helpers, and data guards
   features/
     ability-trees/     # Tree rendering, ability icons, pin management
     build/             # Build state, URL sharing, AI prompt, route display
     character/         # Character selection, level/stat controls
   layout/              # Left and right sidenav, footer
-  shared/              # Services, directives, animations, styles, UI components
+  shared/              # Cross-feature services, directives, animations, styles, UI components
 ```
+
+Data is served from `src/assets/data/`: `characters.json`, `abilities.json`, `trees.json`, and `quests.json` (quest bonus-point rewards).
 
 ### Commands
 
@@ -94,7 +96,7 @@ npm run format     # Prettier
 
 ### Architecture
 
-State is managed through a signal-based store pattern (`BuildStore` coordinates `LevelStore`, `StatStore`, `AbilityStore`) with no external state library. Data loads reactively via `httpResource`. URL sharing serializes build state as gzip-compressed base64url.
+State is managed through a signal-based store pattern (`BuildStore` coordinates `LevelStore`, `StatStore`, `AbilityStore`) with no external state library. Shared cross-feature services (`BonusService` for trait/quest bonus points and derived AP, plus `QuestDataService` for quest data) live in `shared/services` and depend only on `models`, so features import them from `@shared/services` instead of from each other. Pure bonus formulas and constants live in `models/bonus.model.ts`. Data loads reactively via `httpResource`. URL sharing serializes build state as gzip-compressed base64url.
 
 ---
 

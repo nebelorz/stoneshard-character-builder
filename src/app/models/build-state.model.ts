@@ -18,6 +18,12 @@ export interface BuildNotes {
   readonly content: string;
 }
 
+export interface BonusSlot {
+  readonly sourceId: string;
+  readonly index: number;
+  readonly stat: StatKey | null;
+}
+
 export interface BuildState {
   readonly characterId: string;
   readonly level: number;
@@ -27,6 +33,6 @@ export interface BuildState {
   readonly obtainedAbilities: readonly ObtainedAbility[];
   readonly pinnedTrees: readonly string[];
   readonly statHistory: readonly StatAssignment[];
-  readonly boulderCircleStat: StatKey | null;
+  readonly bonusSlots: readonly BonusSlot[];
   readonly notes: BuildNotes;
 }

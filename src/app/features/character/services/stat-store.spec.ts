@@ -23,7 +23,7 @@ const createMockState = (overrides: Partial<BuildState> = {}): BuildState => ({
   obtainedAbilities: [],
   pinnedTrees: [],
   statHistory: [],
-  boulderCircleStat: null,
+  bonusSlots: [],
   notes: { buildName: '', author: '', content: '' },
   ...overrides,
 });
@@ -61,6 +61,30 @@ describe('StatStore', () => {
       expect(result).not.toBeNull();
       expect(result!.statHistory.length).toBe(1);
       expect(result!.statHistory[0].stat).toBe('STR');
+    });
+
+    it('should block increment at the flat cap of 30 on the route value', () => {
+      const state = createMockState({
+        sp: 4,
+        stats: { STR: 30, AGI: 10, PER: 8, VIT: 11, WIL: 7 },
+        bonusSlots: [{ sourceId: 'boulder-circle', index: 0, stat: 'STR' }],
+      });
+      expect(store.canIncrementStat(state, 'STR')).toBe(false);
+      expect(store.applyIncrementStat(state, 'STR')).toBeNull();
+    });
+
+    it('should allow route increments below the cap regardless of bonus slots', () => {
+      const state = createMockState({
+        sp: 4,
+        stats: { STR: 28, AGI: 10, PER: 8, VIT: 11, WIL: 7 },
+        bonusSlots: [
+          { sourceId: 'boulder-circle', index: 0, stat: 'STR' },
+          { sourceId: 'trophies', index: 0, stat: 'STR' },
+        ],
+      });
+      expect(store.canIncrementStat(state, 'STR')).toBe(true);
+      const result = store.applyIncrementStat(state, 'STR');
+      expect(result!.stats['STR']).toBe(29);
     });
   });
 

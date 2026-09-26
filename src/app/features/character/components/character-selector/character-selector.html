@@ -26,21 +26,6 @@
         >
       </button>
     }
-    @if (currentCharacter(); as c) {
-      <div
-        class="char-selector__trait-icon"
-        tabindex="0"
-        role="img"
-        [attr.aria-label]="c.trait.name"
-        appEnrichedTooltip
-        [content]="currentTraitContent()"
-        tooltipPlacement="bottom"
-      >
-        <span class="char-selector__trait-icon-letter font-fantasy">{{
-          c.trait.name.charAt(0)
-        }}</span>
-      </div>
-    }
   </div>
 </div>
 

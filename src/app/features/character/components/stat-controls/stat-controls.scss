@@ -53,6 +53,13 @@
   @include side-nav-stat;
 }
 
+.left-sidenav__stat-lead {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
 .left-sidenav__stat-label {
   @include side-nav-stat-label;
 }
@@ -90,6 +97,31 @@
 
 .left-sidenav__stat-value {
   @include side-nav-stat-value;
+}
+
+.left-sidenav__stat-bonus {
+  min-width: 24px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+  cursor: default;
+  font-size: $font-size-sm;
+  font-weight: 600;
+
+  &:not(&--active) {
+    visibility: hidden;
+  }
+
+  &--active {
+    color: $gold-bright;
+  }
+}
+
+.left-sidenav__resource-derived {
+  color: $gold-bright;
+  font-size: $font-size-sm;
+  font-weight: 600;
+  cursor: default;
 }
 
 .left-sidenav__btn {

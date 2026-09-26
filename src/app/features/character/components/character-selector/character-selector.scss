@@ -3,8 +3,7 @@
 
 .char-selector {
   position: relative;
-  padding: 6px 14px;
-  border-bottom: 1px solid $border-dim;
+  padding: 6px 14px 0;
 
   &__row {
     display: flex;
@@ -66,38 +65,6 @@
   &__char-title {
     font-size: $font-size-sm;
     color: $text-secondary;
-  }
-
-  &__trait-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: $radius-sm;
-    border: 1px solid $border-gold;
-    background: $bg-panel;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition:
-      background 0.15s,
-      border-color 0.15s;
-
-    &:hover {
-      background: $btn-hover;
-      border-color: $gold-accent;
-    }
-
-    &:focus-visible {
-      @include focus-ring;
-    }
-  }
-
-  &__trait-icon-letter {
-    font-size: $font-size-base;
-    font-weight: $font-weight-bold;
-    color: $gold-accent;
-    line-height: 1;
   }
 
   &__arrow {

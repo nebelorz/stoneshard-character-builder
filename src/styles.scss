@@ -39,6 +39,10 @@ button {
   font-family: 'Segoe UI', system-ui, sans-serif;
 }
 
+.visually-hidden {
+  @include visually-hidden;
+}
+
 .cdk-overlay-pane.enriched-tooltip-pane {
   pointer-events: none;
 }

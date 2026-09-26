@@ -59,9 +59,6 @@ describe('CharacterSelectorComponent', () => {
   let fixture: ComponentFixture<CharacterSelectorComponent>;
   let overlayContainer: OverlayContainer;
 
-  const traitIcon = () =>
-    fixture.nativeElement.querySelector('.char-selector__trait-icon') as HTMLElement;
-
   const tooltipEl = () => overlayContainer.getContainerElement().querySelector('[role="tooltip"]');
 
   const dropdownOptions = () =>
@@ -119,45 +116,6 @@ describe('CharacterSelectorComponent', () => {
   afterEach(() => {
     fixture.destroy();
     overlayContainer.ngOnDestroy();
-  });
-
-  it('shows the trait tooltip when the trait icon receives focus', () => {
-    traitIcon().dispatchEvent(new FocusEvent('focus'));
-
-    const tooltip = tooltipEl();
-    expect(tooltip).toBeTruthy();
-    expect(tooltip?.textContent).toContain('Brave');
-    expect(tooltip?.textContent).toContain('+10% Crit Chance');
-    expect(traitIcon().getAttribute('aria-describedby')).toBe(tooltip?.id);
-  });
-
-  it('hides the trait tooltip when the trait icon loses focus', () => {
-    traitIcon().dispatchEvent(new FocusEvent('focus'));
-    expect(tooltipEl()).toBeTruthy();
-
-    traitIcon().dispatchEvent(new FocusEvent('blur'));
-    expect(tooltipEl()).toBeNull();
-    expect(traitIcon().getAttribute('aria-describedby')).toBeNull();
-  });
-
-  it('hides the trait tooltip when Escape is pressed while the trait icon is focused', () => {
-    traitIcon().dispatchEvent(new FocusEvent('focus'));
-    expect(tooltipEl()).toBeTruthy();
-
-    traitIcon().dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
-    expect(tooltipEl()).toBeNull();
-  });
-
-  it('shows the trait tooltip after hovering the trait icon', async () => {
-    traitIcon().dispatchEvent(new MouseEvent('mouseenter'));
-    expect(tooltipEl()).toBeNull();
-
-    await settle();
-    expect(tooltipEl()).toBeTruthy();
-    expect(tooltipEl()?.textContent).toContain('Brave');
-
-    traitIcon().dispatchEvent(new MouseEvent('mouseleave'));
-    expect(tooltipEl()).toBeNull();
   });
 
   it('shows the hovered option trait tooltip without dismissing the dropdown', async () => {

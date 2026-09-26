@@ -9,6 +9,9 @@
             [class.character-info__row--pinned]="isPinned(tree.id)"
             [attr.aria-pressed]="isPinned(tree.id) ? 'true' : 'false'"
             (click)="togglePin(tree)"
+            appEnrichedTooltip
+            tooltipPlacement="bottom"
+            [content]="tooltipByTreeId()[tree.id]"
           >
             <img
               class="character-info__tree-icon"

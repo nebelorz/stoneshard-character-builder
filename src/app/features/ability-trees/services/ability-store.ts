@@ -17,9 +17,8 @@ export class AbilityStore {
     state: BuildState,
     abilityId: string,
     allAbilities: Ability[],
+    derivedApFor: (obtained: readonly ObtainedAbility[]) => number = () => 0,
   ): BuildState | null {
-    if (state.ap <= 0) return null;
-
     const ability = allAbilities.find((a) => a.id === abilityId);
     if (!ability) return null;
 
@@ -35,11 +34,14 @@ export class AbilityStore {
     const routeLevel = this.levelStore.getRouteLevelForAbility(state.obtainedAbilities);
     const order = state.obtainedAbilities.length + 1;
     const obtained: ObtainedAbility = { abilityId, level: routeLevel, order };
+    const newObtained = [...state.obtainedAbilities, obtained];
+
+    if (state.ap - 1 + derivedApFor(newObtained) < 0) return null;
 
     return {
       ...state,
       ap: state.ap - 1,
-      obtainedAbilities: [...state.obtainedAbilities, obtained],
+      obtainedAbilities: newObtained,
     };
   }
 

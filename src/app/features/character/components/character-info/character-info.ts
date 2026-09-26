@@ -2,11 +2,14 @@ import { Component, computed, inject } from '@angular/core';
 import { AbilityDataService } from '@features/ability-trees/services';
 import { BuildStore } from '@features/build/services';
 import { AbilityTree } from '@models';
+import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
+import { TreeTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
 
 @Component({
   selector: 'app-character-info',
   templateUrl: './character-info.html',
   styleUrl: './character-info.scss',
+  imports: [EnrichedTooltipDirective],
 })
 export class CharacterInfoComponent {
   private readonly buildStore = inject(BuildStore);
@@ -23,6 +26,18 @@ export class CharacterInfoComponent {
   });
 
   readonly pinnedTrees = computed(() => this.buildStore.state()?.pinnedTrees ?? []);
+
+  readonly tooltipByTreeId = computed<Record<string, TreeTooltipContent>>(() => {
+    const map: Record<string, TreeTooltipContent> = {};
+    for (const tree of this.startingTrees()) {
+      map[tree.id] = {
+        kind: 'tree',
+        name: tree.name,
+        description: tree.focus || undefined,
+      };
+    }
+    return map;
+  });
 
   getTreeIconPath(tree: AbilityTree): string {
     return `assets/icons/${tree.id}/${tree.id}_tree_icon.png`;

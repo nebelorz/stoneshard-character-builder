@@ -1,0 +1,27 @@
+<div class="left-sidenav__quests">
+  @for (quest of quests(); track quest.id) {
+    <div class="left-sidenav__quest-row">
+      <div class="left-sidenav__quest-label-group">
+        <span
+          class="left-sidenav__quest-info"
+          appEnrichedTooltip
+          tooltipPlacement="right"
+          [content]="tooltipContent(quest)"
+        >
+          <ng-icon name="phosphorInfo" aria-hidden="true"></ng-icon>
+        </span>
+        <span class="left-sidenav__quest-label font-ui">{{ quest.label }}</span>
+      </div>
+      <div class="left-sidenav__quest-slots">
+        @for (slot of slotsByQuest()[quest.id]; track slot.index) {
+          <app-point-slot-row
+            [stat]="slot.stat"
+            (statChange)="
+              $event ? allocate(quest.id, slot.index, $event) : deallocate(quest.id, slot.index)
+            "
+          ></app-point-slot-row>
+        }
+      </div>
+    </div>
+  }
+</div>

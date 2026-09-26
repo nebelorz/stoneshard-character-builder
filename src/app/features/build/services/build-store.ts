@@ -1,10 +1,17 @@
 import { Injectable, inject, signal, computed } from '@angular/core';
-import { BuildState, BuildNotes, Character, Ability, StatKey } from '@models';
+import {
+  ABILITY_POINT_BUDGET,
+  STAT_POINT_BUDGET,
+  BuildState,
+  BuildNotes,
+  Character,
+  Ability,
+  StatKey,
+  BonusSlot,
+} from '@models';
 import { CharacterDataService, LevelStore, StatStore } from '@features/character/services';
 import { AbilityDataService, AbilityStore } from '@features/ability-trees/services';
-
-const INITIAL_AP = 31;
-const INITIAL_SP = 29;
+import { BonusService } from '@shared/services';
 
 type InitStatus = 'idle' | 'loading' | 'ready' | 'error';
 
@@ -15,6 +22,7 @@ export class BuildStore {
   private readonly levelStore = inject(LevelStore);
   private readonly statStore = inject(StatStore);
   private readonly abilityStore = inject(AbilityStore);
+  private readonly bonusService = inject(BonusService);
 
   private readonly _state = signal<BuildState | null>(null);
   private readonly _character = signal<Character | null>(null);
@@ -50,6 +58,15 @@ export class BuildStore {
 
   readonly traitsUnlockedOnStart = computed(() => this._character()?.traitsUnlockedOnStart ?? []);
 
+  readonly derivedTraitAp = computed(() => {
+    const state = this._state();
+    const character = this._character();
+    if (!state || !character) return 0;
+    return this.bonusService.derivedAp(character, state.obtainedAbilities, this._abilities());
+  });
+
+  readonly totalAp = computed(() => (this._state()?.ap ?? 0) + this.derivedTraitAp());
+
   initialize(): void {
     if (this._initialized || this._initStatus() === 'loading') return;
 
@@ -83,11 +100,23 @@ export class BuildStore {
     const state = this._state();
     if (!state) return;
 
+    const oldCharacter = this._character();
+    const abilities = this._abilities();
+    const oldDerived = this.bonusService.derivedAp(
+      oldCharacter,
+      state.obtainedAbilities,
+      abilities,
+    );
+    const newDerived = this.bonusService.derivedAp(character, state.obtainedAbilities, abilities);
+    const totalAp = state.ap + oldDerived;
+
     this._character.set(character);
     this.pushState({
       ...state,
       characterId: character.id,
+      ap: totalAp - newDerived,
       stats: this.statStore.deriveStats(character.baseStats, state.statHistory),
+      bonusSlots: this.bonusService.clearTraitSlots(state).bonusSlots,
     });
   }
 
@@ -105,9 +134,16 @@ export class BuildStore {
       this._character.set(character);
     }
 
+    const derivedFloor = this.bonusService.derivedFloor(
+      character ?? null,
+      state.obtainedAbilities,
+      this._abilities(),
+    );
     this.levelStore.setLevel(state.level);
     this._state.set({
       ...state,
+      ap: Math.max(state.ap, derivedFloor),
+      bonusSlots: state.bonusSlots ?? [],
       notes: state.notes ?? { buildName: '', author: '', content: '' },
     });
   }
@@ -176,7 +212,12 @@ export class BuildStore {
     const state = this._state();
     if (!state) return false;
     const allAbilities = this._abilities();
-    const newState = this.abilityStore.applyObtainAbility(state, abilityId, allAbilities);
+    const newState = this.abilityStore.applyObtainAbility(
+      state,
+      abilityId,
+      allAbilities,
+      (obtained) => this.bonusService.derivedAp(this._character(), obtained, allAbilities),
+    );
     if (newState) {
       this.pushState(newState);
       return true;
@@ -245,16 +286,62 @@ export class BuildStore {
     return this.statStore.canDecrementStat(state, stat, character);
   }
 
-  allocateBoulderCircle(stat: StatKey): void {
+  allocateBonusSlot(sourceId: string, index: number, stat: StatKey): void {
     const state = this._state();
     if (!state) return;
-    this.pushState({ ...state, boulderCircleStat: stat });
+    const newState = this.bonusService.allocateSlot(
+      state,
+      sourceId,
+      index,
+      stat,
+      this._character(),
+    );
+    if (newState) this.pushState(newState);
   }
 
-  deallocateBoulderCircle(): void {
+  deallocateBonusSlot(sourceId: string, index: number): void {
     const state = this._state();
     if (!state) return;
-    this.pushState({ ...state, boulderCircleStat: null });
+    const newState = this.bonusService.deallocateSlot(state, sourceId, index, this._character());
+    if (newState) this.pushState(newState);
+  }
+
+  addBossRow(sourceId: string): void {
+    const state = this._state();
+    if (!state) return;
+    const newState = this.bonusService.addBossRow(state, sourceId, this._character());
+    if (newState) this.pushState(newState);
+  }
+
+  removeBossRow(sourceId: string, rowIndex: number): void {
+    const state = this._state();
+    if (!state) return;
+    const newState = this.bonusService.removeBossRow(state, sourceId, rowIndex, this._character());
+    if (newState) this.pushState(newState);
+  }
+
+  canAddBossRow(sourceId: string): boolean {
+    const state = this._state();
+    if (!state) return false;
+    return this.bonusService.canAddBossRow(state, sourceId, this._character());
+  }
+
+  bossRowCount(sourceId: string): number {
+    const state = this._state();
+    if (!state) return 0;
+    return this.bonusService.bossRowCount(state, sourceId, this._character());
+  }
+
+  bonusCount(stat: StatKey): number {
+    const state = this._state();
+    if (!state) return 0;
+    return this.bonusService.bonusCount(state, stat);
+  }
+
+  slotsForSource(sourceId: string): readonly BonusSlot[] {
+    const state = this._state();
+    if (!state) return [];
+    return this.bonusService.slotsForSource(state, sourceId);
   }
 
   applySetNotes(notes: Partial<BuildNotes>): void {
@@ -264,12 +351,6 @@ export class BuildStore {
       ...state,
       notes: { ...state.notes, ...notes },
     });
-  }
-
-  canAllocateBoulderCircle(stat: StatKey): boolean {
-    const state = this._state();
-    if (!state) return false;
-    return state.boulderCircleStat !== stat;
   }
 
   private applyPinTree(state: BuildState, treeId: string): BuildState | null {
@@ -311,13 +392,13 @@ export class BuildStore {
     const initialState: BuildState = {
       characterId: character.id,
       level: 30,
-      ap: INITIAL_AP,
-      sp: INITIAL_SP,
+      ap: ABILITY_POINT_BUDGET,
+      sp: STAT_POINT_BUDGET,
       stats: { ...character.baseStats },
       obtainedAbilities: [],
       pinnedTrees: this._state()?.pinnedTrees ?? [],
       statHistory: [],
-      boulderCircleStat: null,
+      bonusSlots: [],
       notes: { buildName: '', author: '', content: '' },
     };
     this.levelStore.setLevel(initialState.level);

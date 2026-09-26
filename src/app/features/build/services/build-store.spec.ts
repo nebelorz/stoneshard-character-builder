@@ -2,7 +2,19 @@ import { TestBed } from '@angular/core/testing';
 import { BuildStore } from './build-store';
 import { CharacterDataService } from '@features/character/services';
 import { AbilityDataService } from '@features/ability-trees/services';
+import { QuestDataService } from '@shared/services';
 import { BuildState, DEFAULT_ABILITY_IDS } from '@models';
+
+const MOCK_QUESTS = [
+  {
+    id: 'boulder-circle',
+    resource: 'sp' as const,
+    label: 'Boulder Circle',
+    tooltip: 'Grants 1 Stat Point',
+    pointsPer: 1,
+    max: 1,
+  },
+];
 
 function getReadyState(s: BuildStore): BuildState {
   const snapshot = s.stateSnapshot();
@@ -22,7 +34,7 @@ function restoreLevelState(s: BuildStore, level: number): void {
     obtainedAbilities: [],
     pinnedTrees: [],
     statHistory: [],
-    boulderCircleStat: null,
+    bonusSlots: [],
     notes: { buildName: '', author: '', content: '' },
   });
 }
@@ -47,6 +59,15 @@ const MOCK_CHARACTERS = [
     trait: { name: 'Studious', description: '+15% Skill XP' },
     baseStats: { STR: 6, AGI: 8, PER: 9, VIT: 7, WIL: 10 },
     traitsUnlockedOnStart: ['geomancy'],
+    traitGains: [
+      {
+        id: 'warfare-mastery',
+        resource: 'ap',
+        label: 'Warfare abilities learned',
+        formula: 'abilities-per-3',
+        treeId: 'warfare',
+      },
+    ],
   },
 ];
 
@@ -178,6 +199,17 @@ describe('BuildStore', () => {
           useValue: {
             abilities: {
               value: () => MOCK_ABILITIES,
+              status: () => 'ready' as const,
+              error: () => null,
+              reload: () => {},
+            },
+          },
+        },
+        {
+          provide: QuestDataService,
+          useValue: {
+            quests: {
+              value: () => MOCK_QUESTS,
               status: () => 'ready' as const,
               error: () => null,
               reload: () => {},
@@ -520,7 +552,7 @@ describe('BuildStore', () => {
         obtainedAbilities: [{ abilityId: 'warfare-1', level: 1, order: 1 }],
         pinnedTrees: ['warfare'],
         statHistory: [{ level: 2, order: 1, stat: 'STR' as const }],
-        boulderCircleStat: null,
+        bonusSlots: [],
         notes: { buildName: '', author: '', content: '' },
       };
       store.restoreState(state);
@@ -531,61 +563,105 @@ describe('BuildStore', () => {
     });
   });
 
-  describe('Boulder Circle allocation', () => {
-    it('should initialize with boulderCircleStat as null', () => {
-      const state = getReadyState(store);
-      expect(state.boulderCircleStat).toBeNull();
+  describe('Bonus slot allocation', () => {
+    it('mutates build state when a quest slot is allocated and deallocated', () => {
+      store.allocateBonusSlot('boulder-circle', 0, 'STR');
+      let state = getReadyState(store);
+      expect(state.bonusSlots).toEqual([{ sourceId: 'boulder-circle', index: 0, stat: 'STR' }]);
+
+      store.deallocateBonusSlot('boulder-circle', 0);
+      state = getReadyState(store);
+      expect(state.bonusSlots).toEqual([]);
     });
 
-    it('should allocate boulder circle bonus to a stat', () => {
-      store.allocateBoulderCircle('STR');
-      const state = getReadyState(store);
-      expect(state.boulderCircleStat).toBe('STR');
-    });
-
-    it('should deallocate boulder circle bonus', () => {
-      store.allocateBoulderCircle('STR');
-      store.deallocateBoulderCircle();
-      const state = getReadyState(store);
-      expect(state.boulderCircleStat).toBeNull();
-    });
-
-    it('should allow allocating to a different stat', () => {
-      store.allocateBoulderCircle('STR');
-      store.allocateBoulderCircle('AGI');
-      const state = getReadyState(store);
-      expect(state.boulderCircleStat).toBe('AGI');
-    });
-
-    it('should return true from canAllocateBoulderCircle when stat is different', () => {
-      store.allocateBoulderCircle('STR');
-      expect(store.canAllocateBoulderCircle('AGI')).toBe(true);
-    });
-
-    it('should return false from canAllocateBoulderCircle when stat is the same', () => {
-      store.allocateBoulderCircle('STR');
-      expect(store.canAllocateBoulderCircle('STR')).toBe(false);
-    });
-
-    it('should persist boulder circle across character changes', () => {
-      store.allocateBoulderCircle('STR');
+    it('keeps quest slots across character changes', () => {
+      store.allocateBonusSlot('boulder-circle', 0, 'STR');
       store.selectCharacter('aldor');
       const state = getReadyState(store);
-      expect(state.boulderCircleStat).toBe('STR');
+      expect(state.bonusSlots).toEqual([{ sourceId: 'boulder-circle', index: 0, stat: 'STR' }]);
     });
 
-    it('should clear boulder circle on full reset', () => {
-      store.allocateBoulderCircle('STR');
+    it('clears quest slots on full reset', () => {
+      store.allocateBonusSlot('boulder-circle', 0, 'STR');
       store.reset();
-      const state = getReadyState(store);
-      expect(state.boulderCircleStat).toBeNull();
+      expect(getReadyState(store).bonusSlots).toEqual([]);
+    });
+  });
+
+  describe('Derived trait AP budget', () => {
+    function restoreAldorDerivedState(s: BuildStore, level: number): void {
+      s.restoreState({
+        characterId: 'aldor',
+        level,
+        ap: -1,
+        sp: 5,
+        stats: { STR: 6, AGI: 8, PER: 9, VIT: 7, WIL: 10 },
+        obtainedAbilities: [
+          { abilityId: 'warfare-1', level: 1, order: 1 },
+          { abilityId: 'warfare-2', level: 2, order: 2 },
+          { abilityId: 'warfare-3', level: 3, order: 3 },
+        ],
+        pinnedTrees: [],
+        statHistory: [],
+        bonusSlots: [],
+        notes: { buildName: '', author: '', content: '' },
+      });
+    }
+
+    it('should preserve the total budget on character switches', () => {
+      restoreAldorDerivedState(store, 5);
+      expect(store.derivedTraitAp()).toBe(1);
+      expect(store.totalAp()).toBe(0);
+
+      store.selectCharacter('jorna');
+      expect(getReadyState(store).ap).toBe(0);
+      expect(store.derivedTraitAp()).toBe(0);
+      expect(store.totalAp()).toBe(0);
+
+      store.selectCharacter('aldor');
+      expect(getReadyState(store).ap).toBe(-1);
+      expect(store.derivedTraitAp()).toBe(1);
+      expect(store.totalAp()).toBe(0);
     });
 
-    it('should allow incrementing stat above MAX_STAT with boulder circle bonus', () => {
-      store.allocateBoulderCircle('STR');
+    it('should clamp restored ap up to the derived floor', () => {
+      store.restoreState({
+        characterId: 'aldor',
+        level: 5,
+        ap: -5,
+        sp: 5,
+        stats: { STR: 6, AGI: 8, PER: 9, VIT: 7, WIL: 10 },
+        obtainedAbilities: [
+          { abilityId: 'warfare-1', level: 1, order: 1 },
+          { abilityId: 'warfare-2', level: 2, order: 2 },
+          { abilityId: 'warfare-3', level: 3, order: 3 },
+        ],
+        pinnedTrees: [],
+        statHistory: [],
+        bonusSlots: [],
+        notes: { buildName: '', author: '', content: '' },
+      });
+      expect(getReadyState(store).ap).toBe(-1);
+      expect(store.totalAp()).toBe(0);
+    });
+
+    it('should apply level-down with negative ap without branching on its sign', () => {
+      restoreAldorDerivedState(store, 5);
+      store.levelDown();
       const state = getReadyState(store);
-      expect(state.stats['STR']).toBe(10);
-      expect(store.canIncrementStat1('STR')).toBe(true);
+      expect(state.level).toBe(4);
+      expect(state.ap).toBe(-2);
+      expect(state.obtainedAbilities.length).toBe(3);
+    });
+
+    it('should shrink the derived AP budget when abilities are refunded', () => {
+      restoreAldorDerivedState(store, 5);
+      expect(store.derivedTraitAp()).toBe(1);
+
+      store.refundAbility('warfare-1');
+
+      expect(store.derivedTraitAp()).toBe(0);
+      expect(getReadyState(store).obtainedAbilities.length).toBe(0);
     });
   });
 });

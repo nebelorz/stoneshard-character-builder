@@ -14,9 +14,9 @@
 
   &__list {
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(68px, 1fr));
+    gap: 2px 8px;
   }
 
   &__row {

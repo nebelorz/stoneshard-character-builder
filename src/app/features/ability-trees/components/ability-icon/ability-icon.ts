@@ -19,7 +19,7 @@ import {
   parseRequirements,
   meetsRequirements,
 } from '@models';
-import { BuildStore } from '@features/build/services/build-store';
+import { BuildStore } from '@features/build/services';
 import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
 
 type AbilityIconState = 'locked' | 'unlocked' | 'obtained';

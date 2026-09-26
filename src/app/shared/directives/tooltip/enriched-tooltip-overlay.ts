@@ -11,6 +11,16 @@ import { TooltipContent } from './tooltip-content.model';
             <div class="enriched-tooltip__name font-fantasy">{{ c.name }}</div>
             <div class="enriched-tooltip__desc font-ui">{{ c.description }}</div>
           }
+          @case ('tree') {
+            <div class="enriched-tooltip__name font-fantasy">{{ c.name }}</div>
+            @if (c.description) {
+              <div class="enriched-tooltip__desc font-ui">{{ c.description }}</div>
+            }
+          }
+          @case ('quest') {
+            <div class="enriched-tooltip__name font-fantasy">{{ c.name }}</div>
+            <div class="enriched-tooltip__desc font-ui">{{ c.description }}</div>
+          }
           @case ('stat') {
             <div class="enriched-tooltip__name font-fantasy">{{ c.name }}</div>
             <div class="enriched-tooltip__desc font-ui">{{ c.description }}</div>

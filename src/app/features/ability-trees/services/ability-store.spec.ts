@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AbilityStore } from './ability-store';
 import { LevelStore } from '@features/character/services';
-import { BuildState, Ability } from '@models';
+import { BuildState, Ability, ObtainedAbility } from '@models';
 
 const MOCK_ABILITIES: Ability[] = [
   {
@@ -72,7 +72,60 @@ const MOCK_ABILITIES: Ability[] = [
     description: 'Master of war',
     requiredBy: [],
   },
+  {
+    id: 'survival-4',
+    name: 'Forage',
+    treeId: 'survival',
+    x: 0,
+    y: 0,
+    type: 'passive',
+    target: 'No Target',
+    range: 1,
+    energy: 0,
+    cooldown: 0,
+    modifiedByLabel: '',
+    requires: ['survival-1'],
+    unlockConditions: [],
+    description: 'Forage for food',
+    requiredBy: [],
+  },
+  {
+    id: 'survival-5',
+    name: 'Herbalism',
+    treeId: 'survival',
+    x: 0,
+    y: 0,
+    type: 'passive',
+    target: 'No Target',
+    range: 1,
+    energy: 0,
+    cooldown: 0,
+    modifiedByLabel: '',
+    requires: ['survival-1'],
+    unlockConditions: [],
+    description: 'Gather herbs',
+    requiredBy: [],
+  },
+  {
+    id: 'survival-6',
+    name: 'Tracking',
+    treeId: 'survival',
+    x: 0,
+    y: 0,
+    type: 'passive',
+    target: 'No Target',
+    range: 1,
+    energy: 0,
+    cooldown: 0,
+    modifiedByLabel: '',
+    requires: ['survival-1'],
+    unlockConditions: [],
+    description: 'Track prey',
+    requiredBy: [],
+  },
 ];
+
+const DIRWIN_DERIVED_AP = 1;
 
 const createMockState = (overrides: Partial<BuildState> = {}): BuildState => ({
   characterId: 'jorna',
@@ -83,7 +136,7 @@ const createMockState = (overrides: Partial<BuildState> = {}): BuildState => ({
   obtainedAbilities: [],
   pinnedTrees: [],
   statHistory: [],
-  boulderCircleStat: null,
+  bonusSlots: [],
   notes: { buildName: '', author: '', content: '' },
   ...overrides,
 });
@@ -192,6 +245,60 @@ describe('AbilityStore', () => {
       const state = createMockState({ ap: 2 });
       expect(store.applyObtainAbility(state, 'survival-1', abilities)).toBeNull();
     });
+
+    it('should allow spending derived trait AP beyond the level pool', () => {
+      const state = createMockState({
+        ap: 0,
+        characterId: 'dirwin',
+        obtainedAbilities: [
+          { abilityId: 'survival-4', level: 1, order: 1 },
+          { abilityId: 'survival-5', level: 2, order: 2 },
+          { abilityId: 'survival-6', level: 3, order: 3 },
+        ],
+      });
+      const result = store.applyObtainAbility(state, 'warfare-1', MOCK_ABILITIES, () => {
+        return DIRWIN_DERIVED_AP;
+      });
+      expect(result).not.toBeNull();
+      expect(result!.ap).toBe(-1);
+      expect(result!.obtainedAbilities.length).toBe(4);
+    });
+
+    it('should count derived AP earned by the ability being obtained', () => {
+      const derivedFor = (obtained: readonly ObtainedAbility[]): number =>
+        Math.floor(obtained.filter((a) => a.abilityId.startsWith('survival-')).length / 3);
+      const state = createMockState({
+        ap: 0,
+        characterId: 'dirwin',
+        obtainedAbilities: [
+          { abilityId: 'survival-4', level: 1, order: 1 },
+          { abilityId: 'survival-5', level: 2, order: 2 },
+        ],
+      });
+      const result = store.applyObtainAbility(state, 'survival-6', MOCK_ABILITIES, derivedFor);
+      expect(result).not.toBeNull();
+      expect(result!.ap).toBe(-1);
+    });
+
+    it('should block spending beyond the derived floor', () => {
+      const state = createMockState({
+        ap: -1,
+        characterId: 'dirwin',
+        obtainedAbilities: [
+          { abilityId: 'survival-4', level: 1, order: 1 },
+          { abilityId: 'survival-5', level: 2, order: 2 },
+          { abilityId: 'survival-6', level: 3, order: 3 },
+        ],
+      });
+      expect(
+        store.applyObtainAbility(state, 'warfare-1', MOCK_ABILITIES, () => DIRWIN_DERIVED_AP),
+      ).toBeNull();
+    });
+
+    it('should block spending when ap and derived are both exhausted', () => {
+      const state = createMockState({ ap: 0 });
+      expect(store.applyObtainAbility(state, 'warfare-1', MOCK_ABILITIES, () => 0)).toBeNull();
+    });
   });
 
   describe('applyRefundAbility', () => {
@@ -224,6 +331,22 @@ describe('AbilityStore', () => {
     it('should return null when not obtained', () => {
       const state = createMockState();
       expect(store.applyRefundAbility(state, 'warfare-1', MOCK_ABILITIES)).toBeNull();
+    });
+
+    it('should shrink the derived budget when refunding', () => {
+      const state = createMockState({
+        ap: -1,
+        characterId: 'dirwin',
+        obtainedAbilities: [
+          { abilityId: 'survival-4', level: 1, order: 1 },
+          { abilityId: 'survival-5', level: 2, order: 2 },
+          { abilityId: 'survival-6', level: 3, order: 3 },
+        ],
+      });
+      const result = store.applyRefundAbility(state, 'survival-4', MOCK_ABILITIES);
+      expect(result).not.toBeNull();
+      expect(result!.ap).toBe(0);
+      expect(result!.obtainedAbilities.length).toBe(2);
     });
   });
 });

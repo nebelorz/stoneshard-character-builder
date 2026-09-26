@@ -1,0 +1,12 @@
+{
+  "quests": [
+    {
+      "id": "boulder-circle",
+      "resource": "sp",
+      "label": "Boulder Circle",
+      "tooltip": "The Boulder Circle training grants 1 Stat Point",
+      "pointsPer": 1,
+      "max": 1
+    }
+  ]
+}

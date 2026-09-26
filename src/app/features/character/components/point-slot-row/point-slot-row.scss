@@ -1,0 +1,77 @@
+@use 'variables' as *;
+@use 'stat-chips' as *;
+
+:host {
+  position: relative;
+  display: inline-block;
+}
+
+.point-slot-row__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 68px;
+  padding: 3px 8px;
+  background: transparent;
+  color: $text-primary;
+  border: 1px solid $border-dim;
+  border-radius: $radius-sm;
+  font-size: $font-size-base;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $btn-hover;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.point-slot-row__placeholder {
+  color: $text-secondary;
+  font-style: italic;
+}
+
+.point-slot-row__overlay {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: $bg-panel;
+  border: 1px solid $border-dim;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-dropdown;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  min-width: 100px;
+}
+
+.point-slot-row__option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px;
+  background: none;
+  border: none;
+  color: $text-primary;
+  font-size: $font-size-base;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $bg-hover;
+  }
+
+  &--active {
+    background: $bg-hover;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}

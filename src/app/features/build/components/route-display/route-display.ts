@@ -1,5 +1,5 @@
 import { Component, inject, computed, effect } from '@angular/core';
-import { BuildStore } from '@features/build/services/build-store';
+import { BuildStore } from '@features/build/services';
 import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
 import { Ability, StatKey } from '@models';
 

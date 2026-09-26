@@ -21,9 +21,7 @@ export class StatStore {
 
   canIncrementStat(state: BuildState, stat: StatKey): boolean {
     const currentValue = state.stats[stat] ?? 0;
-    const hasBoulderCircleBonus = state.boulderCircleStat === stat;
-    const maxStat = hasBoulderCircleBonus ? MAX_STAT + 1 : MAX_STAT;
-    return state.sp > 0 && currentValue < maxStat;
+    return state.sp > 0 && currentValue < MAX_STAT;
   }
 
   canDecrementStat(state: BuildState, stat: StatKey, character: Character): boolean {
@@ -36,9 +34,7 @@ export class StatStore {
     if (state.sp <= 0) return null;
 
     const currentValue = state.stats[stat] ?? 0;
-    const hasBoulderCircleBonus = state.boulderCircleStat === stat;
-    const maxStat = hasBoulderCircleBonus ? MAX_STAT + 1 : MAX_STAT;
-    if (currentValue >= maxStat) return null;
+    if (currentValue >= MAX_STAT) return null;
 
     const routeLevel = this.levelStore.getRouteLevelForStat(state.statHistory);
     const newStats = { ...state.stats, [stat]: currentValue + 1 };
@@ -57,9 +53,7 @@ export class StatStore {
 
   applyIncrementStat5(state: BuildState, stat: StatKey): BuildState | null {
     const currentValue = state.stats[stat] ?? 0;
-    const hasBoulderCircleBonus = state.boulderCircleStat === stat;
-    const maxStat = hasBoulderCircleBonus ? MAX_STAT + 1 : MAX_STAT;
-    const maxIncrement = Math.min(5, state.sp, maxStat - currentValue);
+    const maxIncrement = Math.min(5, state.sp, MAX_STAT - currentValue);
     if (maxIncrement <= 0) return null;
 
     const newStats = { ...state.stats, [stat]: currentValue + maxIncrement };

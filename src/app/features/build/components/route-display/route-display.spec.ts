@@ -106,7 +106,7 @@ describe('RouteDisplayComponent', () => {
       obtainedAbilities: [],
       pinnedTrees: [],
       statHistory: [],
-      boulderCircleStat: null,
+      bonusSlots: [],
       notes: { buildName: '', author: '', content: '' },
     });
   }

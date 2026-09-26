@@ -55,18 +55,6 @@ export class CharacterSelectorComponent implements OnInit, OnDestroy {
   allCharacters = signal<Character[]>([]);
   dropdownOpen = signal(false);
 
-  readonly currentTraitContent = computed<TraitTooltipContent | null>(() => {
-    const character = this.currentCharacter();
-    if (!character) {
-      return null;
-    }
-    return {
-      kind: 'trait',
-      name: character.trait.name,
-      description: character.trait.description,
-    };
-  });
-
   traitContentFor(character: Character): TraitTooltipContent {
     return {
       kind: 'trait',
