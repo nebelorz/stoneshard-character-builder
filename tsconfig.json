@@ -12,7 +12,17 @@
     "isolatedModules": true,
     "importHelpers": true,
     "target": "ES2022",
-    "module": "preserve"
+    "module": "preserve",
+    "paths": {
+      "@shared/*": ["./src/app/shared/*"],
+      "@core/*": ["./src/app/core/*"],
+      "@core/state": ["./src/app/core/state/index.ts"],
+      "@core/data": ["./src/app/core/data/index.ts"],
+      "@features/*": ["./src/app/features/*"],
+      "@features/build/services": ["./src/app/features/build/services/index.ts"],
+      "@models": ["./src/app/models/index.ts"],
+      "@layout/*": ["./src/app/layout/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
