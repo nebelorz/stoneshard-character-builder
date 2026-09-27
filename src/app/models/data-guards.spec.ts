@@ -259,6 +259,38 @@ describe('isAbility', () => {
   it('rejects non-array requires', () => {
     expect(isAbility({ ...VALID_ABILITY, requires: 'warfare-1' })).toBe(false);
   });
+
+  it('accepts a canonical description containing modifiers', () => {
+    expect(isAbility({ ...VALID_ABILITY, description: 'Grants {+5}% Crit Chance.' })).toBe(true);
+  });
+
+  it('rejects an unclosed modifier delimiter', () => {
+    expect(isAbility({ ...VALID_ABILITY, description: 'Grants {+5% Crit Chance.' })).toBe(false);
+  });
+
+  it('rejects malformed derived descriptionLines', () => {
+    expect(isAbility({ ...VALID_ABILITY, descriptionLines: 'not lines' })).toBe(false);
+    expect(
+      isAbility({ ...VALID_ABILITY, descriptionLines: [{ kind: 'paragraph', nodes: 'nope' }] }),
+    ).toBe(false);
+    expect(
+      isAbility({
+        ...VALID_ABILITY,
+        descriptionLines: [{ kind: 'sentence', nodes: [] }],
+      }),
+    ).toBe(false);
+  });
+
+  it('accepts valid derived descriptionLines', () => {
+    expect(
+      isAbility({
+        ...VALID_ABILITY,
+        descriptionLines: [
+          { kind: 'paragraph', nodes: [{ kind: 'modifier', expression: '+5', sign: 'pos' }] },
+        ],
+      }),
+    ).toBe(true);
+  });
 });
 
 describe('assertCharacterArray', () => {
