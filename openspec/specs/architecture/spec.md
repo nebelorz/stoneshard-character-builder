@@ -264,12 +264,22 @@ Tests that only verify template rendering or Angular boilerplate SHALL NOT be wr
 
 ### Requirement: Feature dependency direction
 
-Application code SHALL depend on lower layers in one direction only: `features` and `layout` MAY depend on `core`, `models`, and `shared`; `layout` MAY additionally compose `features` but no feature SHALL import from another feature; `core` MAY depend only on `models`; `shared` and `models` SHALL NOT depend on `core`, `features`, or `layout`. No pair of modules SHALL depend on each other in both directions. Domain logic or state needed by more than one feature SHALL live in the `core` or `shared` layer rather than one feature importing another feature's internal services.
+Application code SHALL depend on lower layers in one direction only: `features` and `layout` MAY depend on `core`, `models`, and `shared`; `layout` MAY additionally compose `features` but no feature SHALL import from another feature; `core` MAY depend only on `models`; `shared` MAY depend on `models`; and `models` SHALL NOT depend on `core`, `features`, `layout`, or `shared`. Neither `shared` nor `models` SHALL depend on `core`, `features`, or `layout`. No pair of modules SHALL depend on each other in both directions. Domain logic, state, or data shapes needed by more than one layer SHALL live in the lowest layer that all consumers may depend on rather than being imported back upward.
 
 #### Scenario: One-way feature dependencies
 
 - **WHEN** the import graph is inspected
 - **THEN** no file under `features/<a>` imports from `features/<b>` where `<b>` is a different feature
+
+#### Scenario: Models is the lowest layer
+
+- **WHEN** the import graph of the `models` layer is inspected
+- **THEN** no file under `models/` imports from `shared`, `core`, `features`, or `layout`
+
+#### Scenario: Shared depends on models in one direction
+
+- **WHEN** a `shared` file needs a domain type such as `BuildNotes` or tooltip content
+- **THEN** it imports that type from the `models` layer, and no `models` file imports any `shared` file back
 
 #### Scenario: Shared domain logic has a shared home
 
@@ -302,7 +312,7 @@ Shared numeric limits and key lists (point budgets, bonus ceilings, and stat key
 
 ### Requirement: Single source of truth for module resolution configuration
 
-Import aliases and module resolution settings (`@core/*`, `@shared/*`, `@features/*`, `@models/*`, `@layout/*`) SHALL be defined once and consumed by every tool that resolves imports (build, test, and editor). Parallel copies that can drift, and alias entries that are unreachable because a broader prefix matches first, SHALL NOT be maintained.
+Import aliases and module resolution settings (`@core/*`, `@shared/*`, `@features/*`, `@models`, `@layout/*`, plus the barrel aliases `@core/state`, `@core/data`, and `@features/build/services`) SHALL be defined once and consumed by every tool that resolves imports (build, test, and editor). Parallel copies that can drift, alias entries that are unreachable because a broader prefix matches first, and alias entries that no code consumes SHALL NOT be maintained. The resolution configuration SHALL use only compiler options that are supported and not deprecated by the project's TypeScript version.
 
 #### Scenario: One definition per alias
 
@@ -313,6 +323,16 @@ Import aliases and module resolution settings (`@core/*`, `@shared/*`, `@feature
 
 - **WHEN** the resolution configuration is inspected
 - **THEN** no exact alias is unreachable because a broader prefix entry matches it first
+
+#### Scenario: No dead aliases
+
+- **WHEN** the resolution configuration is inspected
+- **THEN** every declared alias has at least one consumer and no alias points at a non-existent target
+
+#### Scenario: No deprecated compiler options
+
+- **WHEN** the TypeScript configuration is type-checked with the project's TypeScript version
+- **THEN** the compiler reports no deprecated-option error and requires no `ignoreDeprecations` override
 
 #### Scenario: Tooling configuration type-checks
 
