@@ -16,8 +16,8 @@ import {
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
 import { Overlay, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
+import { BuildStore } from '@core/state';
+import { CharacterDataService } from '@core/data';
 import { Character } from '@models';
 import { fadeInOut } from '@shared/animations/fade';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';

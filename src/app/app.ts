@@ -11,9 +11,9 @@ import { ConfirmPopupComponent } from '@shared/ui/confirm-popup/confirm-popup';
 import { NotesModalComponent } from '@shared/ui/notes-modal/notes-modal';
 import { ToastService, PopupService } from '@shared/services';
 import { copyWithFeedback } from '@shared/utils/clipboard';
-import { BuildStore, UrlShareService, AiPromptService } from '@features/build/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { CharacterDataService } from '@features/character/services';
+import { BuildStore } from '@core/state';
+import { UrlShareService, AiPromptService } from '@features/build/services';
+import { AbilityDataService, CharacterDataService } from '@core/data';
 import { fadeInOut } from '@shared/animations/fade';
 import { BuildNotes } from '@models';
 

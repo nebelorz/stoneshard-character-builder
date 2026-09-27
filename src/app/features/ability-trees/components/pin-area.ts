@@ -1,6 +1,6 @@
 import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
-import { BuildStore } from '@features/build/services';
-import { AbilityDataService } from '@features/ability-trees/services';
+import { BuildStore } from '@core/state';
+import { AbilityDataService } from '@core/data';
 import { AbilityTree } from '@models';
 import { AbilityTreeComponent } from './ability-tree/ability-tree';
 import { TreeSelectorComponent } from './tree-selector/tree-selector';

@@ -1,7 +1,7 @@
 import { Component, input, inject, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { AbilityTree, DEFAULT_TREE_WIDTH, DEFAULT_TREE_HEIGHT, Ability } from '@models';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
+import { AbilityDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { AbilityIconComponent } from '../ability-icon/ability-icon';
 
 interface PlacedAbility {

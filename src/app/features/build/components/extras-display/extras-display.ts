@@ -1,5 +1,5 @@
 import { Component, inject, computed, output } from '@angular/core';
-import { BuildStore } from '@features/build/services';
+import { BuildStore } from '@core/state';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorNote } from '@ng-icons/phosphor-icons/regular';
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip';

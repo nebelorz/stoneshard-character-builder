@@ -1,9 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { BuildState, BonusSlot, Character, isStatKey } from '@models';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from './build-store';
-import { BonusService, ToastService } from '@shared/services';
+import { CharacterDataService, AbilityDataService } from '@core/data';
+import { BuildStore, BonusService } from '@core/state';
+import { ToastService } from '@shared/services';
 
 const MIN_LEVEL = 1;
 const MAX_LEVEL = 30;

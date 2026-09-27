@@ -1,5 +1,5 @@
 import { Component, inject, computed } from '@angular/core';
-import { BuildStore } from '@features/build/services';
+import { BuildStore } from '@core/state';
 
 @Component({
   selector: 'app-level-controls',

@@ -7,8 +7,8 @@ import {
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { expandCollapse } from '@shared/animations/fade';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
+import { AbilityDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { AbilityTree } from '@models';
 
 interface CategoryGroup {

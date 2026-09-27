@@ -9,9 +9,12 @@ import {
   StatKey,
   BonusSlot,
 } from '@models';
-import { CharacterDataService, LevelStore, StatStore } from '@features/character/services';
-import { AbilityDataService, AbilityStore } from '@features/ability-trees/services';
-import { BonusService } from '@shared/services';
+import { CharacterDataService } from '../data/character-data.service';
+import { AbilityDataService } from '../data/ability-data.service';
+import { LevelStore } from './level-store';
+import { StatStore } from './stat-store';
+import { AbilityStore } from './ability-store';
+import { BonusService } from './bonus.service';
 
 type InitStatus = 'idle' | 'loading' | 'ready' | 'error';
 

@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
+import { AbilityDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { AbilityTree } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
 import { TreeTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';

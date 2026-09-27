@@ -1,8 +1,7 @@
 import { Component, inject, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
-import { BuildStore } from '@features/build/services';
-import { BonusService } from '@shared/services';
+import { BuildStore, BonusService } from '@core/state';
 import { Quest, StatKey } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
 import { QuestTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';

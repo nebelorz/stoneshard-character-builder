@@ -7,7 +7,7 @@ import {
   parseRequirements,
   meetsRequirements,
 } from '@models';
-import { LevelStore } from '@features/character/services';
+import { LevelStore } from './level-store';
 
 @Injectable({ providedIn: 'root' })
 export class AbilityStore {

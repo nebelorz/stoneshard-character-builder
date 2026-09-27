@@ -26,7 +26,7 @@ import {
   sanitizeBonusSlots as sanitizeBonusSlotsPure,
   traitSpGains as traitSpGainsPure,
 } from '@models';
-import { QuestDataService } from './quest-data.service';
+import { QuestDataService } from '../data/quest-data.service';
 
 @Injectable({ providedIn: 'root' })
 export class BonusService {

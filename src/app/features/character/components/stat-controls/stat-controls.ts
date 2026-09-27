@@ -5,7 +5,7 @@ import {
   phosphorPlusSquare,
   phosphorInfo,
 } from '@ng-icons/phosphor-icons/regular';
-import { BuildStore } from '@features/build/services';
+import { BuildStore } from '@core/state';
 import { ABILITY_POINT_BUDGET, STAT_POINT_BUDGET, STAT_KEYS, STAT_INFO, StatKey } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
 import { StatTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
