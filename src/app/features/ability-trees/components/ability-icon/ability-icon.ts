@@ -22,6 +22,7 @@ import {
 import { BuildStore } from '@core/state';
 import { AbilityDataService } from '@core/data';
 import { AbilityHoverService } from '@shared/services';
+import { AbilityDescriptionComponent } from '../ability-description/ability-description';
 
 type AbilityIconState = 'locked' | 'unlocked' | 'obtained';
 
@@ -38,6 +39,7 @@ interface ResolvedRequirementGroup {
   selector: 'app-ability-icon',
   templateUrl: './ability-icon.html',
   styleUrl: './ability-icon.scss',
+  imports: [AbilityDescriptionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AbilityIconComponent implements OnDestroy, AfterViewInit {

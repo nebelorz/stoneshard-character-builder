@@ -85,7 +85,10 @@
     }
   </div>
 
-  <div class="ability-tooltip__description">{{ ability().description }}</div>
+  <app-ability-description
+    class="ability-tooltip__description"
+    [lines]="ability().descriptionLines"
+  />
 
   @if (isLocked() && resolvedRequirementGroups().length > 0) {
     <div class="ability-tooltip__requires">
