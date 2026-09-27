@@ -73,13 +73,16 @@ Built with Angular 22, TypeScript, and SCSS. Uses signals for state management a
 
 ```
 src/app/
+  core/
+    data/              # httpResource data services (characters, trees, abilities, quests)
+    state/             # Signal stores and the bonus-points domain service
   models/              # Domain types, pure bonus/requirement helpers, and data guards
   features/
     ability-trees/     # Tree rendering, ability icons, pin management
-    build/             # Build state, URL sharing, AI prompt, route display
-    character/         # Character selection, level/stat controls
+    build/             # Build orchestration, URL sharing, AI prompt, route display
+    character/         # Character selection, level/stat controls, traits, quests
   layout/              # Left and right sidenav, footer
-  shared/              # Cross-feature services, directives, animations, styles, UI components
+  shared/              # Cross-cutting services, directives, animations, styles, UI components
 ```
 
 Data is served from `src/assets/data/`: `characters.json`, `abilities.json`, `trees.json`, and `quests.json` (quest bonus-point rewards).
@@ -96,7 +99,7 @@ npm run format     # Prettier
 
 ### Architecture
 
-State is managed through a signal-based store pattern (`BuildStore` coordinates `LevelStore`, `StatStore`, `AbilityStore`) with no external state library. Shared cross-feature services (`BonusService` for trait/quest bonus points and derived AP, plus `QuestDataService` for quest data) live in `shared/services` and depend only on `models`, so features import them from `@shared/services` instead of from each other. Pure bonus formulas and constants live in `models/bonus.model.ts`. Data loads reactively via `httpResource`. URL sharing serializes build state as gzip-compressed base64url.
+Application code is layered one-way: `features` and `layout` depend on `core`, `models`, and `shared`; `layout` may additionally compose `features`; `core` depends only on `models`; no feature imports another feature. Application state lives in `core/state` (`BuildStore` coordinates `LevelStore`, `StatStore`, and `AbilityStore`, while `BonusService` computes trait/quest bonus points and derived AP), and data access lives in `core/data` (`CharacterDataService`, `AbilityDataService`, `QuestDataService`) using `httpResource`. Pure bonus formulas and constants live in `models/bonus.model.ts`. Cross-cutting UI services (`ToastService`, `PopupService`, `AppErrorHandler`, and `AbilityHoverService`) live in `shared/services`. URL sharing serializes build state as gzip-compressed base64url.
 
 ---
 
