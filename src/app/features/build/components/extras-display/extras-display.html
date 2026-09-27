@@ -6,16 +6,6 @@
   </div>
   <div class="right-sidenav__extras-content">
     <div class="right-sidenav__extras-row--notes" (click)="openNotes.emit()">
-      <div class="right-sidenav__extras-label-group">
-        <ng-icon
-          name="phosphorNote"
-          class="right-sidenav__extras-icon"
-          appTooltip
-          tooltipText="Author notes about this build"
-          tooltipPlacement="top"
-        ></ng-icon>
-        <span class="right-sidenav__extras-label">Notes</span>
-      </div>
       @if (notesPreview(); as preview) {
         <span class="right-sidenav__extras-notes-title"
           >▸ Name {{ preview.buildName || '--' }}</span
@@ -27,7 +17,7 @@
           >▸ Notes: {{ preview.contentPreview || '--' }}</span
         >
       } @else {
-        <span class="right-sidenav__extras-notes-placeholder">No notes for this build</span>
+        <span class="right-sidenav__extras-notes-placeholder">Add notes for this build</span>
       }
     </div>
   </div>

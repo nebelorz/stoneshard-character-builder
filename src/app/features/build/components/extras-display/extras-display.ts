@@ -1,15 +1,12 @@
 import { Component, inject, computed, output } from '@angular/core';
 import { BuildStore } from '@core/state';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorNote } from '@ng-icons/phosphor-icons/regular';
-import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
 
 @Component({
   selector: 'app-extras-display',
   templateUrl: './extras-display.html',
   styleUrl: './extras-display.scss',
-  imports: [NgIcon, TooltipDirective],
-  providers: [provideIcons({ phosphorNote })],
+  imports: [],
+  providers: [],
 })
 export class ExtrasDisplayComponent {
   private readonly buildStore = inject(BuildStore);
