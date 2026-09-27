@@ -1,64 +1,5 @@
 @use 'variables' as *;
 
-@mixin tooltip-base {
-  position: fixed;
-  z-index: 2147483647;
-  width: 280px;
-  padding: 10px 12px;
-  background: $bg-dark;
-  border: 1px solid $border-gold;
-  border-radius: $radius-sm;
-  color: $text-primary;
-  font-size: $font-size-base;
-  line-height: 1.4;
-  pointer-events: none;
-  box-shadow: $shadow-tooltip;
-}
-
-@mixin tooltip-header {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 6px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid $border-dim;
-}
-
-@mixin tooltip-name {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  color: $gold-bright;
-}
-
-@mixin tooltip-type {
-  font-size: $font-size-sm;
-  color: $text-secondary;
-  text-transform: capitalize;
-}
-
-@mixin tooltip-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-bottom: 6px;
-}
-
-@mixin tooltip-stat {
-  display: flex;
-  gap: 6px;
-}
-
-@mixin tooltip-stat-label {
-  color: $text-secondary;
-  min-width: 70px;
-}
-
-@mixin tooltip-description {
-  color: $text-primary;
-  font-size: $font-size-sm;
-  opacity: 0.9;
-}
-
 .ability-icon {
   position: relative;
   width: 100%;
@@ -164,75 +105,197 @@
 }
 
 .ability-tooltip {
-  @include tooltip-base;
+  position: fixed;
+  z-index: 2147483647;
+  width: 320px;
+  padding: 12px 14px;
+  background: $bg-dark;
+  border: 1px solid $border-gold;
+  border-radius: $radius-sm;
+  color: $text-primary;
+  font-size: $font-size-sm;
+  line-height: 1.45;
+  box-shadow: $shadow-tooltip;
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+  pointer-events: auto;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.15s;
-  position: absolute;
 
   &--visible {
     visibility: visible;
     opacity: 1;
   }
 
-  &--left {
-    transform: translateX(-100%);
-  }
-
   &__header {
-    @include tooltip-header;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid $border-dim;
   }
 
   &__name {
-    @include tooltip-name;
+    font-family: $font-fantasy;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $gold-bright;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex: 1;
   }
 
   &__type {
-    @include tooltip-type;
+    font-size: $font-size-xs;
+    color: $text-secondary;
+    text-transform: capitalize;
+    white-space: nowrap;
+    padding: 1px 8px;
+    border: 1px solid $border-dim;
+    border-radius: 10px;
+    background: $bg-panel;
   }
 
-  &__stats {
-    @include tooltip-stats;
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    overflow-y: auto;
+
+    &:focus-visible {
+      @include focus-ring;
+    }
   }
 
-  &__stat {
-    @include tooltip-stat;
+  &__metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 12px;
   }
 
-  &__stat-label {
-    @include tooltip-stat-label;
+  &__metric {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
   }
 
-  &__stat-value {
+  &__metric-label {
+    font-size: $font-size-xxs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: $text-secondary;
+  }
+
+  &__metric-value {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
     color: $text-primary;
-    font-weight: 500;
+  }
+
+  &__metric--muted &__metric-value {
+    color: $text-disabled;
+    font-weight: 400;
+  }
+
+  &__section-label {
+    display: block;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    color: $text-secondary;
+    margin-bottom: 5px;
+  }
+
+  &__tokens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  &__token {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    padding: 1px 7px;
+    border-radius: 5px;
+    border: 1px solid $border-dim;
+    background: $bg-panel;
+    color: $text-primary;
+
+    &--neutral {
+      color: $text-secondary;
+    }
+
+    &--str {
+      color: $stat-str;
+      border-color: rgba($stat-str, 0.5);
+      background: rgba($stat-str, 0.15);
+    }
+
+    &--agi {
+      color: $stat-agi;
+      border-color: rgba($stat-agi, 0.5);
+      background: rgba($stat-agi, 0.15);
+    }
+
+    &--per {
+      color: $stat-per;
+      border-color: rgba($stat-per, 0.5);
+      background: rgba($stat-per, 0.15);
+    }
+
+    &--vit {
+      color: $stat-vit;
+      border-color: rgba($stat-vit, 0.5);
+      background: rgba($stat-vit, 0.15);
+    }
+
+    &--wil {
+      color: $stat-wil;
+      border-color: rgba($stat-wil, 0.5);
+      background: rgba($stat-wil, 0.15);
+    }
+  }
+
+  &__scaling-term {
+    font-size: $font-size-xs;
+    color: $text-secondary;
+    padding: 1px 2px;
   }
 
   &__description {
-    @include tooltip-description;
-    margin-bottom: 8px;
+    font-size: $font-size-sm;
+    color: $text-primary;
+    opacity: 0.95;
   }
 
   &__requires,
   &__unlock {
-    margin-top: 6px;
-    padding-top: 6px;
     border-top: 1px solid $border-dim;
+    padding-top: 8px;
   }
 
-  &__section-label {
-    font-size: $font-size-xs;
-    font-weight: 600;
-    color: $text-secondary;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
-
-  &__parents {
+  &__groups {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 6px;
+  }
+
+  &__group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border: 1px solid $border-dim;
+    border-radius: $radius-sm;
+    background: $bg-panel;
   }
 
   &__parent {
@@ -242,8 +305,8 @@
   }
 
   &__parent-icon {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border-radius: 2px;
     border: 1px solid $border-dim;
     object-fit: cover;
@@ -254,10 +317,17 @@
     color: $text-primary;
   }
 
-  &__or-separator {
+  &__or-separator,
+  &__and-separator {
     font-size: $font-size-xs;
     color: $text-secondary;
     font-style: italic;
+  }
+
+  &__and-separator {
+    font-style: normal;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.3px;
   }
 
   &__unlock-text {
