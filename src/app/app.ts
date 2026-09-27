@@ -13,7 +13,7 @@ import { ToastService, PopupService } from '@shared/services';
 import { copyWithFeedback } from '@shared/utils/clipboard';
 import { BuildStore } from '@core/state';
 import { UrlShareService, AiPromptService } from '@features/build/services';
-import { AbilityDataService, CharacterDataService } from '@core/data';
+import { AbilityDataService, CharacterDataService, QuestDataService } from '@core/data';
 import { fadeInOut } from '@shared/animations/fade';
 import { BuildNotes } from '@models';
 
@@ -56,6 +56,7 @@ export class AppComponent {
   private readonly aiPrompt = inject(AiPromptService);
   private readonly abilityData = inject(AbilityDataService);
   private readonly characterData = inject(CharacterDataService);
+  private readonly questData = inject(QuestDataService);
   private readonly toastService = inject(ToastService);
   readonly popupService = inject(PopupService);
 
@@ -85,6 +86,7 @@ export class AppComponent {
   });
 
   private readonly urlRestoreDone = signal(false);
+  private readonly questFailureReported = signal(false);
 
   constructor() {
     effect(() => {
@@ -101,6 +103,17 @@ export class AppComponent {
           }
         });
         this.buildStore.initialize();
+      }
+    });
+
+    effect(() => {
+      const questError = this.questData.quests.error();
+      if (questError && !this.questFailureReported()) {
+        this.questFailureReported.set(true);
+        this.toastService.show(
+          'Could not load quest data; quest bonuses may be unavailable',
+          'error',
+        );
       }
     });
   }
