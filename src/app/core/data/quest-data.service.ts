@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, computed } from '@angular/core';
 import { httpResource } from '@angular/common/http';
 import { Quest, assertQuestArray } from '@models';
 
@@ -15,4 +15,6 @@ export class QuestDataService {
       },
     },
   );
+
+  readonly questList = computed(() => this.quests.value() ?? []);
 }

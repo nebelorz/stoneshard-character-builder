@@ -1,8 +1,8 @@
 import { Component, inject, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorInfo, phosphorPlus, phosphorMinus } from '@ng-icons/phosphor-icons/regular';
-import { BuildStore, BonusService } from '@core/state';
-import { StatKey } from '@models';
+import { BuildStore } from '@core/state';
+import { StatKey, traitSpGains, bonusSlotsForSource } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
 import { TraitTooltipContent } from '@models';
 import { PointSlotRowComponent } from '../point-slot-row/point-slot-row';
@@ -37,7 +37,6 @@ interface GainView {
 })
 export class TraitSectionComponent {
   private readonly buildStore = inject(BuildStore);
-  private readonly bonusService = inject(BonusService);
 
   readonly character = computed(() => this.buildStore.character());
 
@@ -51,12 +50,12 @@ export class TraitSectionComponent {
     };
   });
 
-  private readonly spGains = computed(() => this.bonusService.traitSpGains(this.character()));
+  private readonly spGains = computed(() => traitSpGains(this.character()));
 
   readonly gainViews = computed<GainView[]>(() => {
     const state = this.buildStore.state();
     return this.spGains().map((gain) => {
-      const existing = state ? this.bonusService.slotsForSource(state, gain.id) : [];
+      const existing = state ? bonusSlotsForSource(state, gain.id) : [];
       const statAt = (index: number): StatKey | null =>
         existing.find((slot) => slot.index === index)?.stat ?? null;
 

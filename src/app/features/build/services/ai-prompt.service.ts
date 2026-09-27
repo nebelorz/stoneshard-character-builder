@@ -1,9 +1,9 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import { BuildStore, BonusService } from '@core/state';
+import { BuildStore } from '@core/state';
 import { ToastService } from '@shared/services';
-import { AbilityDataService } from '@core/data';
+import { AbilityDataService, QuestDataService } from '@core/data';
 import {
   BuildState,
   Character,
@@ -11,6 +11,9 @@ import {
   AbilityTree,
   STAT_KEYS,
   DEFAULT_ABILITY_IDS,
+  bonusCount,
+  findQuest,
+  findTraitGain,
 } from '@models';
 
 const TEMPLATE_URL = 'assets/ia/prompt_template.md';
@@ -28,7 +31,7 @@ interface BonusGroup {
 export class AiPromptService {
   private readonly http = inject(HttpClient);
   private readonly buildStore = inject(BuildStore);
-  private readonly bonusService = inject(BonusService);
+  private readonly questData = inject(QuestDataService);
   private readonly abilityData = inject(AbilityDataService);
   private readonly toastService = inject(ToastService);
 
@@ -176,7 +179,7 @@ export class AiPromptService {
     const values = STAT_KEYS.map((stat) => {
       const base = character.baseStats[stat];
       const route = state.stats[stat] ?? base;
-      const current = route + this.bonusService.bonusCount(state, stat);
+      const current = route + bonusCount(state, stat);
       const allocated = current - base;
       return allocated > 0 ? `${current} (${base}+${allocated})` : `${current}`;
     });
@@ -189,9 +192,9 @@ export class AiPromptService {
     sourceId: string,
     character: Character | null,
   ): { label: string; kind: 'quest' | 'trait' } {
-    const quest = this.bonusService.findQuest(sourceId);
+    const quest = findQuest(this.questData.questList(), sourceId);
     if (quest) return { label: `Quest - ${quest.label}`, kind: 'quest' };
-    const gain = character ? this.bonusService.findTraitGain(character, sourceId) : null;
+    const gain = character ? findTraitGain(character, sourceId) : null;
     if (gain) return { label: `Trait - ${gain.label}`, kind: 'trait' };
     return { label: sourceId, kind: 'trait' };
   }

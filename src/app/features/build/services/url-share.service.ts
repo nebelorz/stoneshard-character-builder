@@ -1,7 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { BuildState, BonusSlot, Character, isStatKey } from '@models';
-import { CharacterDataService, AbilityDataService } from '@core/data';
-import { BuildStore, BonusService } from '@core/state';
+import {
+  BuildState,
+  BonusSlot,
+  Character,
+  isStatKey,
+  sanitizeBonusSlots,
+  derivedTraitApFloor,
+} from '@models';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { ToastService } from '@shared/services';
 
 const MIN_LEVEL = 1;
@@ -54,7 +61,7 @@ export class UrlShareService {
   private readonly toastService = inject(ToastService);
   private readonly characterData = inject(CharacterDataService);
   private readonly abilityData = inject(AbilityDataService);
-  private readonly bonusService = inject(BonusService);
+  private readonly questData = inject(QuestDataService);
 
   async generateShareUrl(): Promise<string | null> {
     const state = this.buildStore.stateSnapshot();
@@ -161,11 +168,11 @@ export class UrlShareService {
       rawSlots.push({ sourceId: 'boulder-circle', index: 0, stat: legacyStat });
     }
 
-    const sanitized = this.bonusService.sanitizeBonusSlots(rawSlots, character);
+    const sanitized = sanitizeBonusSlots(rawSlots, character, this.questData.questList());
     const bonusSlots: readonly BonusSlot[] = sanitized === 'invalid' ? [] : sanitized;
 
     const obtainedAbilities = parsed['obtainedAbilities'] as BuildState['obtainedAbilities'];
-    const derivedFloor = this.bonusService.derivedFloor(
+    const derivedFloor = derivedTraitApFloor(
       character,
       obtainedAbilities,
       this.abilityData.abilities.value() ?? [],

@@ -7,13 +7,24 @@ import {
   Character,
   Ability,
   StatKey,
+  addBossRow,
+  allocateBonusSlot,
+  bonusCount,
+  bossRowCount,
+  canAddBossRow,
+  clearTraitSlots,
+  deallocateBonusSlot,
+  derivedTraitAp,
+  derivedTraitApFloor,
+  isQuestSource,
+  removeBossRow,
 } from '@models';
 import { CharacterDataService } from '../data/character-data.service';
 import { AbilityDataService } from '../data/ability-data.service';
+import { QuestDataService } from '../data/quest-data.service';
 import { LevelStore } from './level-store';
 import { StatStore } from './stat-store';
 import { AbilityStore } from './ability-store';
-import { BonusService } from './bonus.service';
 
 type InitStatus = 'idle' | 'loading' | 'ready' | 'error';
 
@@ -24,7 +35,7 @@ export class BuildStore {
   private readonly levelStore = inject(LevelStore);
   private readonly statStore = inject(StatStore);
   private readonly abilityStore = inject(AbilityStore);
-  private readonly bonusService = inject(BonusService);
+  private readonly questData = inject(QuestDataService);
 
   private readonly _state = signal<BuildState | null>(null);
   private readonly _character = signal<Character | null>(null);
@@ -64,7 +75,7 @@ export class BuildStore {
     const state = this._state();
     const character = this._character();
     if (!state || !character) return 0;
-    return this.bonusService.derivedAp(character, state.obtainedAbilities, this._abilities());
+    return derivedTraitAp(character, state.obtainedAbilities, this._abilities());
   });
 
   readonly totalAp = computed(() => (this._state()?.ap ?? 0) + this.derivedTraitAp());
@@ -104,12 +115,8 @@ export class BuildStore {
 
     const oldCharacter = this._character();
     const abilities = this._abilities();
-    const oldDerived = this.bonusService.derivedAp(
-      oldCharacter,
-      state.obtainedAbilities,
-      abilities,
-    );
-    const newDerived = this.bonusService.derivedAp(character, state.obtainedAbilities, abilities);
+    const oldDerived = derivedTraitAp(oldCharacter, state.obtainedAbilities, abilities);
+    const newDerived = derivedTraitAp(character, state.obtainedAbilities, abilities);
     const totalAp = state.ap + oldDerived;
 
     this._character.set(character);
@@ -118,7 +125,9 @@ export class BuildStore {
       characterId: character.id,
       ap: totalAp - newDerived,
       stats: this.statStore.deriveStats(character.baseStats, state.statHistory),
-      bonusSlots: this.bonusService.clearTraitSlots(state).bonusSlots,
+      bonusSlots: clearTraitSlots(state, (sourceId) =>
+        isQuestSource(this.questData.questList(), sourceId),
+      ).bonusSlots,
     });
   }
 
@@ -136,7 +145,7 @@ export class BuildStore {
       this._character.set(character);
     }
 
-    const derivedFloor = this.bonusService.derivedFloor(
+    const derivedFloor = derivedTraitApFloor(
       character ?? null,
       state.obtainedAbilities,
       this._abilities(),
@@ -218,7 +227,7 @@ export class BuildStore {
       state,
       abilityId,
       allAbilities,
-      (obtained) => this.bonusService.derivedAp(this._character(), obtained, allAbilities),
+      (obtained) => derivedTraitAp(this._character(), obtained, allAbilities),
     );
     if (newState) {
       this.pushState(newState);
@@ -277,12 +286,13 @@ export class BuildStore {
   allocateBonusSlot(sourceId: string, index: number, stat: StatKey): void {
     const state = this._state();
     if (!state) return;
-    const newState = this.bonusService.allocateSlot(
+    const newState = allocateBonusSlot(
       state,
       sourceId,
       index,
       stat,
       this._character(),
+      this.questData.questList(),
     );
     if (newState) this.pushState(newState);
   }
@@ -290,40 +300,46 @@ export class BuildStore {
   deallocateBonusSlot(sourceId: string, index: number): void {
     const state = this._state();
     if (!state) return;
-    const newState = this.bonusService.deallocateSlot(state, sourceId, index, this._character());
+    const newState = deallocateBonusSlot(state, sourceId, index, this._character());
     if (newState) this.pushState(newState);
   }
 
   addBossRow(sourceId: string): void {
     const state = this._state();
     if (!state) return;
-    const newState = this.bonusService.addBossRow(state, sourceId, this._character());
+    const newState = addBossRow(state, sourceId, this._character(), this.questData.questList());
     if (newState) this.pushState(newState);
   }
 
   removeBossRow(sourceId: string, rowIndex: number): void {
     const state = this._state();
     if (!state) return;
-    const newState = this.bonusService.removeBossRow(state, sourceId, rowIndex, this._character());
+    const newState = removeBossRow(
+      state,
+      sourceId,
+      rowIndex,
+      this._character(),
+      this.questData.questList(),
+    );
     if (newState) this.pushState(newState);
   }
 
   canAddBossRow(sourceId: string): boolean {
     const state = this._state();
     if (!state) return false;
-    return this.bonusService.canAddBossRow(state, sourceId, this._character());
+    return canAddBossRow(state, sourceId, this._character(), this.questData.questList());
   }
 
   bossRowCount(sourceId: string): number {
     const state = this._state();
     if (!state) return 0;
-    return this.bonusService.bossRowCount(state, sourceId, this._character());
+    return bossRowCount(state, sourceId, this._character(), this.questData.questList());
   }
 
   bonusCount(stat: StatKey): number {
     const state = this._state();
     if (!state) return 0;
-    return this.bonusService.bonusCount(state, stat);
+    return bonusCount(state, stat);
   }
 
   applySetNotes(notes: Partial<BuildNotes>): void {

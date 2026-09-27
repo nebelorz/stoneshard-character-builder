@@ -1,8 +1,9 @@
 import { Component, inject, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
-import { BuildStore, BonusService } from '@core/state';
-import { Quest, StatKey } from '@models';
+import { BuildStore } from '@core/state';
+import { QuestDataService } from '@core/data';
+import { Quest, StatKey, bonusSlotsForSource } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
 import { QuestTooltipContent } from '@models';
 import { PointSlotRowComponent } from '../point-slot-row/point-slot-row';
@@ -21,15 +22,15 @@ interface QuestSlotView {
 })
 export class QuestsSectionComponent {
   private readonly buildStore = inject(BuildStore);
-  private readonly bonusService = inject(BonusService);
+  private readonly questData = inject(QuestDataService);
 
-  readonly quests = computed(() => this.bonusService.quests());
+  readonly quests = computed(() => this.questData.questList());
 
   readonly slotsByQuest = computed<Record<string, QuestSlotView[]>>(() => {
     const state = this.buildStore.state();
     const map: Record<string, QuestSlotView[]> = {};
     for (const quest of this.quests()) {
-      const existing = state ? this.bonusService.slotsForSource(state, quest.id) : [];
+      const existing = state ? bonusSlotsForSource(state, quest.id) : [];
       map[quest.id] = Array.from({ length: quest.max }, (_, index) => ({
         index,
         stat: existing.find((slot) => slot.index === index)?.stat ?? null,
