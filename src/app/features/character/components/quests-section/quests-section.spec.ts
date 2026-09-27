@@ -1,9 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { QuestsSectionComponent } from './quests-section';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { QuestDataService } from '@shared/services';
+import { BuildStore } from '@core/state';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
 import { Character } from '@models';
 
 const MOCK_QUESTS = [
@@ -107,8 +106,19 @@ describe('QuestsSectionComponent', () => {
     );
   });
 
-  it('renders an info icon affordance for the quest', () => {
+  it('describes the quest through a focusable info affordance', () => {
     const { fixture } = setup();
-    expect(fixture.nativeElement.querySelector('.left-sidenav__quest-info')).not.toBeNull();
+    const affordance = fixture.nativeElement.querySelector(
+      '.left-sidenav__quest-info',
+    ) as HTMLElement;
+
+    affordance.dispatchEvent(new FocusEvent('focus'));
+
+    const tooltip = TestBed.inject(OverlayContainer)
+      .getContainerElement()
+      .querySelector('[role="tooltip"]');
+    expect(tooltip?.textContent).toContain('Boulder Circle');
+    expect(tooltip?.textContent).toContain('The Boulder Circle training grants 1 Stat Point');
+    expect(affordance.getAttribute('aria-describedby')).toBe(tooltip?.id);
   });
 });

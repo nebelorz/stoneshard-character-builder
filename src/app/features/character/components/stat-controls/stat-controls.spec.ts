@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { StatControlsComponent } from './stat-controls';
-import { BuildStore } from '@features/build/services';
+import { BuildStore } from '@core/state';
 import { STAT_INFO } from '@models';
 
 const HOVER_DELAY = 200;
@@ -28,10 +28,8 @@ describe('StatControlsComponent', () => {
             bonusCount: (stat: string) => (stat === 'STR' ? 2 : 0),
             totalAp: () => 33,
             derivedTraitAp: () => 2,
-            canIncrementStat1: () => true,
-            canDecrementStat1: () => true,
-            canIncrementStat5: () => true,
-            canDecrementStat5: () => true,
+            canIncrementStat: () => true,
+            canDecrementStat: () => true,
             incrementStat: () => undefined,
             decrementStat: () => undefined,
             incrementStat5: () => undefined,
@@ -51,13 +49,16 @@ describe('StatControlsComponent', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  it('renders an info icon for each stat', () => {
-    expect(infoIcons().length).toBe(5);
-  });
-
-  it('labels each info icon for its stat', () => {
-    const labels = Array.from(infoIcons()).map((icon) => icon.getAttribute('aria-label'));
-    expect(labels).toEqual([
+  it('exposes a labelled description affordance for each stat', () => {
+    const affordances = Array.from(infoIcons());
+    expect(affordances.map((icon) => icon.getAttribute('role'))).toEqual([
+      'button',
+      'button',
+      'button',
+      'button',
+      'button',
+    ]);
+    expect(affordances.map((icon) => icon.getAttribute('aria-label'))).toEqual([
       'Show Strength description',
       'Show Agility description',
       'Show Perception description',
@@ -72,11 +73,9 @@ describe('StatControlsComponent', () => {
     });
   });
 
-  it('wraps each glyph in the focusable target with the glyph hidden from assistive tech', () => {
+  it('keeps each decorative glyph out of the accessibility tree', () => {
     infoIcons().forEach((target) => {
-      expect(target.tagName).toBe('SPAN');
       const glyph = target.querySelector('ng-icon');
-      expect(glyph).toBeTruthy();
       expect(glyph?.getAttribute('aria-hidden')).toBe('true');
     });
   });

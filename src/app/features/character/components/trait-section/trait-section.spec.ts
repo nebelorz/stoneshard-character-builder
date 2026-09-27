@@ -1,9 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { TraitSectionComponent } from './trait-section';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { QuestDataService } from '@shared/services';
+import { BuildStore } from '@core/state';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
 import { Character, Ability } from '@models';
 
 const MOCK_QUESTS = [
@@ -151,10 +149,15 @@ function setup(characters: Character[]): {
 }
 
 describe('TraitSectionComponent', () => {
-  it('renders trait name and info affordance', () => {
+  it('renders trait name and an interactive info affordance', () => {
     const { fixture } = setup([JORGRIM]);
     expect(fixture.nativeElement.textContent).toContain('Gore and Glory');
-    expect(fixture.nativeElement.querySelector('.left-sidenav__trait-info')).not.toBeNull();
+    const info = fixture.nativeElement.querySelector(
+      '.left-sidenav__trait-info',
+    ) as HTMLElement | null;
+    expect(info).not.toBeNull();
+    expect(info!.getAttribute('role')).toBe('button');
+    expect(info!.getAttribute('aria-label')).toBe('Show Gore and Glory description');
   });
 
   describe('Jorgrim (bounded gains)', () => {
