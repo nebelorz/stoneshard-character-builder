@@ -129,6 +129,7 @@ const MOCK_ABILITIES: Ability[] = ABILITY_IDS.map((id) => ({
   requires: [],
   unlockConditions: [],
   description: '',
+  descriptionLines: [],
   requiredBy: [],
 }));
 

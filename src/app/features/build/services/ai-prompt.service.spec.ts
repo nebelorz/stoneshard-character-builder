@@ -85,6 +85,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Boosts morale with +10% power. Activates "War Cry".',
+    descriptionLines: [],
     requiredBy: ['warfare-2'],
   },
   {
@@ -102,6 +103,7 @@ const MOCK_ABILITIES = [
     requires: ['warfare-1'],
     unlockConditions: [],
     description: 'Grants +(15 + 2 * AGL)% Weapon Damage for 3 turns.',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -119,6 +121,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Quickly move to a target tile.',
+    descriptionLines: [],
     requiredBy: ['athletics-2'],
   },
   {
@@ -136,6 +139,7 @@ const MOCK_ABILITIES = [
     requires: ['athletics-1'],
     unlockConditions: [],
     description: 'Grants +10% Dodge for 2 turns after using a maneuver.',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -153,6 +157,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Carves the targeted animal carcass for meat.',
+    descriptionLines: [],
     requiredBy: ['survival-4', 'survival-5'],
   },
 ];

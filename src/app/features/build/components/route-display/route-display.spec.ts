@@ -39,6 +39,7 @@ const ability = (partial: Partial<Ability>): Ability => ({
   requires: [],
   unlockConditions: [],
   description: '',
+  descriptionLines: [],
   requiredBy: [],
   ...partial,
 });

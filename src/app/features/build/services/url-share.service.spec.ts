@@ -79,6 +79,7 @@ const MOCK_ABILITIES = ['warfare-1', 'warfare-2', 'warfare-3', 'survival-2'].map
   requires: [],
   unlockConditions: [],
   description: '',
+  descriptionLines: [],
   requiredBy: [],
 }));
 

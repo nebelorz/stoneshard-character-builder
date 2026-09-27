@@ -85,6 +85,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Boost morale',
+    descriptionLines: [],
     requiredBy: ['warfare-2', 'warfare-3'],
   },
   {
@@ -102,6 +103,7 @@ const MOCK_ABILITIES = [
     requires: ['warfare-1'],
     unlockConditions: [],
     description: 'Improved focus',
+    descriptionLines: [],
     requiredBy: ['warfare-4'],
   },
   {
@@ -119,6 +121,7 @@ const MOCK_ABILITIES = [
     requires: ['warfare-1'],
     unlockConditions: [],
     description: 'Bash with shield',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -136,6 +139,7 @@ const MOCK_ABILITIES = [
     requires: ['warfare-2'],
     unlockConditions: [],
     description: 'Master of war',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -153,6 +157,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Harvest resources',
+    descriptionLines: [],
     requiredBy: ['survival-2'],
   },
   {
@@ -170,6 +175,7 @@ const MOCK_ABILITIES = [
     requires: ['survival-1'],
     unlockConditions: [],
     description: 'Improved skinning',
+    descriptionLines: [],
     requiredBy: [],
   },
 ];

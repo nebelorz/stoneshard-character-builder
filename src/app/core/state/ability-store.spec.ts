@@ -19,6 +19,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: [],
     unlockConditions: [],
     description: 'Boost morale',
+    descriptionLines: [],
     requiredBy: ['warfare-2', 'warfare-3'],
   },
   {
@@ -36,6 +37,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: ['warfare-1'],
     unlockConditions: [],
     description: 'Improved focus',
+    descriptionLines: [],
     requiredBy: ['warfare-4'],
   },
   {
@@ -53,6 +55,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: ['warfare-1'],
     unlockConditions: [],
     description: 'Bash with shield',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -70,6 +73,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: ['warfare-2'],
     unlockConditions: [],
     description: 'Master of war',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -87,6 +91,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: ['survival-1'],
     unlockConditions: [],
     description: 'Forage for food',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -104,6 +109,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: ['survival-1'],
     unlockConditions: [],
     description: 'Gather herbs',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -121,6 +127,7 @@ const MOCK_ABILITIES: Ability[] = [
     requires: ['survival-1'],
     unlockConditions: [],
     description: 'Track prey',
+    descriptionLines: [],
     requiredBy: [],
   },
 ];
@@ -211,6 +218,7 @@ describe('AbilityStore', () => {
           requires: ['survival-1'],
           unlockConditions: [],
           description: 'Forage for food',
+          descriptionLines: [],
           requiredBy: [],
         },
       ];
@@ -239,6 +247,7 @@ describe('AbilityStore', () => {
           requires: [],
           unlockConditions: [],
           description: 'Carve carcasses for meat',
+          descriptionLines: [],
           requiredBy: ['survival-4', 'survival-5'],
         },
       ];

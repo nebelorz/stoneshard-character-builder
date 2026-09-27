@@ -95,6 +95,7 @@ const MOCK_ABILITIES: Ability[] = [
   requires: [],
   unlockConditions: [],
   description: '',
+  descriptionLines: [],
   requiredBy: [],
 }));
 
