@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { EnrichedTooltipDirective, TooltipPlacement } from './enriched-tooltip';
-import { TooltipContent } from './tooltip-content.model';
+import { TooltipContent } from '@models';
 
 const TRAIT_CONTENT: TooltipContent = {
   kind: 'trait',
