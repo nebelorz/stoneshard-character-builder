@@ -219,6 +219,7 @@ describe('AbilityTreeComponent', () => {
   });
 
   it('shows a tooltip on hover', () => {
+    vi.useFakeTimers();
     const firstIcon = fixture.nativeElement.querySelector(
       'app-ability-icon .ability-icon',
     ) as HTMLElement;
@@ -233,7 +234,13 @@ describe('AbilityTreeComponent', () => {
     fixture.detectChanges();
     const hiddenTooltip = document.body.querySelector('.ability-tooltip') as HTMLElement;
     expect(hiddenTooltip).toBeTruthy();
+    expect(hiddenTooltip.classList.contains('ability-tooltip--visible')).toBe(true);
+
+    vi.advanceTimersByTime(200);
+    fixture.detectChanges();
     expect(hiddenTooltip.classList.contains('ability-tooltip--visible')).toBe(false);
     expect(window.getComputedStyle(hiddenTooltip).visibility).toBe('hidden');
+
+    vi.useRealTimers();
   });
 });
