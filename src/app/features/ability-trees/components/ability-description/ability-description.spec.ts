@@ -67,6 +67,26 @@ describe('AbilityDescriptionComponent', () => {
     expect(host.querySelectorAll('.ability-description__marker')).toHaveLength(2);
   });
 
+  it('keeps a bullet modifier and its trailing text in one inline content flow', () => {
+    const host = setup([
+      {
+        kind: 'bullet',
+        nodes: [
+          { kind: 'modifier', expression: '+59 + 1 * ranged_skill_learned', sign: 'pos' },
+          { kind: 'text', text: '% Accuracy' },
+        ],
+      },
+    ]);
+
+    const content = host.querySelector('.ability-description__content');
+    expect(content).not.toBeNull();
+    expect(content?.querySelector('.ability-description__modifier')?.textContent).toBe(
+      '+59 + 1 * Learned Ranged Weapons%',
+    );
+    expect(content?.querySelector('.ability-description__text')?.textContent).toBe(' Accuracy');
+    expect(content?.children).toHaveLength(2);
+  });
+
   it('applies a themed colour class per modifier classification', () => {
     const host = setup([
       {
