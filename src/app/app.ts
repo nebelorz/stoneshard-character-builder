@@ -11,10 +11,9 @@ import { ConfirmPopupComponent } from '@shared/ui/confirm-popup/confirm-popup';
 import { NotesModalComponent } from '@shared/ui/notes-modal/notes-modal';
 import { ToastService, PopupService } from '@shared/services';
 import { copyWithFeedback } from '@shared/utils/clipboard';
-import { BuildStore, UrlShareService, AiPromptService } from '@features/build/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { CharacterDataService } from '@features/character/services';
-import { fadeInOut } from '@shared/animations/fade';
+import { BuildStore } from '@core/state';
+import { UrlShareService, AiPromptService } from '@features/build/services';
+import { AbilityDataService, CharacterDataService, QuestDataService } from '@core/data';
 import { BuildNotes } from '@models';
 
 @Component({
@@ -31,7 +30,6 @@ import { BuildNotes } from '@models';
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
-  animations: [fadeInOut],
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
@@ -56,6 +54,7 @@ export class AppComponent {
   private readonly aiPrompt = inject(AiPromptService);
   private readonly abilityData = inject(AbilityDataService);
   private readonly characterData = inject(CharacterDataService);
+  private readonly questData = inject(QuestDataService);
   private readonly toastService = inject(ToastService);
   readonly popupService = inject(PopupService);
 
@@ -85,6 +84,7 @@ export class AppComponent {
   });
 
   private readonly urlRestoreDone = signal(false);
+  private readonly questFailureReported = signal(false);
 
   constructor() {
     effect(() => {
@@ -101,6 +101,17 @@ export class AppComponent {
           }
         });
         this.buildStore.initialize();
+      }
+    });
+
+    effect(() => {
+      const questError = this.questData.quests.error();
+      if (questError && !this.questFailureReported()) {
+        this.questFailureReported.set(true);
+        this.toastService.show(
+          'Could not load quest data; quest bonuses may be unavailable',
+          'error',
+        );
       }
     });
   }

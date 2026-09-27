@@ -1,7 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { PopoverComponent } from './popover';
 
 @Component({
@@ -26,7 +25,6 @@ describe('PopoverComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PopoverHostComponent],
-      providers: [provideNoopAnimations()],
     }).compileComponents();
 
     trigger = document.createElement('button');

@@ -30,6 +30,7 @@ button {
 }
 .font-ui {
   font-family: $font-ui;
+  text-transform: none;
 }
 .font-ui-semibold {
   font-family: $font-ui;
@@ -37,6 +38,14 @@ button {
 }
 .font-neutral {
   font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}
+
+.cdk-overlay-pane.enriched-tooltip-pane {
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

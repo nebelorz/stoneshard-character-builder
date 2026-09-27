@@ -1,40 +1,62 @@
 <div class="left-sidenav__stats">
-  @for (stat of statKeys; track trackByStat($index, stat)) {
+  @for (row of statRows(); track row.key) {
     <div class="left-sidenav__stat">
-      <span class="left-sidenav__stat-label font-ui">{{ stat }}</span>
+      <span class="left-sidenav__stat-lead">
+        <span
+          class="left-sidenav__stat-info"
+          tabindex="0"
+          role="button"
+          [attr.aria-label]="'Show ' + row.name + ' description'"
+          appEnrichedTooltip
+          tooltipPlacement="right"
+          [content]="row.info"
+        >
+          <ng-icon name="phosphorInfo" aria-hidden="true"></ng-icon>
+        </span>
+        <span class="left-sidenav__stat-label font-ui">{{ row.key }}</span>
+      </span>
       <div class="left-sidenav__stat-controls">
         <button
           class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
-          (click)="onDecrementStat5(stat)"
-          [disabled]="!canDecrementStat5(stat)"
+          (click)="onDecrementStat5(row.key)"
+          [disabled]="!canDecrementStat(row.key)"
           title="-5"
-          [attr.aria-label]="'Decrease ' + getStatName(stat) + ' by 5'"
+          [attr.aria-label]="'Decrease ' + row.name + ' by 5'"
         >
           -5
         </button>
         <button
           class="left-sidenav__btn left-sidenav__btn--sm"
-          (click)="onDecrementStat(stat)"
-          [disabled]="!canDecrementStat(stat)"
-          [attr.aria-label]="'Decrease ' + getStatName(stat)"
+          (click)="onDecrementStat(row.key)"
+          [disabled]="!canDecrementStat(row.key)"
+          [attr.aria-label]="'Decrease ' + row.name"
         >
           -
         </button>
-        <span class="left-sidenav__stat-value font-ui-semibold">{{ getStatValue(stat) }}</span>
+        <span class="left-sidenav__stat-value font-ui-semibold">{{ row.value }}</span>
+        <span
+          class="left-sidenav__stat-bonus font-ui"
+          [class.left-sidenav__stat-bonus--active]="row.bonusCount > 0"
+        >
+          @if (row.bonusCount > 0) {
+            <span class="visually-hidden">Includes {{ row.bonusCount }} bonus points</span>
+            +{{ row.bonusCount }}
+          }
+        </span>
         <button
           class="left-sidenav__btn left-sidenav__btn--sm"
-          (click)="onIncrementStat(stat)"
-          [disabled]="!canIncrementStat(stat)"
-          [attr.aria-label]="'Increase ' + getStatName(stat)"
+          (click)="onIncrementStat(row.key)"
+          [disabled]="!canIncrementStat(row.key)"
+          [attr.aria-label]="'Increase ' + row.name"
         >
           +
         </button>
         <button
           class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
-          (click)="onIncrementStat5(stat)"
-          [disabled]="!canIncrementStat5(stat)"
+          (click)="onIncrementStat5(row.key)"
+          [disabled]="!canIncrementStat(row.key)"
           title="+5"
-          [attr.aria-label]="'Increase ' + getStatName(stat) + ' by 5'"
+          [attr.aria-label]="'Increase ' + row.name + ' by 5'"
         >
           +5
         </button>
@@ -52,7 +74,7 @@
       <div class="left-sidenav__progress-bar">
         <div
           class="left-sidenav__progress-bar-fill"
-          [style.--progress-width]="(sp() / 29) * 100 + '%'"
+          [style.--progress-width]="spPercent() + '%'"
         ></div>
       </div>
     </div>
@@ -62,11 +84,19 @@
         <ng-icon class="left-sidenav__resource-icon" name="phosphorSquareLogo"></ng-icon>
         <span class="left-sidenav__resource-label font-ui">AP</span>
         <span class="left-sidenav__resource-value font-ui-semibold">{{ ap() }}</span>
+        @if (derivedAp() > 0) {
+          <span class="left-sidenav__resource-derived font-ui">
+            <span class="visually-hidden"
+              >Includes {{ derivedAp() }} trait-derived Ability Points</span
+            >
+            +{{ derivedAp() }}
+          </span>
+        }
       </div>
       <div class="left-sidenav__progress-bar">
         <div
           class="left-sidenav__progress-bar-fill"
-          [style.--progress-width]="(ap() / 31) * 100 + '%'"
+          [style.--progress-width]="apPercent() + '%'"
         ></div>
       </div>
     </div>

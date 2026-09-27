@@ -19,8 +19,10 @@ import {
   parseRequirements,
   meetsRequirements,
 } from '@models';
-import { BuildStore } from '@features/build/services/build-store';
-import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
+import { BuildStore } from '@core/state';
+import { AbilityDataService } from '@core/data';
+import { AbilityHoverService } from '@shared/services';
+import { AbilityDescriptionComponent } from '../ability-description/ability-description';
 
 type AbilityIconState = 'locked' | 'unlocked' | 'obtained';
 
@@ -33,10 +35,64 @@ interface ResolvedRequirementGroup {
   alternatives: ResolvedParent[];
 }
 
+type ScalingStatKey = 'str' | 'agi' | 'per' | 'vit' | 'wil';
+
+type ScalingTokenKind = 'stat' | 'neutral' | 'plain';
+
+interface ScalingToken {
+  readonly label: string;
+  readonly kind: ScalingTokenKind;
+  readonly statKey: ScalingStatKey | null;
+}
+
+const CORE_STAT_KEYS: Readonly<Record<string, ScalingStatKey>> = {
+  strength: 'str',
+  str: 'str',
+  agility: 'agi',
+  agi: 'agi',
+  perception: 'per',
+  per: 'per',
+  vitality: 'vit',
+  vit: 'vit',
+  willpower: 'wil',
+  wil: 'wil',
+};
+
+const NEUTRAL_SCALING_TERMS: ReadonlySet<string> = new Set([
+  'arcanistic power',
+  'backfire chance',
+  'block chance',
+  'block power',
+  'bonus range',
+  'dodge chance',
+  'electromantic power',
+  'geomantic power',
+  'knockback chance',
+  'magic power',
+  'main hand efficiency',
+  'miracle chance',
+  'miracle potency',
+  'off-hand efficiency',
+  'pyromantic power',
+]);
+
+function classifyScalingTerm(term: string): ScalingToken {
+  const key = term.toLowerCase();
+  const statKey = CORE_STAT_KEYS[key];
+  if (statKey) {
+    return { label: term, kind: 'stat', statKey };
+  }
+  if (NEUTRAL_SCALING_TERMS.has(key)) {
+    return { label: term, kind: 'neutral', statKey: null };
+  }
+  return { label: term, kind: 'plain', statKey: null };
+}
+
 @Component({
   selector: 'app-ability-icon',
   templateUrl: './ability-icon.html',
   styleUrl: './ability-icon.scss',
+  imports: [AbilityDescriptionComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AbilityIconComponent implements OnDestroy, AfterViewInit {
@@ -48,20 +104,35 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
 
   @ViewChild('iconWrapper', { static: true }) iconWrapper!: ElementRef<HTMLDivElement>;
   @ViewChild('tooltip') tooltipRef!: ElementRef<HTMLDivElement>;
+  @ViewChild('tooltipBody') tooltipBodyRef?: ElementRef<HTMLDivElement>;
 
   state = signal<AbilityIconState>('locked');
   obtainedLevel = signal(0);
   defaultActive = signal(false);
   tooltipVisible = signal(false);
+  tooltipScrollable = signal(false);
   tooltipX = signal(0);
   tooltipY = signal(0);
   tooltipPosition = signal<'right' | 'left'>('right');
   resolvedRequirementGroups = signal<ResolvedRequirementGroup[]>([]);
   tooltipId = computed(() => `ability-tooltip-${this.ability().id}`);
+  scalingTokens = computed<ScalingToken[]>(() => {
+    const label = this.ability().modifiedByLabel;
+    if (!label) {
+      return [];
+    }
+    return label
+      .split(',')
+      .map((term) => term.trim())
+      .filter((term) => term !== '')
+      .map((term) => classifyScalingTerm(term));
+  });
 
   private allAbilities: Ability[] = [];
   private tooltipAttachedToBody = false;
   private rafId: number | null = null;
+  private hideTimer: number | null = null;
+  private readonly hideDelay = 150;
 
   private readonly buildStore = inject(BuildStore);
   private readonly abilityData = inject(AbilityDataService);
@@ -90,6 +161,13 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
     }
   });
 
+  private readonly activeTooltipEffect = effect(() => {
+    const activeId = this.hoverService.activeTooltipId();
+    if (activeId !== this.ability().id && this.tooltipVisible()) {
+      this.hideNow();
+    }
+  });
+
   ngAfterViewInit(): void {
     if (this.tooltipRef) {
       this.moveTooltipToBody();
@@ -100,6 +178,10 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
     if (this.rafId !== null) {
       cancelAnimationFrame(this.rafId);
     }
+    this.cancelHide();
+    if (this.hoverService.activeTooltipId() === this.ability().id) {
+      this.hoverService.setActiveTooltip(null);
+    }
     this.removeTooltipFromBody();
   }
 
@@ -108,9 +190,12 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
   }
 
   onMouseEnter(): void {
+    this.cancelHide();
+    this.hoverService.setActiveTooltip(this.ability().id);
     this.tooltipVisible.set(true);
     this.moveTooltipToBody();
     this.updateTooltipPosition();
+    this.refreshOverflowState();
   }
 
   onMouseMove(): void {
@@ -123,7 +208,23 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
   }
 
   onMouseLeave(): void {
-    this.tooltipVisible.set(false);
+    this.scheduleHide();
+  }
+
+  onTooltipEnter(): void {
+    this.cancelHide();
+  }
+
+  onTooltipLeave(): void {
+    this.scheduleHide();
+  }
+
+  onEscape(): void {
+    const active = document.activeElement;
+    if (active instanceof HTMLElement && this.tooltipRef?.nativeElement.contains(active)) {
+      active.blur();
+    }
+    this.hideNow();
   }
 
   onClick(event: Event): void {
@@ -161,6 +262,37 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
     const tooltipEl = this.tooltipRef.nativeElement;
     tooltipEl.remove();
     this.tooltipAttachedToBody = false;
+  }
+
+  private scheduleHide(): void {
+    this.cancelHide();
+    this.hideTimer = window.setTimeout(() => {
+      this.hideTimer = null;
+      this.hideNow();
+    }, this.hideDelay);
+  }
+
+  private cancelHide(): void {
+    if (this.hideTimer !== null) {
+      window.clearTimeout(this.hideTimer);
+      this.hideTimer = null;
+    }
+  }
+
+  private hideNow(): void {
+    this.cancelHide();
+    this.tooltipVisible.set(false);
+    if (this.hoverService.activeTooltipId() === this.ability().id) {
+      this.hoverService.setActiveTooltip(null);
+    }
+  }
+
+  private refreshOverflowState(): void {
+    const body = this.tooltipBodyRef?.nativeElement;
+    if (!body) {
+      return;
+    }
+    this.tooltipScrollable.set(body.scrollHeight > body.clientHeight + 1);
   }
 
   private updateState(state: BuildState): void {
@@ -239,6 +371,7 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
 
     this.tooltipX.set(targetX);
     this.tooltipY.set(targetY);
+    this.refreshOverflowState();
   }
 
   trackByGroup(_index: number, group: ResolvedRequirementGroup): string {

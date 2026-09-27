@@ -1,6 +1,6 @@
 {
   "name": "stoneshard-character-builder",
-  "version": "0.0.4b",
+  "version": "0.0.5b",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -13,7 +13,6 @@
   "private": true,
   "packageManager": "npm@11.19.0",
   "dependencies": {
-    "@angular/animations": "^22.1.5",
     "@angular/cdk": "^22.1.6",
     "@angular/common": "^22.1.0",
     "@angular/compiler": "^22.1.0",
@@ -44,6 +43,7 @@
     "prettier": "^3.8.1",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.69.0",
+    "vite-tsconfig-paths": "^6.1.1",
     "vitest": "^4.0.8"
   }
 }

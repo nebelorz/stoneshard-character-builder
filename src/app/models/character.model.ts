@@ -5,6 +5,26 @@ export type Race =
 
 export type Gender = 'Male' | 'Female';
 
+export type TraitGainFormula = 'abilities-per-3' | 'distinct-trees-6';
+
+export interface TraitGainSp {
+  readonly id: string;
+  readonly resource: 'sp';
+  readonly label: string;
+  readonly pointsPer: number;
+  readonly max?: number;
+}
+
+export interface TraitGainAp {
+  readonly id: string;
+  readonly resource: 'ap';
+  readonly label: string;
+  readonly formula: TraitGainFormula;
+  readonly treeId?: string;
+}
+
+export type TraitGain = TraitGainSp | TraitGainAp;
+
 export interface Character {
   readonly id: string;
   readonly name: string;
@@ -17,5 +37,6 @@ export interface Character {
   };
   readonly baseStats: Record<StatKey, number>;
   readonly traitsUnlockedOnStart: readonly string[];
+  readonly traitGains?: readonly TraitGain[];
   readonly dlc?: string;
 }

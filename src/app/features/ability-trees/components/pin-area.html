@@ -5,7 +5,7 @@
 
   <div class="pin-area__grid">
     @for (tree of pinnedTreeData(); track trackByTreeId($index, tree)) {
-      <div class="pin-area__card" @cardReflow>
+      <div class="pin-area__card" animate.enter="ss-pin-card-in">
         <button
           class="pin-area__reset-btn"
           (click)="resetTree(tree.id)"

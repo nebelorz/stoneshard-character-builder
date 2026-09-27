@@ -1,6 +1,7 @@
 import { Component, inject, computed, effect } from '@angular/core';
-import { BuildStore } from '@features/build/services/build-store';
-import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
+import { BuildStore } from '@core/state';
+import { AbilityDataService } from '@core/data';
+import { AbilityHoverService } from '@shared/services';
 import { Ability, StatKey } from '@models';
 
 interface RouteAbility {

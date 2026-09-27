@@ -72,25 +72,6 @@ The system SHALL preserve and transfer the current build when the user selects a
 - **WHEN** the user switches characters
 - **THEN** the same trees remain pinned
 
-### Requirement: Trait display
-
-The system SHALL display the selected character's trait name and description in the UI. The trait icon SHALL be keyboard accessible.
-
-#### Scenario: Trait is visible
-
-- **WHEN** a character is selected
-- **THEN** their trait name and description are accessible in the UI
-
-#### Scenario: Focus trait icon
-
-- **WHEN** user tabs to the trait icon
-- **THEN** trait bubble displays with trait name and description
-
-#### Scenario: Blur trait icon
-
-- **WHEN** user tabs away from trait icon
-- **THEN** trait bubble is hidden
-
 ### Requirement: Character base stats
 
 The system SHALL derive the displayed stats for the selected character from that character's baseStats plus any allocations recorded in the build's statHistory.
@@ -113,3 +94,17 @@ The system SHALL handle unknown character IDs by loading the first available cha
 
 - **WHEN** a shared URL contains a characterId that does not match any available character
 - **THEN** the app loads with the default (first) character
+
+### Requirement: Trait display in trait section
+
+The system SHALL display the selected character's trait name in the trait section of the left sidenav, with the full trait description available through that section's info affordance tooltip. The character selector SHALL NOT render a separate trait affordance.
+
+#### Scenario: Trait is visible
+
+- **WHEN** a character is selected
+- **THEN** their trait name is visible in the trait section directly below the character selector and the full description is reachable via the section's info affordance
+
+#### Scenario: Selector shows no trait affordance
+
+- **WHEN** the character selector renders
+- **THEN** it displays the character's portrait, name, and title only, without a trait icon badge

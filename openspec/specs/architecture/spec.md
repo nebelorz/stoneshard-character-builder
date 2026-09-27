@@ -4,7 +4,9 @@
 
 Define the target application architecture for the Stoneshard Character Builder, establishing principles for Angular, state management, data layer, UI foundation, styling, component architecture, shared layer, and testing.
 
-## Angular Framework
+## Requirements
+
+**Angular Framework**
 
 ### Requirement: Angular 22 with modern APIs
 
@@ -25,7 +27,7 @@ The application SHALL use Angular 22 with standalone components, signal-based re
 - **WHEN** components receive data from parents
 - **THEN** they use input() signal-based inputs; for two-way binding, model() is preferred
 
-## State Management
+**State Management**
 
 ### Requirement: Canonical state ownership
 
@@ -78,7 +80,7 @@ Angular effects SHALL be used only for genuine side effects (e.g., syncing sub-s
 - **WHEN** a value can be computed from signals
 - **THEN** computed() is used instead of effect()
 
-## Data Layer
+**Data Layer**
 
 ### Requirement: Angular-native reactive data loading
 
@@ -122,7 +124,7 @@ Each data file SHALL be validated against its data model shape at load time.
 - **WHEN** a data file matches its data model shape
 - **THEN** the load succeeds and the parsed data is available to consumers
 
-## UI Foundation
+**UI Foundation**
 
 ### Requirement: Angular CDK where appropriate
 
@@ -133,7 +135,7 @@ Angular CDK SHALL be used for overlay positioning, focus management, and accessi
 - **WHEN** tooltips need to escape overflow containers
 - **THEN** CDK overlay or document.body appending is used
 
-## Styling
+**Styling**
 
 ### Requirement: Minimal global CSS/SCSS
 
@@ -144,7 +146,7 @@ Global CSS/SCSS SHALL be minimal. Component-level SCSS SHALL handle most styling
 - **WHEN** components need styling
 - **THEN** styles are defined in component SCSS files
 
-## Component Architecture
+**Component Architecture**
 
 ### Requirement: Cohesive components
 
@@ -157,14 +159,27 @@ Each component SHALL have a single, well-defined responsibility. Components SHAL
 
 ### Requirement: Presentation vs domain logic
 
-Components SHALL delegate domain logic to services/stores. Templates SHALL handle presentation logic only.
+Components SHALL delegate domain logic to services/stores. Templates SHALL handle presentation logic only. Components SHALL expose domain-derived values as computed signals rather than template-invoked methods, and templates SHALL NOT recompute or allocate derived collections during change detection.
 
 #### Scenario: Domain logic in stores
 
 - **WHEN** business rules need to be applied
 - **THEN** they live in store/service methods, not in component templates or classes
 
-## Shared Layer
+#### Scenario: Derived values are computed signals
+
+- **WHEN** a template needs a value derived from build state (for example a per-row view model or a stat display name)
+- **THEN** the component exposes it through a computed signal and the template reads the signal directly
+
+#### Scenario: No per-change-detection recomputation
+
+- **WHEN** a component renders repeated rows
+- **THEN** the template does not invoke methods that build new arrays or objects on every change detection cycle
+
+#### Scenario: No index arithmetic in templates
+
+- **WHEN** a template renders indexed items such as trait or quest point slots
+- **THEN** the index and row values are provided by the component, not calculated inline in the template
 
 ### Requirement: Shared layer strategy
 
@@ -180,7 +195,7 @@ The shared layer SHALL contain truly cross-cutting concerns: toast service, popu
 - **WHEN** a component is only used by one feature
 - **THEN** it stays in that feature's directory
 
-## Testing
+**Testing**
 
 ### Requirement: Pure domain logic unit testing
 
@@ -220,9 +235,139 @@ Playwright SHALL be used for end-to-end testing of critical user journeys that c
 
 ### Requirement: Avoid low-value tests
 
-Tests that only verify template rendering or Angular boilerplate SHALL NOT be written. Tests SHALL verify behavior, not implementation.
+Tests that only verify template rendering or Angular boilerplate SHALL NOT be written. Tests SHALL verify behavior, not implementation. Tests SHALL NOT assert element structure, CSS classes, or presentational attributes as their primary assertion, and SHALL prefer observable state, emitted outputs, or the ARIA contract.
 
 #### Scenario: No template tests
 
 - **WHEN** tests are written
 - **THEN** they verify behavioral outcomes, not DOM structure
+
+#### Scenario: No structural or styling assertions
+
+- **WHEN** a UI component is tested
+- **THEN** the assertion verifies state, emitted output, or the ARIA contract rather than element order, CSS class names, or styling-only attributes
+
+#### Scenario: Accessibility contract is behavior
+
+- **WHEN** an accessibility behavior is tested
+- **THEN** the test asserts the ARIA wiring (roles, labels, describedby/expanded state) or the resulting user-visible behavior, not the presence of a wrapper element
+
+#### Scenario: No layout or computed-style assertions
+
+- **WHEN** a UI interaction is tested
+- **THEN** the assertion verifies resulting state, emitted output, or another observable behavior rather than computed styles or element geometry
+
+#### Scenario: Dead-code tests removed
+
+- **WHEN** a public member is removed
+- **THEN** tests that only covered that member are deleted instead of being rewritten to assert its absence
+
+### Requirement: Feature dependency direction
+
+Application code SHALL depend on lower layers in one direction only: `features` and `layout` MAY depend on `core`, `models`, and `shared`; `layout` MAY additionally compose `features` but no feature SHALL import from another feature; `core` MAY depend only on `models`; `shared` MAY depend on `models`; and `models` SHALL NOT depend on `core`, `features`, `layout`, or `shared`. Neither `shared` nor `models` SHALL depend on `core`, `features`, or `layout`. No pair of modules SHALL depend on each other in both directions. Domain logic, state, or data shapes needed by more than one layer SHALL live in the lowest layer that all consumers may depend on rather than being imported back upward.
+
+#### Scenario: One-way feature dependencies
+
+- **WHEN** the import graph is inspected
+- **THEN** no file under `features/<a>` imports from `features/<b>` where `<b>` is a different feature
+
+#### Scenario: Models is the lowest layer
+
+- **WHEN** the import graph of the `models` layer is inspected
+- **THEN** no file under `models/` imports from `shared`, `core`, `features`, or `layout`
+
+#### Scenario: Shared depends on models in one direction
+
+- **WHEN** a `shared` file needs a domain type such as `BuildNotes` or tooltip content
+- **THEN** it imports that type from the `models` layer, and no `models` file imports any `shared` file back
+
+#### Scenario: Shared domain logic has a shared home
+
+- **WHEN** two features need the same domain logic or state (for example bonus point formulas or build state)
+- **THEN** the logic or state is provided by the `core`/`shared` layer and each feature imports it from there, not from the other feature
+
+#### Scenario: Layout composes features
+
+- **WHEN** a layout component renders feature content
+- **THEN** it imports the feature component, and no feature imports the layout module
+
+#### Scenario: No bidirectional feature dependency
+
+- **WHEN** the import graph of modules is inspected
+- **THEN** no two modules depend on each other in both directions
+
+### Requirement: Single source of truth for configuration constants
+
+Shared numeric limits and key lists (point budgets, bonus ceilings, and stat keys) SHALL be defined once and consumed from that definition. Duplicate literal values or parallel copies of the same list SHALL NOT be maintained.
+
+#### Scenario: Shared budget referenced once
+
+- **WHEN** a point budget or bonus ceiling is used by more than one component or service
+- **THEN** every use resolves to a single exported definition
+
+#### Scenario: Stat keys from one list
+
+- **WHEN** stat keys are validated, iterated, or rendered
+- **THEN** the same exported stat key list is the source of truth
+
+### Requirement: Single source of truth for module resolution configuration
+
+Import aliases and module resolution settings (`@core/*`, `@shared/*`, `@features/*`, `@models`, `@layout/*`, plus the barrel aliases `@core/state`, `@core/data`, and `@features/build/services`) SHALL be defined once and consumed by every tool that resolves imports (build, test, and editor). Parallel copies that can drift, alias entries that are unreachable because a broader prefix matches first, and alias entries that no code consumes SHALL NOT be maintained. The resolution configuration SHALL use only compiler options that are supported and not deprecated by the project's TypeScript version.
+
+#### Scenario: One definition per alias
+
+- **WHEN** an import alias is used
+- **THEN** exactly one configuration defines it and every resolver derives from that definition
+
+#### Scenario: No shadowed aliases
+
+- **WHEN** the resolution configuration is inspected
+- **THEN** no exact alias is unreachable because a broader prefix entry matches it first
+
+#### Scenario: No dead aliases
+
+- **WHEN** the resolution configuration is inspected
+- **THEN** every declared alias has at least one consumer and no alias points at a non-existent target
+
+#### Scenario: No deprecated compiler options
+
+- **WHEN** the TypeScript configuration is type-checked with the project's TypeScript version
+- **THEN** the compiler reports no deprecated-option error and requires no `ignoreDeprecations` override
+
+#### Scenario: Tooling configuration type-checks
+
+- **WHEN** the build and test tooling configuration is type-checked
+- **THEN** it compiles without missing type definitions for the globals and modules it uses
+
+### Requirement: Layered module structure
+
+Application code SHALL depend on lower layers in one direction only: `features` and `layout` MAY depend on `core`, `models`, and `shared`; `core` MAY depend on `models` and `shared`; `shared` and `models` SHALL NOT depend on `core`, `features`, or `layout`. No feature module SHALL import from another feature module, and no pair of modules SHALL depend on each other in both directions.
+
+#### Scenario: One-way feature dependencies
+
+- **WHEN** the import graph is inspected
+- **THEN** no file under `features/<a>` imports from `features/<b>` where `<b>` is a different feature
+
+#### Scenario: Shared state has a single home
+
+- **WHEN** two or more features need the same application state, store, or data service
+- **THEN** it is provided by the `core` layer and each feature imports it from `core`
+
+#### Scenario: No bidirectional dependency
+
+- **WHEN** the import graph of modules is inspected
+- **THEN** no two modules depend on each other in both directions
+
+### Requirement: Single source of truth for presentation metadata
+
+Human-readable metadata shared across components (such as stat display names) SHALL be defined once and reused. Components SHALL NOT maintain parallel copies of metadata that already exists in the domain model.
+
+#### Scenario: Stat names come from the domain
+
+- **WHEN** a component needs a stat's display name
+- **THEN** it reads the name from the existing stat metadata definition rather than a local duplicate map
+
+#### Scenario: No parallel metadata copies
+
+- **WHEN** the same display string is needed in more than one place
+- **THEN** a single exported definition is referenced everywhere

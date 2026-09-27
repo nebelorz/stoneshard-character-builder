@@ -1,41 +1,59 @@
 import { Component, inject, computed } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { phosphorSquareLogo, phosphorPlusSquare } from '@ng-icons/phosphor-icons/regular';
-import { BuildStore } from '@features/build/services';
-import { STAT_KEYS, StatKey } from '@models';
+import {
+  phosphorSquareLogo,
+  phosphorPlusSquare,
+  phosphorInfo,
+} from '@ng-icons/phosphor-icons/regular';
+import { BuildStore } from '@core/state';
+import { ABILITY_POINT_BUDGET, STAT_POINT_BUDGET, STAT_KEYS, STAT_INFO, StatKey } from '@models';
+import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
+import { StatTooltipContent } from '@models';
+
+interface StatRow {
+  readonly key: StatKey;
+  readonly name: string;
+  readonly value: number;
+  readonly bonusCount: number;
+  readonly info: StatTooltipContent;
+}
 
 @Component({
   selector: 'app-stat-controls',
   templateUrl: './stat-controls.html',
   styleUrl: './stat-controls.scss',
-  imports: [NgIcon],
-  providers: [provideIcons({ phosphorSquareLogo, phosphorPlusSquare })],
+  imports: [NgIcon, EnrichedTooltipDirective],
+  providers: [provideIcons({ phosphorSquareLogo, phosphorPlusSquare, phosphorInfo })],
 })
 export class StatControlsComponent {
   private readonly buildStore = inject(BuildStore);
 
-  readonly statKeys = STAT_KEYS;
-  readonly ap = computed(() => this.buildStore.state()?.ap ?? 0);
-  readonly sp = computed(() => this.buildStore.state()?.sp ?? 0);
+  readonly statRows = computed<StatRow[]>(() => {
+    const stats = this.buildStore.state()?.stats;
+    return STAT_KEYS.map((stat) => {
+      const bonusCount = this.buildStore.bonusCount(stat);
+      return {
+        key: stat,
+        name: STAT_INFO[stat].name,
+        value: (stats?.[stat] ?? 0) + bonusCount,
+        bonusCount,
+        info: STAT_INFO[stat],
+      };
+    });
+  });
 
-  getStatValue(stat: StatKey): number {
-    return this.buildStore.state()?.stats?.[stat] ?? 0;
-  }
+  readonly ap = computed(() => this.buildStore.totalAp());
+  readonly derivedAp = computed(() => this.buildStore.derivedTraitAp());
+  readonly apPercent = computed(() => Math.min(100, (this.ap() / ABILITY_POINT_BUDGET) * 100));
+  readonly sp = computed(() => this.buildStore.state()?.sp ?? 0);
+  readonly spPercent = computed(() => Math.min(100, (this.sp() / STAT_POINT_BUDGET) * 100));
 
   canIncrementStat(stat: StatKey): boolean {
-    return this.buildStore.canIncrementStat1(stat);
+    return this.buildStore.canIncrementStat(stat);
   }
 
   canDecrementStat(stat: StatKey): boolean {
-    return this.buildStore.canDecrementStat1(stat);
-  }
-
-  canIncrementStat5(stat: StatKey): boolean {
-    return this.buildStore.canIncrementStat5(stat);
-  }
-
-  canDecrementStat5(stat: StatKey): boolean {
-    return this.buildStore.canDecrementStat5(stat);
+    return this.buildStore.canDecrementStat(stat);
   }
 
   onIncrementStat(stat: StatKey): void {
@@ -52,20 +70,5 @@ export class StatControlsComponent {
 
   onDecrementStat5(stat: StatKey): void {
     this.buildStore.decrementStat5(stat);
-  }
-
-  trackByStat(_index: number, stat: StatKey): string {
-    return stat;
-  }
-
-  getStatName(stat: StatKey): string {
-    const names: Record<StatKey, string> = {
-      STR: 'Strength',
-      AGI: 'Agility',
-      PER: 'Perception',
-      VIT: 'Vitality',
-      WIL: 'Willpower',
-    };
-    return names[stat];
   }
 }

@@ -28,33 +28,37 @@
 
   @if (expandedCategory(); as expanded) {
     <div
-      class="tree-selector__panel"
-      [attr.id]="'tree-panel-' + expanded"
-      role="tabpanel"
-      [attr.aria-labelledby]="'tree-tab-' + expanded"
-      @expandCollapse
-      (@expandCollapse.done)="onPanelEnter()"
+      class="tree-selector__panel-wrap"
+      animate.enter="ss-panel-expand"
+      animate.leave="ss-panel-collapse"
     >
-      @for (tree of expandedCategoryTrees(); track trackByTreeId($index, tree); let i = $index) {
-        <button
-          class="tree-selector__tree-cell"
-          [class.tree-selector__tree-cell--pinned]="isPinned(tree.id)"
-          [tabindex]="focusedIndex() === i ? 0 : -1"
-          (click)="togglePin(tree, $event)"
-          (focus)="setFocusedIndex(i)"
-          (keydown)="onTreeKeydown($event, tree, i)"
-        >
-          <img
-            class="tree-selector__tree-icon"
-            [src]="getTreeIconPath(tree)"
-            [alt]="tree.name"
-            width="27"
-            height="54"
-            draggable="false"
-          />
-          <span class="tree-selector__tree-name font-fantasy">{{ tree.name }}</span>
-        </button>
-      }
+      <div
+        class="tree-selector__panel"
+        [attr.id]="'tree-panel-' + expanded"
+        role="tabpanel"
+        [attr.aria-labelledby]="'tree-tab-' + expanded"
+      >
+        @for (tree of expandedCategoryTrees(); track trackByTreeId($index, tree); let i = $index) {
+          <button
+            class="tree-selector__tree-cell"
+            [class.tree-selector__tree-cell--pinned]="isPinned(tree.id)"
+            [tabindex]="focusedIndex() === i ? 0 : -1"
+            (click)="togglePin(tree, $event)"
+            (focus)="setFocusedIndex(i)"
+            (keydown)="onTreeKeydown($event, tree, i)"
+          >
+            <img
+              class="tree-selector__tree-icon"
+              [src]="getTreeIconPath(tree)"
+              [alt]="tree.name"
+              width="27"
+              height="54"
+              draggable="false"
+            />
+            <span class="tree-selector__tree-name font-fantasy">{{ tree.name }}</span>
+          </button>
+        }
+      </div>
     </div>
   }
 </div>

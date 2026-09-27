@@ -78,20 +78,6 @@ Route display entries SHALL be keyboard accessible.
 - **WHEN** user presses Space on a focused route entry
 - **THEN** the entry action triggers (equivalent to click)
 
-### Requirement: Trait icon keyboard accessibility
-
-The trait icon in character-selector SHALL be focusable and show its tooltip on focus.
-
-#### Scenario: Focus trait icon
-
-- **WHEN** user tabs to the trait icon
-- **THEN** the trait bubble/tooltip is displayed
-
-#### Scenario: Blur trait icon
-
-- **WHEN** user tabs away from the trait icon
-- **THEN** the trait bubble/tooltip is hidden
-
 ### Requirement: Ability icon ARIA attributes
 
 Ability icons SHALL have appropriate ARIA roles and states.
@@ -257,15 +243,6 @@ While the right navigation panel is closed, its contents SHALL be removed from t
 - **WHEN** the right nav panel is open
 - **THEN** its buttons and controls are reachable via Tab
 
-### Requirement: Trait icon accessible name
-
-The trait icon in character-selector SHALL expose an accessible name describing the trait.
-
-#### Scenario: Trait icon announced
-
-- **WHEN** a keyboard user focuses the trait icon
-- **THEN** the trait name is announced
-
 ### Requirement: Active-descendant visual styling
 
 The active descendant option in the character-selector dropdown SHALL be visually distinguishable during keyboard navigation.
@@ -368,3 +345,94 @@ All `<img>` elements SHALL have an accessible name and explicit dimensions to pr
 
 - **WHEN** an `<img>` element is rendered
 - **THEN** its intrinsic dimensions are declared via width/height attributes or an equivalent aspect-ratio style to prevent layout shift
+
+### Requirement: Point-slot dropdown keyboard navigation
+
+Point-slot-row dropdowns SHALL follow the selector dropdown pattern: the toggle SHALL have `aria-haspopup="listbox"` and `aria-expanded` reflecting the open state, arrow keys SHALL move the active option, Enter SHALL select the active option, Escape SHALL close the dropdown and return focus to the toggle, and options SHALL be announced with a single option role. Clicking outside a closed point-slot dropdown SHALL NOT move focus to its toggle.
+
+#### Scenario: Toggle announces listbox
+
+- **WHEN** a point-slot-row dropdown toggle is rendered
+- **THEN** it has `aria-haspopup="listbox"` and `aria-expanded` reflecting the open state
+
+#### Scenario: Arrow down moves active option
+
+- **WHEN** the dropdown is open and the user presses ArrowDown
+- **THEN** the active option moves to the next stat option
+
+#### Scenario: Arrow up moves active option
+
+- **WHEN** the dropdown is open and the user presses ArrowUp
+- **THEN** the active option moves to the previous stat option
+
+#### Scenario: Enter selects option
+
+- **WHEN** the user presses Enter on the active option
+- **THEN** the stat is allocated to that slot and the dropdown closes
+
+#### Scenario: Escape closes dropdown
+
+- **WHEN** the dropdown is open and the user presses Escape
+- **THEN** the dropdown closes and focus returns to the toggle
+
+#### Scenario: Outside click does not steal focus when closed
+
+- **WHEN** the dropdown is closed and the user clicks elsewhere in the document
+- **THEN** the dropdown stays closed and focus is not moved to the point-slot toggle
+
+#### Scenario: Outside click while open closes the dropdown
+
+- **WHEN** the dropdown is open and the user clicks elsewhere in the document
+- **THEN** the dropdown closes and focus remains with the element the user clicked
+
+### Requirement: Bonus stepper accessible names
+
+Stepper controls for unbounded trait gains SHALL have descriptive aria-label attributes.
+
+#### Scenario: Add row button label
+
+- **WHEN** the add-row stepper button is rendered
+- **THEN** it has an aria-label describing the row it adds (e.g., "Add boss row")
+
+#### Scenario: Remove row button label
+
+- **WHEN** the remove-row stepper button is rendered
+- **THEN** it has an aria-label describing the row it removes (e.g., "Remove boss row")
+
+### Requirement: Point contribution indicators
+
+Bonus stat contributions and derived Ability Points shown in the left sidenav SHALL expose their meaning to assistive technology through a supported mechanism, such as visually hidden text or a supporting role. The indicators SHALL NOT rely solely on an `aria-label` on a role-less generic element, and SHALL be absent from the accessibility tree when the contribution is zero.
+
+#### Scenario: Bonus marker announced
+
+- **WHEN** a stat has one or more allocated bonus points
+- **THEN** assistive technology can determine that the stat's displayed value includes that many bonus points
+
+#### Scenario: Derived AP announced
+
+- **WHEN** a character has one or more trait-derived Ability Points
+- **THEN** assistive technology can determine that the displayed Ability Points include a trait-derived contribution
+
+#### Scenario: No announcement when zero
+
+- **WHEN** a stat has no bonus points
+- **THEN** no bonus contribution is exposed to assistive technology for that stat
+
+### Requirement: Interactive tooltip trigger semantics
+
+A focusable tooltip trigger SHALL expose an interactive role appropriate to its behavior and SHALL NOT be announced as a non-interactive image. The trigger SHALL carry an accessible name and SHALL reference its tooltip via `aria-describedby` while the tooltip is shown.
+
+#### Scenario: Interactive role
+
+- **WHEN** a tooltip trigger is focusable via keyboard
+- **THEN** it exposes an interactive role (for example `role="button"`) rather than `role="img"`
+
+#### Scenario: Accessible name
+
+- **WHEN** a tooltip trigger is rendered
+- **THEN** it has an accessible name describing the content it explains
+
+#### Scenario: Tooltip association
+
+- **WHEN** the tooltip is shown
+- **THEN** the trigger references the tooltip via `aria-describedby`

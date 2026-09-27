@@ -1,0 +1,86 @@
+<div class="left-sidenav__trait">
+  @if (character(); as character) {
+    <div class="left-sidenav__trait-header">
+      <span
+        class="left-sidenav__trait-info"
+        tabindex="0"
+        role="button"
+        [attr.aria-label]="'Show ' + character.trait.name + ' description'"
+        appEnrichedTooltip
+        tooltipPlacement="right"
+        [content]="traitContent()"
+      >
+        <ng-icon name="phosphorInfo" aria-hidden="true"></ng-icon>
+      </span>
+      <span class="left-sidenav__trait-label font-ui">{{ character.trait.name }}</span>
+    </div>
+
+    @if (gainViews().length > 0) {
+      @for (gain of gainViews(); track gain.id) {
+        <div class="left-sidenav__trait-group">
+          <div class="left-sidenav__trait-group-header">
+            <span class="left-sidenav__trait-group-label">{{ gain.label }}</span>
+            @if (!gain.bounded) {
+              <div class="left-sidenav__trait-stepper">
+                <button
+                  type="button"
+                  class="left-sidenav__btn left-sidenav__btn--sm"
+                  (click)="removeRow(gain.id, gain.lastRowIndex)"
+                  [disabled]="gain.rowCount === 0"
+                  aria-label="Remove boss row"
+                >
+                  <ng-icon name="phosphorMinus" aria-hidden="true"></ng-icon>
+                </button>
+                <button
+                  type="button"
+                  class="left-sidenav__btn left-sidenav__btn--sm"
+                  (click)="addRow(gain.id)"
+                  [disabled]="!gain.canAddRow"
+                  aria-label="Add boss row"
+                >
+                  <ng-icon name="phosphorPlus" aria-hidden="true"></ng-icon>
+                </button>
+              </div>
+            }
+          </div>
+          @if (gain.bounded) {
+            <div class="left-sidenav__trait-rows left-sidenav__trait-rows--grid">
+              @for (slot of gain.slots; track slot.index) {
+                <app-point-slot-row
+                  [stat]="slot.stat"
+                  (statChange)="
+                    $event ? allocate(gain.id, slot.index, $event) : deallocate(gain.id, slot.index)
+                  "
+                />
+              }
+            </div>
+          } @else {
+            <div class="left-sidenav__trait-rows">
+              @for (row of gain.bossRows; track row.rowIndex) {
+                <div class="left-sidenav__trait-boss-row">
+                  @for (slot of row.slots; track slot.index) {
+                    <app-point-slot-row
+                      [stat]="slot.stat"
+                      (statChange)="
+                        $event
+                          ? allocate(gain.id, slot.index, $event)
+                          : deallocate(gain.id, slot.index)
+                      "
+                    />
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+
+    @if (derivedAp() > 0) {
+      <div class="left-sidenav__trait-derived-ap">
+        <span class="visually-hidden">Includes {{ derivedAp() }} trait-derived Ability Points</span>
+        +{{ derivedAp() }} AP
+      </div>
+    }
+  }
+</div>

@@ -1,0 +1,41 @@
+<button
+  type="button"
+  class="point-slot-row__toggle"
+  (click)="toggleDropdown()"
+  (keydown)="onToggleKeydown($event)"
+  aria-haspopup="listbox"
+  [attr.aria-expanded]="dropdownOpen()"
+  [attr.aria-activedescendant]="getActiveOptionId()"
+>
+  @if (stat()) {
+    <span [class]="getStatClass(stat()!)">+1 {{ stat() }}</span>
+  } @else {
+    <span class="point-slot-row__placeholder">-</span>
+  }
+</button>
+@if (dropdownOpen()) {
+  <div class="point-slot-row__overlay" role="listbox" aria-label="Stat allocation">
+    <button
+      type="button"
+      id="point-slot-option-0"
+      role="option"
+      class="point-slot-row__option"
+      [class.point-slot-row__option--active]="isActive(0)"
+      (click)="selectStat(null)"
+    >
+      <span class="point-slot-row__placeholder">-</span>
+    </button>
+    @for (stat of statOptions; track stat; let i = $index) {
+      <button
+        type="button"
+        role="option"
+        [id]="'point-slot-option-' + (i + 1)"
+        class="point-slot-row__option"
+        [class.point-slot-row__option--active]="isActive(i + 1)"
+        (click)="selectStat(stat)"
+      >
+        <span [class]="getStatClass(stat)">+1 {{ stat }}</span>
+      </button>
+    }
+  </div>
+}

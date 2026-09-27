@@ -2,11 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { AiPromptService } from './ai-prompt.service';
-import { BuildStore } from './build-store';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
+import { BuildStore } from '@core/state';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
 import { ToastService } from '@shared/services';
-import { Ability, AbilityTree } from '@models';
+import { Ability, AbilityTree, BonusSlot } from '@models';
 
 const MOCK_TEMPLATE = `# Stoneshard Build Analyst
 
@@ -54,7 +53,21 @@ const MOCK_CHARACTER = {
   trait: { name: 'Brave', description: '+10% Crit Chance' },
   baseStats: { STR: 10, AGI: 8, PER: 7, VIT: 9, WIL: 6 },
   traitsUnlockedOnStart: ['warfare'],
+  traitGains: [
+    { id: 'trophies', resource: 'sp', label: 'Trophies delivered', pointsPer: 1, max: 5 },
+  ],
 };
+
+const MOCK_QUESTS = [
+  {
+    id: 'boulder-circle',
+    resource: 'sp' as const,
+    label: 'Boulder Circle',
+    tooltip: 'Grants 1 Stat Point',
+    pointsPer: 1,
+    max: 1,
+  },
+];
 
 const MOCK_ABILITIES = [
   {
@@ -72,6 +85,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Boosts morale with +10% power. Activates "War Cry".',
+    descriptionLines: [],
     requiredBy: ['warfare-2'],
   },
   {
@@ -89,6 +103,7 @@ const MOCK_ABILITIES = [
     requires: ['warfare-1'],
     unlockConditions: [],
     description: 'Grants +(15 + 2 * AGL)% Weapon Damage for 3 turns.',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -106,6 +121,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Quickly move to a target tile.',
+    descriptionLines: [],
     requiredBy: ['athletics-2'],
   },
   {
@@ -123,6 +139,7 @@ const MOCK_ABILITIES = [
     requires: ['athletics-1'],
     unlockConditions: [],
     description: 'Grants +10% Dodge for 2 turns after using a maneuver.',
+    descriptionLines: [],
     requiredBy: [],
   },
   {
@@ -140,6 +157,7 @@ const MOCK_ABILITIES = [
     requires: [],
     unlockConditions: [],
     description: 'Carves the targeted animal carcass for meat.',
+    descriptionLines: [],
     requiredBy: ['survival-4', 'survival-5'],
   },
 ];
@@ -180,7 +198,8 @@ function buildState(obtainedAbilities: { abilityId: string; level: number; order
   obtainedAbilities: { abilityId: string; level: number; order: number }[];
   pinnedTrees: string[];
   statHistory: never[];
-  boulderCircleStat: null;
+  bonusSlots: BonusSlot[];
+  notes: { buildName: string; author: string; content: string };
 } {
   return {
     characterId: 'jorna',
@@ -191,7 +210,8 @@ function buildState(obtainedAbilities: { abilityId: string; level: number; order
     obtainedAbilities,
     pinnedTrees: [],
     statHistory: [],
-    boulderCircleStat: null,
+    bonusSlots: [],
+    notes: { buildName: '', author: '', content: '' },
   };
 }
 
@@ -230,6 +250,17 @@ describe('AiPromptService', () => {
               status: () => 'ready' as const,
               error: () => null,
             },
+          },
+        },
+        {
+          provide: QuestDataService,
+          useValue: {
+            quests: {
+              value: () => MOCK_QUESTS,
+              status: () => 'ready' as const,
+              error: () => null,
+            },
+            questList: () => MOCK_QUESTS,
           },
         },
         {
@@ -426,6 +457,53 @@ describe('AiPromptService', () => {
     const prompt = await prompt$;
 
     expect(prompt).toContain('24 (10+14)');
+  });
+
+  it('uses merged stat values including bonus points in the stat summary', async () => {
+    setup();
+    const state = buildState([]);
+    state.bonusSlots = [
+      { sourceId: 'trophies', index: 0, stat: 'STR' },
+      { sourceId: 'boulder-circle', index: 0, stat: 'STR' },
+    ];
+    buildStore.restoreState(state as never);
+
+    const prompt$ = service.generateCompletePrompt();
+    const req = httpMock.expectOne('assets/ia/prompt_template.md');
+    req.flush(MOCK_TEMPLATE);
+    const prompt = await prompt$;
+
+    expect(prompt).toContain('12 (10+2)');
+  });
+
+  it('renders bonus allocations grouped by source', async () => {
+    setup();
+    const state = buildState([]);
+    state.bonusSlots = [
+      { sourceId: 'boulder-circle', index: 0, stat: 'STR' },
+      { sourceId: 'trophies', index: 0, stat: 'VIT' },
+      { sourceId: 'trophies', index: 1, stat: null },
+    ];
+    buildStore.restoreState(state as never);
+
+    const prompt$ = service.generateCompletePrompt();
+    const req = httpMock.expectOne('assets/ia/prompt_template.md');
+    req.flush(MOCK_TEMPLATE);
+    const prompt = await prompt$;
+
+    expect(prompt).toContain('## Bonus Points');
+    expect(prompt).toContain('| Quest - Boulder Circle | +1 STR |');
+    expect(prompt).toContain('| Trait - Trophies delivered | +1 VIT, 1 unallocated |');
+  });
+
+  it('omits the bonus section when no bonus slots exist', async () => {
+    setup();
+    const prompt$ = service.generateCompletePrompt();
+    const req = httpMock.expectOne('assets/ia/prompt_template.md');
+    req.flush(MOCK_TEMPLATE);
+    const prompt = await prompt$;
+
+    expect(prompt).not.toContain('## Bonus Points');
   });
 
   it('formats trees as a compact table', () => {

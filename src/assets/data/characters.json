@@ -24,6 +24,14 @@
         "ranged_weapons",
         "athletics",
         "warfare"
+      ],
+      "traitGains": [
+        {
+          "id": "bosses",
+          "resource": "sp",
+          "label": "Bosses killed",
+          "pointsPer": 2
+        }
       ]
     },
     {
@@ -50,6 +58,15 @@
         "two_handed_axes",
         "dual_wielding",
         "warfare"
+      ],
+      "traitGains": [
+        {
+          "id": "trophies",
+          "resource": "sp",
+          "label": "Trophies delivered",
+          "pointsPer": 1,
+          "max": 5
+        }
       ]
     },
     {
@@ -102,6 +119,22 @@
         "staves",
         "ranged_weapons",
         "athletics"
+      ],
+      "traitGains": [
+        {
+          "id": "dens",
+          "resource": "sp",
+          "label": "Dens and caves cleared",
+          "pointsPer": 1,
+          "max": 3
+        },
+        {
+          "id": "survival",
+          "resource": "ap",
+          "label": "Survival abilities learned",
+          "formula": "abilities-per-3",
+          "treeId": "survival"
+        }
       ]
     },
     {
@@ -181,6 +214,14 @@
         "athletics",
         "pyromancy",
         "arcanistics"
+      ],
+      "traitGains": [
+        {
+          "id": "trees",
+          "resource": "ap",
+          "label": "Ability trees mastered",
+          "formula": "distinct-trees-6"
+        }
       ],
       "dlc": "Character Pack"
     },

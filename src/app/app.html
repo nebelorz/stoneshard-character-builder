@@ -2,14 +2,24 @@
   <app-left-sidenav></app-left-sidenav>
   <div class="app-content" [class.app-content--right-sidenav-closed]="!isRightSidenavOpen()">
     @if (errorMessage(); as error) {
-      <app-error [message]="error" [retry]="loadInitialData" @fadeInOut></app-error>
+      <app-error
+        [message]="error"
+        [retry]="loadInitialData"
+        animate.enter="ss-fade-in"
+        animate.leave="ss-fade-out"
+      ></app-error>
     } @else if (isLoading()) {
-      <div class="app-loading" @fadeInOut>
+      <div class="app-loading" animate.enter="ss-fade-in" animate.leave="ss-fade-out">
         <div class="app-loading__spinner"></div>
         <div class="app-loading__text">Loading...</div>
       </div>
     } @else {
-      <main class="app-main" id="main-content" @fadeInOut>
+      <main
+        class="app-main"
+        id="main-content"
+        animate.enter="ss-fade-in"
+        animate.leave="ss-fade-out"
+      >
         <app-pin-area></app-pin-area>
       </main>
     }

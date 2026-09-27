@@ -1,0 +1,55 @@
+@use 'variables' as *;
+
+:host {
+  display: block;
+}
+
+.enriched-tooltip {
+  background: $bg-panel;
+  color: $text-primary;
+  padding: 8px 10px;
+  border: 1px solid $border-gold;
+  border-radius: $radius-sm;
+  box-shadow: $shadow-tooltip;
+  max-width: 280px;
+  pointer-events: none;
+}
+
+.enriched-tooltip__name {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $gold-bright;
+  margin-bottom: 4px;
+}
+
+.enriched-tooltip__desc {
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: $text-secondary;
+  overflow-wrap: break-word;
+}
+
+.enriched-tooltip__group {
+  margin-top: 6px;
+}
+
+.enriched-tooltip__group-label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $text-primary;
+}
+
+.enriched-tooltip__list {
+  margin: 2px 0 0;
+  padding-left: 16px;
+  font-size: $font-size-sm;
+  line-height: 1.5;
+  color: $text-secondary;
+}
+
+.enriched-tooltip__cap {
+  margin-top: 6px;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: $gold-bright;
+}

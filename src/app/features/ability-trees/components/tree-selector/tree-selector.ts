@@ -6,9 +6,8 @@ import {
   inject,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { expandCollapse } from '@shared/animations/fade';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
+import { AbilityDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { AbilityTree } from '@models';
 
 interface CategoryGroup {
@@ -20,7 +19,6 @@ interface CategoryGroup {
 @Component({
   selector: 'app-tree-selector',
   host: { '(document:click)': 'onDocumentClick($event)' },
-  animations: [expandCollapse],
   templateUrl: './tree-selector.html',
   styleUrl: './tree-selector.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,7 +49,6 @@ export class TreeSelectorComponent {
   readonly pinnedTrees = computed(() => this.buildStore.state()?.pinnedTrees ?? []);
   expandedCategory = signal<string | null>(null);
   focusedIndex = signal(0);
-  private readonly pendingFocusTreeIndex = signal<number | null>(null);
 
   readonly expandedCategoryTrees = computed(() => {
     const expanded = this.expandedCategory();
@@ -125,7 +122,7 @@ export class TreeSelectorComponent {
       if (this.expandedCategory() !== category.category) {
         this.expandedCategory.set(category.category);
         this.focusedIndex.set(0);
-        this.pendingFocusTreeIndex.set(0);
+        this.scheduleFocusTreeItem(0);
       } else {
         this.focusedIndex.set(0);
         this.focusTreeItem(0);
@@ -179,12 +176,8 @@ export class TreeSelectorComponent {
     }
   }
 
-  onPanelEnter(): void {
-    const pending = this.pendingFocusTreeIndex();
-    if (pending !== null) {
-      this.pendingFocusTreeIndex.set(null);
-      this.focusTreeItem(pending);
-    }
+  private scheduleFocusTreeItem(index: number): void {
+    setTimeout(() => this.focusTreeItem(index));
   }
 
   private focusTab(category: string): void {

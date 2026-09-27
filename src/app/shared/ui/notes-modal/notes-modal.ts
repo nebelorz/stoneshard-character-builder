@@ -8,14 +8,13 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { ConfirmPopupComponent } from '@shared/ui/confirm-popup/confirm-popup';
 import { BuildNotes } from '@models';
 
 @Component({
   selector: 'app-notes-modal',
-  imports: [FormsModule, CdkTextareaAutosize, ConfirmPopupComponent],
+  imports: [CdkTextareaAutosize, ConfirmPopupComponent],
   template: `
     @if (isOpen()) {
       <div class="notes-modal-overlay" (mousedown)="onBackdropMouseDown($event)">
@@ -25,29 +24,26 @@ import { BuildNotes } from '@models';
               class="notes-modal__input"
               type="text"
               placeholder="Build Name"
-              [maxlength]="50"
-              [ngModel]="buildNameValue()"
-              (ngModelChange)="buildNameValue.set($event)"
-              (input)="onInput()"
+              maxlength="50"
+              [value]="buildNameValue()"
+              (input)="onBuildNameInput($event)"
             />
             <input
               class="notes-modal__input"
               type="text"
               placeholder="Author"
-              [maxlength]="50"
-              [ngModel]="authorValue()"
-              (ngModelChange)="authorValue.set($event)"
-              (input)="onInput()"
+              maxlength="50"
+              [value]="authorValue()"
+              (input)="onAuthorInput($event)"
             />
           </div>
           <textarea
             class="notes-modal__textarea"
             placeholder="Write your notes here..."
-            [maxlength]="1000"
+            maxlength="1000"
             cdkTextareaAutosize
-            [ngModel]="contentValue()"
-            (ngModelChange)="contentValue.set($event)"
-            (input)="onInput()"
+            [value]="contentValue()"
+            (input)="onContentInput($event)"
           ></textarea>
           <div class="notes-modal__footer">
             <span class="notes-modal__counter">{{ contentValue().length }} / 1000</span>
@@ -232,7 +228,18 @@ export class NotesModalComponent {
     this.dirty.set(false);
   });
 
-  onInput(): void {
+  onBuildNameInput(event: Event): void {
+    this.buildNameValue.set((event.target as HTMLInputElement).value);
+    this.dirty.set(true);
+  }
+
+  onAuthorInput(event: Event): void {
+    this.authorValue.set((event.target as HTMLInputElement).value);
+    this.dirty.set(true);
+  }
+
+  onContentInput(event: Event): void {
+    this.contentValue.set((event.target as HTMLTextAreaElement).value);
     this.dirty.set(true);
   }
 

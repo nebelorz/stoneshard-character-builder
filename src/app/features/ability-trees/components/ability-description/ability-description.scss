@@ -1,0 +1,51 @@
+@use 'variables' as *;
+
+:host {
+  display: block;
+}
+
+.ability-description {
+  &__line {
+    display: block;
+
+    &--bullet {
+      display: flex;
+      gap: 6px;
+    }
+  }
+
+  &__marker {
+    color: $text-secondary;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__text {
+    color: inherit;
+  }
+
+  &__modifier {
+    font-weight: $font-weight-semibold;
+
+    &--pos {
+      color: $nebelorz-accent;
+    }
+
+    &--neg {
+      color: $button-red;
+    }
+
+    &--neutral {
+      color: $stat-per;
+    }
+  }
+
+  &__effect {
+    color: $gold-bright;
+    font-weight: $font-weight-semibold;
+  }
+}

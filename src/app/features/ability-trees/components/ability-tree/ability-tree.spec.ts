@@ -1,8 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AbilityTreeComponent } from './ability-tree';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
+import { AbilityDataService, CharacterDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { AbilityTree, Ability, BuildState } from '@models';
 
 function getReadyState(store: BuildStore): BuildState {
@@ -39,6 +38,7 @@ const ability = (partial: Partial<Ability>): Ability => ({
   requires: [],
   unlockConditions: [],
   description: '',
+  descriptionLines: [],
   requiredBy: [],
   ...partial,
 });
@@ -219,6 +219,7 @@ describe('AbilityTreeComponent', () => {
   });
 
   it('shows a tooltip on hover', () => {
+    vi.useFakeTimers();
     const firstIcon = fixture.nativeElement.querySelector(
       'app-ability-icon .ability-icon',
     ) as HTMLElement;
@@ -233,7 +234,13 @@ describe('AbilityTreeComponent', () => {
     fixture.detectChanges();
     const hiddenTooltip = document.body.querySelector('.ability-tooltip') as HTMLElement;
     expect(hiddenTooltip).toBeTruthy();
+    expect(hiddenTooltip.classList.contains('ability-tooltip--visible')).toBe(true);
+
+    vi.advanceTimersByTime(200);
+    fixture.detectChanges();
     expect(hiddenTooltip.classList.contains('ability-tooltip--visible')).toBe(false);
     expect(window.getComputedStyle(hiddenTooltip).visibility).toBe('hidden');
+
+    vi.useRealTimers();
   });
 });

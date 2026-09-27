@@ -1,0 +1,61 @@
+@use 'variables' as *;
+@use 'stat-chips' as *;
+
+.left-sidenav__quests {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 14px;
+  border-bottom: 1px solid $border-dim;
+}
+
+.left-sidenav__quest-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.left-sidenav__quest-label-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.left-sidenav__quest-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: $text-secondary;
+  cursor: help;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: color 120ms ease;
+
+  ng-icon {
+    font-size: $font-size-sm;
+  }
+
+  &:hover {
+    color: $gold-bright;
+  }
+}
+
+.left-sidenav__quest-label {
+  color: $text-primary;
+  font-size: $font-size-base;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.left-sidenav__quest-slots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px;
+}

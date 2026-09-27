@@ -1,7 +1,14 @@
 import { Injectable, inject } from '@angular/core';
-import { BuildState, Character } from '@models';
-import { CharacterDataService } from '@features/character/services';
-import { BuildStore } from './build-store';
+import {
+  BuildState,
+  BonusSlot,
+  Character,
+  isStatKey,
+  sanitizeBonusSlots,
+  derivedTraitApFloor,
+} from '@models';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { ToastService } from '@shared/services';
 
 const MIN_LEVEL = 1;
@@ -53,6 +60,8 @@ export class UrlShareService {
   private readonly buildStore = inject(BuildStore);
   private readonly toastService = inject(ToastService);
   private readonly characterData = inject(CharacterDataService);
+  private readonly abilityData = inject(AbilityDataService);
+  private readonly questData = inject(QuestDataService);
 
   async generateShareUrl(): Promise<string | null> {
     const state = this.buildStore.stateSnapshot();
@@ -90,14 +99,7 @@ export class UrlShareService {
         return { error: 'Could not restore build from URL, starting fresh' };
       }
 
-      const state: BuildState = {
-        ...(parsed as unknown as BuildState),
-        notes: (parsed['notes'] as BuildState['notes']) ?? {
-          buildName: '',
-          author: '',
-          content: '',
-        },
-      };
+      const state = this.normalizeBuildState(parsed);
 
       return { state };
     } catch {
@@ -126,15 +128,8 @@ export class UrlShareService {
       s['stats'] === null ||
       !Array.isArray(s['obtainedAbilities']) ||
       !Array.isArray(s['pinnedTrees']) ||
-      (s['statHistory'] !== undefined && !Array.isArray(s['statHistory']))
-    ) {
-      return false;
-    }
-
-    if (
-      s['boulderCircleStat'] !== undefined &&
-      s['boulderCircleStat'] !== null &&
-      typeof s['boulderCircleStat'] !== 'string'
+      (s['statHistory'] !== undefined && !Array.isArray(s['statHistory'])) ||
+      (s['bonusSlots'] !== undefined && s['bonusSlots'] !== null && !Array.isArray(s['bonusSlots']))
     ) {
       return false;
     }
@@ -158,5 +153,40 @@ export class UrlShareService {
     if (!Number.isInteger(level) || level < MIN_LEVEL || level > MAX_LEVEL) return false;
 
     return true;
+  }
+
+  private normalizeBuildState(parsed: Record<string, unknown>): BuildState {
+    const characters = this.characterData.characters.value() ?? [];
+    const character = characters.find((c) => c.id === parsed['characterId']) ?? null;
+
+    const rawSlots: unknown[] = Array.isArray(parsed['bonusSlots'])
+      ? [...(parsed['bonusSlots'] as unknown[])]
+      : [];
+
+    const legacyStat = parsed['boulderCircleStat'];
+    if (isStatKey(legacyStat)) {
+      rawSlots.push({ sourceId: 'boulder-circle', index: 0, stat: legacyStat });
+    }
+
+    const sanitized = sanitizeBonusSlots(rawSlots, character, this.questData.questList());
+    const bonusSlots: readonly BonusSlot[] = sanitized === 'invalid' ? [] : sanitized;
+
+    const obtainedAbilities = parsed['obtainedAbilities'] as BuildState['obtainedAbilities'];
+    const derivedFloor = derivedTraitApFloor(
+      character,
+      obtainedAbilities,
+      this.abilityData.abilities.value() ?? [],
+    );
+
+    return {
+      ...(parsed as unknown as BuildState),
+      ap: Math.max(parsed['ap'] as number, derivedFloor),
+      bonusSlots,
+      notes: (parsed['notes'] as BuildState['notes']) ?? {
+        buildName: '',
+        author: '',
+        content: '',
+      },
+    };
   }
 }

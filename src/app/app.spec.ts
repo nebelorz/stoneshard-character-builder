@@ -1,10 +1,9 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppComponent } from './app';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { CharacterDataService } from '@features/character/services';
-import { BuildStore } from '@features/build/services';
+import { AbilityDataService, CharacterDataService, QuestDataService } from '@core/data';
+import { BuildStore } from '@core/state';
+import { ToastService } from '@shared/services';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
@@ -22,6 +21,9 @@ function createBuildStoreMock(
     canLevelUp5: signal(false),
     canLevelDown5: signal(false),
     traitsUnlockedOnStart: signal([]),
+    derivedTraitAp: signal(0),
+    totalAp: signal(0),
+    bonusCount: () => 0,
     initialize: () => {},
     restoreState: () => {},
     reset: () => {},
@@ -38,10 +40,8 @@ function createBuildStoreMock(
     refundAbility: () => false,
     pinTree: () => {},
     unpinTree: () => {},
-    canIncrementStat1: () => false,
-    canDecrementStat1: () => false,
-    canIncrementStat5: () => false,
-    canDecrementStat5: () => false,
+    canIncrementStat: () => false,
+    canDecrementStat: () => false,
   };
 }
 
@@ -49,7 +49,7 @@ describe('AppComponent', () => {
   it('should create the app', async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideAnimations(), provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     const fixture = TestBed.createComponent(AppComponent);
@@ -66,7 +66,6 @@ describe('Startup failure handling', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -125,7 +124,6 @@ describe('Loading state', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -175,7 +173,6 @@ describe('Loading state', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -217,5 +214,80 @@ describe('Loading state', () => {
     expect(pinAreaEl).toBeTruthy();
     const loadingEl = fixture.nativeElement.querySelector('.app-loading');
     expect(loadingEl).toBeNull();
+  });
+});
+
+describe('Quest data failure handling', () => {
+  const questsError = signal<{ message: string } | null>({ message: 'Failed to load quests' });
+
+  const readyResource = () => ({
+    error: () => null,
+    status: () => 'ready' as const,
+    reload: () => {},
+    value: () => null,
+  });
+
+  const configureWithQuestError = async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [
+        provideHttpClient(),
+        provideHttpClientTesting(),
+        { provide: CharacterDataService, useValue: { characters: readyResource() } },
+        {
+          provide: AbilityDataService,
+          useValue: { trees: readyResource(), abilities: readyResource() },
+        },
+        {
+          provide: QuestDataService,
+          useValue: {
+            quests: {
+              error: () => questsError(),
+              status: () => (questsError() ? 'error' : 'idle'),
+              reload: () => {},
+              value: () => null,
+            },
+            questList: () => [],
+          },
+        },
+        { provide: BuildStore, useValue: createBuildStoreMock({ initStatus: 'ready' }) },
+      ],
+    }).compileComponents();
+  };
+
+  const createWithQuestError = () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    return fixture;
+  };
+
+  it('shows a non-blocking toast when quest data fails without blocking startup', async () => {
+    await configureWithQuestError();
+    const toastService = TestBed.inject(ToastService);
+    const showSpy = vi.spyOn(toastService, 'show');
+
+    const fixture = createWithQuestError();
+
+    expect(showSpy).toHaveBeenCalledWith(
+      'Could not load quest data; quest bonuses may be unavailable',
+      'error',
+    );
+    expect(fixture.nativeElement.querySelector('app-error')).toBeNull();
+    expect(fixture.nativeElement.querySelector('app-pin-area')).toBeTruthy();
+  });
+
+  it('reports the quest data failure only once', async () => {
+    await configureWithQuestError();
+    const toastService = TestBed.inject(ToastService);
+    const showSpy = vi.spyOn(toastService, 'show');
+
+    const fixture = createWithQuestError();
+    fixture.detectChanges();
+    fixture.detectChanges();
+
+    const questCalls = showSpy.mock.calls.filter(([message]) =>
+      String(message).includes('quest data'),
+    );
+    expect(questCalls).toHaveLength(1);
   });
 });

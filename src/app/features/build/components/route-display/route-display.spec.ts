@@ -1,9 +1,8 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { RouteDisplayComponent } from './route-display';
-import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
+import { AbilityDataService, CharacterDataService } from '@core/data';
+import { AbilityHoverService } from '@shared/services';
+import { BuildStore } from '@core/state';
 import { Ability, BuildState } from '@models';
 
 function getReadyState(store: BuildStore): BuildState {
@@ -40,6 +39,7 @@ const ability = (partial: Partial<Ability>): Ability => ({
   requires: [],
   unlockConditions: [],
   description: '',
+  descriptionLines: [],
   requiredBy: [],
   ...partial,
 });
@@ -59,7 +59,6 @@ describe('RouteDisplayComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouteDisplayComponent],
       providers: [
-        provideNoopAnimations(),
         BuildStore,
         {
           provide: AbilityDataService,
@@ -106,7 +105,8 @@ describe('RouteDisplayComponent', () => {
       obtainedAbilities: [],
       pinnedTrees: [],
       statHistory: [],
-      boulderCircleStat: null,
+      bonusSlots: [],
+      notes: { buildName: '', author: '', content: '' },
     });
   }
 

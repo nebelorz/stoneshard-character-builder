@@ -1,0 +1,27 @@
+@for (line of renderLines(); track $index) {
+  <div
+    class="ability-description__line"
+    [class.ability-description__line--bullet]="line.kind === 'bullet'"
+  >
+    @if (line.kind === 'bullet') {
+      <span class="ability-description__marker" aria-hidden="true">-</span>
+    }
+    <span class="ability-description__content">
+      @for (node of line.nodes; track $index) {
+        @if (node.kind === 'modifier') {
+          <span
+            class="ability-description__modifier"
+            [class.ability-description__modifier--pos]="node.sign === 'pos'"
+            [class.ability-description__modifier--neg]="node.sign === 'neg'"
+            [class.ability-description__modifier--neutral]="node.sign === 'neutral'"
+            >{{ node.text }}</span
+          >
+        } @else if (node.kind === 'effect') {
+          <span class="ability-description__effect">"{{ node.name }}"</span>
+        } @else {
+          <span class="ability-description__text">{{ node.text }}</span>
+        }
+      }
+    </span>
+  </div>
+}

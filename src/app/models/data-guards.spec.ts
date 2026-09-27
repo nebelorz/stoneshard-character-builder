@@ -5,6 +5,9 @@ import {
   assertCharacterArray,
   assertAbilityTreeArray,
   assertAbilityArray,
+  assertQuestArray,
+  isTraitGain,
+  isQuest,
 } from './data-guards';
 
 const VALID_CHARACTER = {
@@ -83,6 +86,137 @@ describe('isCharacter', () => {
   it('rejects non-array traitsUnlockedOnStart', () => {
     expect(isCharacter({ ...VALID_CHARACTER, traitsUnlockedOnStart: 'warfare' })).toBe(false);
   });
+
+  it('accepts character with valid traitGains', () => {
+    expect(
+      isCharacter({
+        ...VALID_CHARACTER,
+        traitGains: [
+          { id: 'trophies', resource: 'sp', label: 'Trophies', pointsPer: 1, max: 5 },
+          {
+            id: 'survival',
+            resource: 'ap',
+            label: 'Survival abilities',
+            formula: 'abilities-per-3',
+            treeId: 'survival',
+          },
+        ],
+      }),
+    ).toBe(true);
+  });
+
+  it('rejects character with invalid traitGains', () => {
+    expect(isCharacter({ ...VALID_CHARACTER, traitGains: 'not array' })).toBe(false);
+    expect(
+      isCharacter({
+        ...VALID_CHARACTER,
+        traitGains: [{ id: 'bad', resource: 'ap', label: 'Bad', formula: 'nope' }],
+      }),
+    ).toBe(false);
+    expect(
+      isCharacter({
+        ...VALID_CHARACTER,
+        traitGains: [{ id: 'bad', resource: 'sp', label: 'Bad', pointsPer: 1, max: 0 }],
+      }),
+    ).toBe(false);
+  });
+});
+
+describe('isTraitGain', () => {
+  it('accepts a bounded sp gain', () => {
+    expect(
+      isTraitGain({ id: 'trophies', resource: 'sp', label: 'Trophies', pointsPer: 1, max: 5 }),
+    ).toBe(true);
+  });
+
+  it('accepts an unbounded sp gain', () => {
+    expect(isTraitGain({ id: 'bosses', resource: 'sp', label: 'Bosses', pointsPer: 2 })).toBe(true);
+  });
+
+  it('accepts an ap formula gain', () => {
+    expect(
+      isTraitGain({ id: 'trees', resource: 'ap', label: 'Trees', formula: 'distinct-trees-6' }),
+    ).toBe(true);
+  });
+
+  it('rejects non-object', () => {
+    expect(isTraitGain(null)).toBe(false);
+    expect(isTraitGain('sp')).toBe(false);
+  });
+
+  it('rejects unknown resource', () => {
+    expect(isTraitGain({ id: 'x', resource: 'xp', label: 'X' })).toBe(false);
+  });
+
+  it('rejects invalid formula', () => {
+    expect(isTraitGain({ id: 'x', resource: 'ap', label: 'X', formula: 'made-up' })).toBe(false);
+  });
+
+  it('rejects non-positive max', () => {
+    expect(isTraitGain({ id: 'x', resource: 'sp', label: 'X', pointsPer: 1, max: 0 })).toBe(false);
+  });
+
+  it('rejects non-positive or non-integer pointsPer', () => {
+    expect(isTraitGain({ id: 'x', resource: 'sp', label: 'X', pointsPer: 0 })).toBe(false);
+    expect(isTraitGain({ id: 'x', resource: 'sp', label: 'X', pointsPer: -2 })).toBe(false);
+    expect(isTraitGain({ id: 'x', resource: 'sp', label: 'X', pointsPer: 1.5 })).toBe(false);
+  });
+});
+
+describe('isQuest', () => {
+  const VALID_QUEST = {
+    id: 'boulder-circle',
+    resource: 'sp',
+    label: 'Boulder Circle',
+    tooltip: 'Grants 1 Stat Point',
+    pointsPer: 1,
+    max: 1,
+  };
+
+  it('accepts a valid quest', () => {
+    expect(isQuest(VALID_QUEST)).toBe(true);
+  });
+
+  it('rejects non-object', () => {
+    expect(isQuest(null)).toBe(false);
+    expect(isQuest(42)).toBe(false);
+  });
+
+  it('rejects non-sp resource', () => {
+    expect(isQuest({ ...VALID_QUEST, resource: 'ap' })).toBe(false);
+  });
+
+  it('rejects missing tooltip', () => {
+    const rest = { ...VALID_QUEST } as Record<string, unknown>;
+    delete rest['tooltip'];
+    expect(isQuest(rest)).toBe(false);
+  });
+
+  it('rejects non-positive max', () => {
+    expect(isQuest({ ...VALID_QUEST, max: 0 })).toBe(false);
+  });
+});
+
+describe('assertQuestArray', () => {
+  it('returns the array for valid data', () => {
+    const quest = {
+      id: 'boulder-circle',
+      resource: 'sp',
+      label: 'Boulder Circle',
+      tooltip: 'Grants 1 Stat Point',
+      pointsPer: 1,
+      max: 1,
+    };
+    expect(assertQuestArray([quest])).toEqual([quest]);
+  });
+
+  it('throws on non-array', () => {
+    expect(() => assertQuestArray(null)).toThrow('Expected an array of quests');
+  });
+
+  it('throws on invalid record in array', () => {
+    expect(() => assertQuestArray([{ id: 123 }])).toThrow('Invalid quest at index 0');
+  });
 });
 
 describe('isAbilityTree', () => {
@@ -124,6 +258,38 @@ describe('isAbility', () => {
 
   it('rejects non-array requires', () => {
     expect(isAbility({ ...VALID_ABILITY, requires: 'warfare-1' })).toBe(false);
+  });
+
+  it('accepts a canonical description containing modifiers', () => {
+    expect(isAbility({ ...VALID_ABILITY, description: 'Grants {+5}% Crit Chance.' })).toBe(true);
+  });
+
+  it('rejects an unclosed modifier delimiter', () => {
+    expect(isAbility({ ...VALID_ABILITY, description: 'Grants {+5% Crit Chance.' })).toBe(false);
+  });
+
+  it('rejects malformed derived descriptionLines', () => {
+    expect(isAbility({ ...VALID_ABILITY, descriptionLines: 'not lines' })).toBe(false);
+    expect(
+      isAbility({ ...VALID_ABILITY, descriptionLines: [{ kind: 'paragraph', nodes: 'nope' }] }),
+    ).toBe(false);
+    expect(
+      isAbility({
+        ...VALID_ABILITY,
+        descriptionLines: [{ kind: 'sentence', nodes: [] }],
+      }),
+    ).toBe(false);
+  });
+
+  it('accepts valid derived descriptionLines', () => {
+    expect(
+      isAbility({
+        ...VALID_ABILITY,
+        descriptionLines: [
+          { kind: 'paragraph', nodes: [{ kind: 'modifier', expression: '+5', sign: 'pos' }] },
+        ],
+      }),
+    ).toBe(true);
   });
 });
 

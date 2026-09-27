@@ -1,6 +1,5 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { ConfirmPopupComponent } from './confirm-popup';
 import { PopoverComponent } from '@shared/ui/popover/popover';
 
@@ -11,7 +10,6 @@ describe('ConfirmPopupComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ConfirmPopupComponent],
-      providers: [provideNoopAnimations()],
     }).compileComponents();
 
     trigger = document.createElement('button');

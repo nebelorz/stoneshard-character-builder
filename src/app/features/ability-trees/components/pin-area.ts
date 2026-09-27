@@ -1,18 +1,16 @@
 import { Component, computed, inject, ChangeDetectionStrategy } from '@angular/core';
-import { BuildStore } from '@features/build/services';
-import { AbilityDataService } from '@features/ability-trees/services';
+import { BuildStore } from '@core/state';
+import { AbilityDataService } from '@core/data';
 import { AbilityTree } from '@models';
 import { AbilityTreeComponent } from './ability-tree/ability-tree';
 import { TreeSelectorComponent } from './tree-selector/tree-selector';
 import { TooltipDirective } from '@shared/directives/tooltip/tooltip';
-import { cardReflow } from '@shared/animations/fade';
 
 @Component({
   selector: 'app-pin-area',
   imports: [AbilityTreeComponent, TreeSelectorComponent, TooltipDirective],
   templateUrl: './pin-area.html',
   styleUrl: './pin-area.scss',
-  animations: [cardReflow],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PinAreaComponent {
