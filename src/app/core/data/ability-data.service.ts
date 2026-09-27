@@ -1,11 +1,9 @@
-import { Injectable, inject, effect } from '@angular/core';
-import { HttpClient, httpResource } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { httpResource } from '@angular/common/http';
 import { AbilityTree, Ability, assertAbilityTreeArray, assertAbilityArray } from '@models';
 
 @Injectable({ providedIn: 'root' })
 export class AbilityDataService {
-  private readonly http = inject(HttpClient);
-
   readonly trees = httpResource<AbilityTree[]>(
     () => ({
       url: 'assets/data/trees.json',
@@ -29,18 +27,4 @@ export class AbilityDataService {
       },
     },
   );
-
-  private readonly logTreesError = effect(() => {
-    const error = this.trees.error();
-    if (error) {
-      console.error('Failed to load ability trees:', error);
-    }
-  });
-
-  private readonly logAbilitiesError = effect(() => {
-    const error = this.abilities.error();
-    if (error) {
-      console.error('Failed to load abilities:', error);
-    }
-  });
 }
