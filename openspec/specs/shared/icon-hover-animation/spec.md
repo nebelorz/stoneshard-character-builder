@@ -34,19 +34,19 @@ The system SHALL apply a subtle jiggle (small rotation oscillation) to an icon o
 - **WHEN** the jiggle animation plays
 - **THEN** it completes within 300ms and settles at the final rotated state or returns to neutral
 
-### Requirement: Animation SHALL be reusable
+### Requirement: Icon hover effect SHALL be reusable as CSS
 
-The system SHALL provide the animation as a reusable Angular animation trigger or directive that can be applied to any element.
+The system SHALL provide the icon hover effect as a reusable, framework-agnostic CSS class that can be applied to any element directly or through a host binding, so consumers get the same zoom-and-jiggle feedback without importing a JavaScript animation API.
 
-#### Scenario: Animation trigger usage
+#### Scenario: Class usage
 
-- **WHEN** a component imports the animation trigger
-- **THEN** it can bind the trigger to any element using Angular animation syntax
+- **WHEN** a component applies the shared hover class to an element
+- **THEN** the zoom and jiggle effect activates on hover without additional configuration
 
-#### Scenario: Directive usage
+#### Scenario: No framework animation API required
 
-- **WHEN** a component applies the directive to an element
-- **THEN** the animation activates on hover without additional configuration
+- **WHEN** the shared effect is consumed
+- **THEN** it relies only on CSS transforms and keyframes with no dependency on a JavaScript animation package
 
 ### Requirement: Animation SHALL be performant
 
