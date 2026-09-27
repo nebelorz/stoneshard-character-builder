@@ -139,6 +139,7 @@ describe('UrlShareService', () => {
           provide: QuestDataService,
           useValue: {
             quests: { value: () => MOCK_QUESTS },
+            questList: () => MOCK_QUESTS,
           },
         },
         {

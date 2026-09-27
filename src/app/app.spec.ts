@@ -252,6 +252,7 @@ describe('Quest data failure handling', () => {
               reload: () => {},
               value: () => null,
             },
+            questList: () => [],
           },
         },
         { provide: BuildStore, useValue: createBuildStoreMock({ initStatus: 'ready' }) },

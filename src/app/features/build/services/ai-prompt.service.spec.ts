@@ -255,6 +255,7 @@ describe('AiPromptService', () => {
               status: () => 'ready' as const,
               error: () => null,
             },
+            questList: () => MOCK_QUESTS,
           },
         },
         {

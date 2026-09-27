@@ -1,15 +1,21 @@
-import { TestBed } from '@angular/core/testing';
-import { BonusService } from './bonus.service';
-import { QuestDataService } from '../data/quest-data.service';
 import {
-  BuildState,
-  Character,
-  Ability,
-  BonusSlot,
   UNBOUNDED_SOURCE_MAX_ROWS,
+  addBossRow,
+  allocateBonusSlot,
+  bonusCount,
   bonusSlotCeiling,
+  bossRowCount,
+  clearTraitSlots,
+  deallocateBonusSlot,
+  derivedTraitAp,
+  isQuestSource,
   isUnboundedSource,
-} from '@models';
+  removeBossRow,
+  sanitizeBonusSlots,
+} from './bonus.model';
+import { BonusSlot, BuildState } from './build-state.model';
+import { Character } from './character.model';
+import { Ability } from './ability.model';
 
 const MOCK_QUESTS = [
   {
@@ -142,29 +148,7 @@ function makeState(overrides: Partial<BuildState> = {}): BuildState {
   };
 }
 
-describe('BonusService', () => {
-  let service: BonusService;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        BonusService,
-        {
-          provide: QuestDataService,
-          useValue: {
-            quests: {
-              value: () => MOCK_QUESTS,
-              status: () => 'ready' as const,
-              error: () => null,
-              reload: () => {},
-            },
-          },
-        },
-      ],
-    });
-    service = TestBed.inject(BonusService);
-  });
-
+describe('bonus.model', () => {
   describe('slot configuration', () => {
     it('exposes bounded slot lists from config', () => {
       expect(bonusSlotCeiling(JORGRIM, MOCK_QUESTS, 'trophies')).toBe(5);
@@ -183,10 +167,10 @@ describe('BonusService', () => {
     });
   });
 
-  describe('allocateSlot', () => {
+  describe('allocateBonusSlot', () => {
     it('allocates a bounded slot', () => {
       const state = makeState();
-      const next = service.allocateSlot(state, 'trophies', 0, 'STR', JORGRIM);
+      const next = allocateBonusSlot(state, 'trophies', 0, 'STR', JORGRIM, MOCK_QUESTS);
       expect(next?.bonusSlots).toEqual([{ sourceId: 'trophies', index: 0, stat: 'STR' }]);
     });
 
@@ -194,19 +178,19 @@ describe('BonusService', () => {
       const state = makeState({
         bonusSlots: [{ sourceId: 'trophies', index: 0, stat: 'STR' }],
       });
-      const next = service.allocateSlot(state, 'trophies', 0, 'AGI', JORGRIM);
+      const next = allocateBonusSlot(state, 'trophies', 0, 'AGI', JORGRIM, MOCK_QUESTS);
       expect(next?.bonusSlots).toEqual([{ sourceId: 'trophies', index: 0, stat: 'AGI' }]);
     });
 
     it('rejects out-of-range bounded index', () => {
       const state = makeState();
-      expect(service.allocateSlot(state, 'trophies', 5, 'STR', JORGRIM)).toBeNull();
-      expect(service.allocateSlot(state, 'trophies', -1, 'STR', JORGRIM)).toBeNull();
+      expect(allocateBonusSlot(state, 'trophies', 5, 'STR', JORGRIM, MOCK_QUESTS)).toBeNull();
+      expect(allocateBonusSlot(state, 'trophies', -1, 'STR', JORGRIM, MOCK_QUESTS)).toBeNull();
     });
 
     it('rejects allocation of an unclaimed unbounded slot', () => {
       const state = makeState();
-      expect(service.allocateSlot(state, 'bosses', 0, 'STR', VELMIR)).toBeNull();
+      expect(allocateBonusSlot(state, 'bosses', 0, 'STR', VELMIR, MOCK_QUESTS)).toBeNull();
     });
 
     it('allocates a claimed unbounded slot', () => {
@@ -216,7 +200,7 @@ describe('BonusService', () => {
           { sourceId: 'bosses', index: 1, stat: null },
         ],
       });
-      const next = service.allocateSlot(state, 'bosses', 1, 'VIT', VELMIR);
+      const next = allocateBonusSlot(state, 'bosses', 1, 'VIT', VELMIR, MOCK_QUESTS);
       expect(next?.bonusSlots).toEqual([
         { sourceId: 'bosses', index: 0, stat: null },
         { sourceId: 'bosses', index: 1, stat: 'VIT' },
@@ -224,7 +208,7 @@ describe('BonusService', () => {
     });
   });
 
-  describe('deallocateSlot', () => {
+  describe('deallocateBonusSlot', () => {
     it('removes the entry for a bounded source', () => {
       const state = makeState({
         bonusSlots: [
@@ -232,7 +216,7 @@ describe('BonusService', () => {
           { sourceId: 'boulder-circle', index: 0, stat: 'AGI' },
         ],
       });
-      const next = service.deallocateSlot(state, 'trophies', 0, JORGRIM);
+      const next = deallocateBonusSlot(state, 'trophies', 0, JORGRIM);
       expect(next?.bonusSlots).toEqual([{ sourceId: 'boulder-circle', index: 0, stat: 'AGI' }]);
     });
 
@@ -243,7 +227,7 @@ describe('BonusService', () => {
           { sourceId: 'bosses', index: 1, stat: 'PER' },
         ],
       });
-      const next = service.deallocateSlot(state, 'bosses', 0, VELMIR);
+      const next = deallocateBonusSlot(state, 'bosses', 0, VELMIR);
       expect(next?.bonusSlots).toEqual([
         { sourceId: 'bosses', index: 0, stat: null },
         { sourceId: 'bosses', index: 1, stat: 'PER' },
@@ -252,43 +236,43 @@ describe('BonusService', () => {
 
     it('is a no-op when the slot is not allocated', () => {
       const state = makeState({ bonusSlots: [{ sourceId: 'bosses', index: 0, stat: null }] });
-      expect(service.deallocateSlot(state, 'bosses', 0, VELMIR)).toBeNull();
-      expect(service.deallocateSlot(state, 'trophies', 0, JORGRIM)).toBeNull();
+      expect(deallocateBonusSlot(state, 'bosses', 0, VELMIR)).toBeNull();
+      expect(deallocateBonusSlot(state, 'trophies', 0, JORGRIM)).toBeNull();
     });
   });
 
   describe('unbounded stepper', () => {
     it('starts at zero rows', () => {
-      expect(service.bossRowCount(makeState(), 'bosses', VELMIR)).toBe(0);
+      expect(bossRowCount(makeState(), 'bosses', VELMIR, MOCK_QUESTS)).toBe(0);
     });
 
     it('appends the configured slots per boss row', () => {
       const state = makeState();
-      const next = service.addBossRow(state, 'bosses', VELMIR);
+      const next = addBossRow(state, 'bosses', VELMIR, MOCK_QUESTS);
       expect(next?.bonusSlots).toEqual([
         { sourceId: 'bosses', index: 0, stat: null },
         { sourceId: 'bosses', index: 1, stat: null },
       ]);
-      expect(service.bossRowCount(next!, 'bosses', VELMIR)).toBe(1);
+      expect(bossRowCount(next!, 'bosses', VELMIR, MOCK_QUESTS)).toBe(1);
     });
 
     it('stops appending at the boss ceiling', () => {
       let state = makeState();
       for (let i = 0; i < UNBOUNDED_SOURCE_MAX_ROWS; i++) {
-        state = service.addBossRow(state, 'bosses', VELMIR)!;
+        state = addBossRow(state, 'bosses', VELMIR, MOCK_QUESTS)!;
       }
-      expect(service.bossRowCount(state, 'bosses', VELMIR)).toBe(UNBOUNDED_SOURCE_MAX_ROWS);
-      const rejected = service.addBossRow(state, 'bosses', VELMIR);
+      expect(bossRowCount(state, 'bosses', VELMIR, MOCK_QUESTS)).toBe(UNBOUNDED_SOURCE_MAX_ROWS);
+      const rejected = addBossRow(state, 'bosses', VELMIR, MOCK_QUESTS);
       expect(rejected).toBeNull();
     });
 
     it('removes a boss row and reindexes remaining rows', () => {
       let state = makeState();
       for (let i = 0; i < 3; i++) {
-        state = service.addBossRow(state, 'bosses', VELMIR)!;
+        state = addBossRow(state, 'bosses', VELMIR, MOCK_QUESTS)!;
       }
-      state = service.allocateSlot(state, 'bosses', 4, 'STR', VELMIR)!;
-      const next = service.removeBossRow(state, 'bosses', 1, VELMIR);
+      state = allocateBonusSlot(state, 'bosses', 4, 'STR', VELMIR, MOCK_QUESTS)!;
+      const next = removeBossRow(state, 'bosses', 1, VELMIR, MOCK_QUESTS);
       expect(next?.bonusSlots).toEqual([
         { sourceId: 'bosses', index: 0, stat: null },
         { sourceId: 'bosses', index: 1, stat: null },
@@ -299,13 +283,13 @@ describe('BonusService', () => {
 
     it('rejects removing a row that does not exist', () => {
       const state = makeState();
-      expect(service.removeBossRow(state, 'bosses', 0, VELMIR)).toBeNull();
+      expect(removeBossRow(state, 'bosses', 0, VELMIR, MOCK_QUESTS)).toBeNull();
     });
 
     it('rejects stepper operations on bounded sources', () => {
       const state = makeState();
-      expect(service.addBossRow(state, 'trophies', JORGRIM)).toBeNull();
-      expect(service.removeBossRow(state, 'trophies', 0, JORGRIM)).toBeNull();
+      expect(addBossRow(state, 'trophies', JORGRIM, MOCK_QUESTS)).toBeNull();
+      expect(removeBossRow(state, 'trophies', 0, JORGRIM, MOCK_QUESTS)).toBeNull();
     });
   });
 
@@ -319,9 +303,9 @@ describe('BonusService', () => {
         { sourceId: 'bosses', index: 3, stat: 'STR' },
       ];
       const state = makeState({ bonusSlots: slots });
-      expect(service.bonusCount(state, 'VIT')).toBe(3);
-      expect(service.bonusCount(state, 'STR')).toBe(1);
-      expect(service.bonusCount(state, 'AGI')).toBe(0);
+      expect(bonusCount(state, 'VIT')).toBe(3);
+      expect(bonusCount(state, 'STR')).toBe(1);
+      expect(bonusCount(state, 'AGI')).toBe(0);
     });
 
     it('clears trait slots but keeps quest slots', () => {
@@ -331,29 +315,29 @@ describe('BonusService', () => {
         { sourceId: 'trophies', index: 0, stat: 'STR' },
       ];
       const state = makeState({ bonusSlots: slots });
-      const next = service.clearTraitSlots(state);
+      const next = clearTraitSlots(state, (sourceId) => isQuestSource(MOCK_QUESTS, sourceId));
       expect(next.bonusSlots).toEqual([{ sourceId: 'boulder-circle', index: 0, stat: 'VIT' }]);
     });
   });
 
-  describe('derivedAp formulas', () => {
+  describe('derivedTraitAp formulas', () => {
     function obtained(ids: string[]): { abilityId: string; level: number; order: number }[] {
       return ids.map((abilityId, i) => ({ abilityId, level: 2 + i, order: i + 1 }));
     }
 
     it('returns 0 with no learned abilities', () => {
-      expect(service.derivedAp(DIRWIN, [], MOCK_ABILITIES)).toBe(0);
+      expect(derivedTraitAp(DIRWIN, [], MOCK_ABILITIES)).toBe(0);
     });
 
     it('returns 0 below the boundary for abilities-per-3', () => {
-      expect(
-        service.derivedAp(DIRWIN, obtained(['survival-2', 'survival-3']), MOCK_ABILITIES),
-      ).toBe(0);
+      expect(derivedTraitAp(DIRWIN, obtained(['survival-2', 'survival-3']), MOCK_ABILITIES)).toBe(
+        0,
+      );
     });
 
     it('returns 1 at the boundary for abilities-per-3', () => {
       expect(
-        service.derivedAp(
+        derivedTraitAp(
           DIRWIN,
           obtained(['survival-2', 'survival-3', 'survival-4']),
           MOCK_ABILITIES,
@@ -363,7 +347,7 @@ describe('BonusService', () => {
 
     it('returns 2 above the boundary for abilities-per-3', () => {
       expect(
-        service.derivedAp(
+        derivedTraitAp(
           DIRWIN,
           obtained([
             'survival-2',
@@ -380,7 +364,7 @@ describe('BonusService', () => {
 
     it('excludes default abilities for abilities-per-3', () => {
       expect(
-        service.derivedAp(
+        derivedTraitAp(
           DIRWIN,
           obtained(['survival-1', 'survival-2', 'survival-3']),
           MOCK_ABILITIES,
@@ -390,7 +374,7 @@ describe('BonusService', () => {
 
     it('returns 0 below the tree threshold for distinct-trees-6', () => {
       expect(
-        service.derivedAp(
+        derivedTraitAp(
           MAHIR,
           obtained(['warfare-1', 'warfare-2', 'warfare-3', 'pyromancy-1']),
           MOCK_ABILITIES,
@@ -400,7 +384,7 @@ describe('BonusService', () => {
 
     it('returns 1 when one tree reaches the threshold', () => {
       expect(
-        service.derivedAp(
+        derivedTraitAp(
           MAHIR,
           obtained([
             'pyromancy-1',
@@ -439,12 +423,12 @@ describe('BonusService', () => {
         'athletics-5',
         'athletics-6',
       ];
-      expect(service.derivedAp(MAHIR, obtained(ids), MOCK_ABILITIES)).toBe(3);
+      expect(derivedTraitAp(MAHIR, obtained(ids), MOCK_ABILITIES)).toBe(3);
     });
 
     it('excludes default abilities for distinct-trees-6', () => {
       expect(
-        service.derivedAp(
+        derivedTraitAp(
           MAHIR,
           obtained([
             'survival-1',
@@ -460,20 +444,18 @@ describe('BonusService', () => {
     });
 
     it('returns 0 for characters without ap gains', () => {
-      expect(service.derivedAp(JORGRIM, obtained(['warfare-1', 'warfare-2']), MOCK_ABILITIES)).toBe(
-        0,
-      );
+      expect(derivedTraitAp(JORGRIM, obtained(['warfare-1', 'warfare-2']), MOCK_ABILITIES)).toBe(0);
     });
   });
 
   describe('sanitizeBonusSlots', () => {
     it('treats missing as empty', () => {
-      expect(service.sanitizeBonusSlots(undefined, VELMIR)).toEqual([]);
-      expect(service.sanitizeBonusSlots(null, VELMIR)).toEqual([]);
+      expect(sanitizeBonusSlots(undefined, VELMIR, MOCK_QUESTS)).toEqual([]);
+      expect(sanitizeBonusSlots(null, VELMIR, MOCK_QUESTS)).toEqual([]);
     });
 
     it('flags non-array as invalid', () => {
-      expect(service.sanitizeBonusSlots('nope', VELMIR)).toBe('invalid');
+      expect(sanitizeBonusSlots('nope', VELMIR, MOCK_QUESTS)).toBe('invalid');
     });
 
     it('drops malformed entries individually', () => {
@@ -487,7 +469,7 @@ describe('BonusService', () => {
         { sourceId: 'trophies', index: 0, stat: 'STR' },
         { sourceId: 'bosses', index: 25, stat: null },
       ];
-      const result = service.sanitizeBonusSlots(raw, VELMIR);
+      const result = sanitizeBonusSlots(raw, VELMIR, MOCK_QUESTS);
       expect(result).toEqual([{ sourceId: 'bosses', index: 0, stat: 'STR' }]);
     });
 
@@ -496,15 +478,15 @@ describe('BonusService', () => {
         { sourceId: 'boulder-circle', index: 0, stat: 'STR' },
         { sourceId: 'boulder-circle', index: 0, stat: 'AGI' },
       ];
-      expect(service.sanitizeBonusSlots(raw, VELMIR)).toEqual([
+      expect(sanitizeBonusSlots(raw, VELMIR, MOCK_QUESTS)).toEqual([
         { sourceId: 'boulder-circle', index: 0, stat: 'STR' },
       ]);
     });
 
     it('drops trait sources of another character', () => {
       const raw = [{ sourceId: 'trophies', index: 0, stat: 'STR' }];
-      expect(service.sanitizeBonusSlots(raw, VELMIR)).toEqual([]);
-      expect(service.sanitizeBonusSlots(raw, JORGRIM)).toEqual([
+      expect(sanitizeBonusSlots(raw, VELMIR, MOCK_QUESTS)).toEqual([]);
+      expect(sanitizeBonusSlots(raw, JORGRIM, MOCK_QUESTS)).toEqual([
         { sourceId: 'trophies', index: 0, stat: 'STR' },
       ]);
     });

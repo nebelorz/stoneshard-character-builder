@@ -137,6 +137,7 @@ function setup(characters: Character[]): {
             error: () => null,
             reload: () => {},
           },
+          questList: () => MOCK_QUESTS,
         },
       },
     ],

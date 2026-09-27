@@ -212,6 +212,7 @@ describe('BuildStore', () => {
               error: () => null,
               reload: () => {},
             },
+            questList: () => MOCK_QUESTS,
           },
         },
       ],

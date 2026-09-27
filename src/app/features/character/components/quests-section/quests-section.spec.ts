@@ -63,6 +63,7 @@ function setup(): { fixture: ComponentFixture<QuestsSectionComponent>; store: Bu
             error: () => null,
             reload: () => {},
           },
+          questList: () => MOCK_QUESTS,
         },
       },
     ],
