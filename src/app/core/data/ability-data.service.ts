@@ -1,6 +1,23 @@
 import { Injectable } from '@angular/core';
 import { httpResource } from '@angular/common/http';
-import { AbilityTree, Ability, assertAbilityTreeArray, assertAbilityArray } from '@models';
+import {
+  Ability,
+  AbilityTree,
+  RawAbility,
+  assertAbilityTreeArray,
+  assertAbilityArray,
+  flattenDescription,
+  tokenizeDescription,
+} from '@models';
+
+function buildAbility(raw: RawAbility): Ability {
+  const descriptionLines = tokenizeDescription(raw.description);
+  return {
+    ...raw,
+    description: flattenDescription(descriptionLines),
+    descriptionLines,
+  };
+}
 
 @Injectable({ providedIn: 'root' })
 export class AbilityDataService {
@@ -22,8 +39,8 @@ export class AbilityDataService {
     }),
     {
       parse: (res: unknown) => {
-        const raw = (res as { abilities: Ability[] }).abilities;
-        return assertAbilityArray(raw);
+        const raw = (res as { abilities: unknown }).abilities;
+        return assertAbilityArray(raw).map(buildAbility);
       },
     },
   );
