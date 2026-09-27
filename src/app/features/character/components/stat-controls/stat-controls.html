@@ -19,7 +19,7 @@
         <button
           class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
           (click)="onDecrementStat5(row.key)"
-          [disabled]="!canDecrementStat5(row.key)"
+          [disabled]="!canDecrementStat(row.key)"
           title="-5"
           [attr.aria-label]="'Decrease ' + row.name + ' by 5'"
         >
@@ -54,7 +54,7 @@
         <button
           class="left-sidenav__btn left-sidenav__btn--5 left-sidenav__btn--sm"
           (click)="onIncrementStat5(row.key)"
-          [disabled]="!canIncrementStat5(row.key)"
+          [disabled]="!canIncrementStat(row.key)"
           title="+5"
           [attr.aria-label]="'Increase ' + row.name + ' by 5'"
         >

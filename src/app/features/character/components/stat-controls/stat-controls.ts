@@ -18,14 +18,6 @@ interface StatRow {
   readonly info: StatTooltipContent;
 }
 
-const STAT_NAMES: Record<StatKey, string> = {
-  STR: 'Strength',
-  AGI: 'Agility',
-  PER: 'Perception',
-  VIT: 'Vitality',
-  WIL: 'Willpower',
-};
-
 @Component({
   selector: 'app-stat-controls',
   templateUrl: './stat-controls.html',
@@ -42,7 +34,7 @@ export class StatControlsComponent {
       const bonusCount = this.buildStore.bonusCount(stat);
       return {
         key: stat,
-        name: STAT_NAMES[stat],
+        name: STAT_INFO[stat].name,
         value: (stats?.[stat] ?? 0) + bonusCount,
         bonusCount,
         info: STAT_INFO[stat],
@@ -57,19 +49,11 @@ export class StatControlsComponent {
   readonly spPercent = computed(() => Math.min(100, (this.sp() / STAT_POINT_BUDGET) * 100));
 
   canIncrementStat(stat: StatKey): boolean {
-    return this.buildStore.canIncrementStat1(stat);
+    return this.buildStore.canIncrementStat(stat);
   }
 
   canDecrementStat(stat: StatKey): boolean {
-    return this.buildStore.canDecrementStat1(stat);
-  }
-
-  canIncrementStat5(stat: StatKey): boolean {
-    return this.buildStore.canIncrementStat5(stat);
-  }
-
-  canDecrementStat5(stat: StatKey): boolean {
-    return this.buildStore.canDecrementStat5(stat);
+    return this.buildStore.canDecrementStat(stat);
   }
 
   onIncrementStat(stat: StatKey): void {

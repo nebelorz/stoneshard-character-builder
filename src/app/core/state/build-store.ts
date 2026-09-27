@@ -7,7 +7,6 @@ import {
   Character,
   Ability,
   StatKey,
-  BonusSlot,
 } from '@models';
 import { CharacterDataService } from '../data/character-data.service';
 import { AbilityDataService } from '../data/ability-data.service';
@@ -261,27 +260,13 @@ export class BuildStore {
     if (newState) this.pushState(newState);
   }
 
-  canIncrementStat1(stat: StatKey): boolean {
+  canIncrementStat(stat: StatKey): boolean {
     const state = this._state();
     if (!state) return false;
     return this.statStore.canIncrementStat(state, stat);
   }
 
-  canDecrementStat1(stat: StatKey): boolean {
-    const state = this._state();
-    if (!state) return false;
-    const character = this._character();
-    if (!character) return false;
-    return this.statStore.canDecrementStat(state, stat, character);
-  }
-
-  canIncrementStat5(stat: StatKey): boolean {
-    const state = this._state();
-    if (!state) return false;
-    return this.statStore.canIncrementStat(state, stat);
-  }
-
-  canDecrementStat5(stat: StatKey): boolean {
+  canDecrementStat(stat: StatKey): boolean {
     const state = this._state();
     if (!state) return false;
     const character = this._character();
@@ -339,12 +324,6 @@ export class BuildStore {
     const state = this._state();
     if (!state) return 0;
     return this.bonusService.bonusCount(state, stat);
-  }
-
-  slotsForSource(sourceId: string): readonly BonusSlot[] {
-    const state = this._state();
-    if (!state) return [];
-    return this.bonusService.slotsForSource(state, sourceId);
   }
 
   applySetNotes(notes: Partial<BuildNotes>): void {
