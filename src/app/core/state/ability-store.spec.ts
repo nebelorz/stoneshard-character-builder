@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AbilityStore } from './ability-store';
-import { LevelStore } from '@features/character/services';
+import { LevelStore } from './level-store';
 import { BuildState, Ability, ObtainedAbility } from '@models';
 
 const MOCK_ABILITIES: Ability[] = [

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BonusService } from './bonus.service';
-import { QuestDataService } from './quest-data.service';
+import { QuestDataService } from '../data/quest-data.service';
 import {
   BuildState,
   Character,

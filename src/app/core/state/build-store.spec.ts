@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { BuildStore } from './build-store';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { QuestDataService } from '@shared/services';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
 import { BuildState, DEFAULT_ABILITY_IDS } from '@models';
 
 const MOCK_QUESTS = [
