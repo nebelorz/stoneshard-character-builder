@@ -17,7 +17,7 @@ The system SHALL define ability trees with: id, name, category (weaponry/utility
 
 ### Requirement: Ability data model
 
-The system SHALL define abilities with: id, name, treeId, row, column, x, y, type, target, range, energy, cooldown, modifiedBy, requires, unlock, description, and children. `description` is the flattened plain-text form of the structured tooltip template, regenerated from the pinned source data.
+The system SHALL define abilities with: id, name, treeId, row, column, x, y, type, target, range, energy, cooldown, modifiedBy, requires, unlock, description, and children. Each ability's description SHALL be authored as a canonical structured string and SHALL be exposed in two derived forms: a flattened plain-text `description` and a structured token stream. `description` remains the flattened plain-text form of the structured tooltip template, regenerated from the canonical source data.
 
 #### Scenario: Abilities have game coordinates
 
@@ -48,6 +48,16 @@ The system SHALL define abilities with: id, name, treeId, row, column, x, y, typ
 
 - **WHEN** the AI prompt service builds a prompt
 - **THEN** it consumes the regenerated plain-text description unchanged
+
+#### Scenario: Token stream derived from canonical source
+
+- **WHEN** an ability is loaded
+- **THEN** a token stream is derived from its canonical description representing text, signed modifiers, and effect names
+
+#### Scenario: Canonical source validated at load
+
+- **WHEN** an ability description fails to conform to the canonical format, such as an unclosed modifier delimiter
+- **THEN** the load is rejected with an error rather than exposing a partially parsed description
 
 ### Requirement: Character data model
 
