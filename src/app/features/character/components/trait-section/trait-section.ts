@@ -4,7 +4,7 @@ import { phosphorInfo, phosphorPlus, phosphorMinus } from '@ng-icons/phosphor-ic
 import { BuildStore, BonusService } from '@core/state';
 import { StatKey } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
-import { TraitTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
+import { TraitTooltipContent } from '@models';
 import { PointSlotRowComponent } from '../point-slot-row/point-slot-row';
 
 interface BonusSlotView {

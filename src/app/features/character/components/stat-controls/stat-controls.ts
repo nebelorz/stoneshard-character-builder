@@ -8,7 +8,7 @@ import {
 import { BuildStore } from '@core/state';
 import { ABILITY_POINT_BUDGET, STAT_POINT_BUDGET, STAT_KEYS, STAT_INFO, StatKey } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
-import { StatTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
+import { StatTooltipContent } from '@models';
 
 interface StatRow {
   readonly key: StatKey;

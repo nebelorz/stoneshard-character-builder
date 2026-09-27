@@ -4,7 +4,7 @@ import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { BuildStore, BonusService } from '@core/state';
 import { Quest, StatKey } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
-import { QuestTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
+import { QuestTooltipContent } from '@models';
 import { PointSlotRowComponent } from '../point-slot-row/point-slot-row';
 
 interface QuestSlotView {

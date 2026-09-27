@@ -3,7 +3,7 @@ import { AbilityDataService } from '@core/data';
 import { BuildStore } from '@core/state';
 import { AbilityTree } from '@models';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
-import { TreeTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
+import { TreeTooltipContent } from '@models';
 
 @Component({
   selector: 'app-character-info',

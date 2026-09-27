@@ -21,7 +21,7 @@ import { CharacterDataService } from '@core/data';
 import { Character } from '@models';
 import { fadeInOut } from '@shared/animations/fade';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
-import { TraitTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
+import { TraitTooltipContent } from '@models';
 
 interface CharacterOptionItem extends Highlightable {
   id: string;

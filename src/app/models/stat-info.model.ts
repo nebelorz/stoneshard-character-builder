@@ -1,4 +1,4 @@
-import { StatTooltipContent } from '@shared/directives/tooltip/tooltip-content.model';
+import { StatTooltipContent } from './tooltip-content.model';
 import { StatKey } from './stat-key.model';
 
 export const STAT_INFO: Record<StatKey, StatTooltipContent> = {

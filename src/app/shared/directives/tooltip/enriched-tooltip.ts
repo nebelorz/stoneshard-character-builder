@@ -2,7 +2,7 @@ import { Directive, ElementRef, inject, input, OnDestroy } from '@angular/core';
 import { ConnectedPosition, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { EnrichedTooltipOverlayComponent } from './enriched-tooltip-overlay';
-import { TooltipContent } from './tooltip-content.model';
+import { TooltipContent } from '@models';
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipPositioning = 'anchor' | 'cursor';

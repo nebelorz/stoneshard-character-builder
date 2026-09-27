@@ -7,6 +7,7 @@ export * from './quest.model';
 export { parseRequirements, meetsRequirements } from './requirement.model';
 export * from './stat-key.model';
 export { STAT_INFO } from './stat-info.model';
+export * from './tooltip-content.model';
 export {
   assertCharacterArray,
   assertAbilityTreeArray,

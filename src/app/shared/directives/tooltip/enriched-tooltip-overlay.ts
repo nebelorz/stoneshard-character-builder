@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { TooltipContent } from './tooltip-content.model';
+import { TooltipContent } from '@models';
 
 @Component({
   selector: 'app-enriched-tooltip-overlay',
