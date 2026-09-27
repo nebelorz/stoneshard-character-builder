@@ -1,12 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ExtrasDisplayComponent } from './extras-display';
-import { BuildStore } from '@features/build/services';
+import { BuildStore } from '@core/state';
+
+const HOVER_DELAY = 200;
+
+const settle = (ms = HOVER_DELAY + 50) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 describe('ExtrasDisplayComponent', () => {
   let overlayContainer: OverlayContainer;
   let storeState: Record<string, unknown>;
   let fixture: ComponentFixture<ExtrasDisplayComponent>;
+
+  const tooltipEl = () => overlayContainer.getContainerElement().querySelector('[role="tooltip"]');
 
   function createFixture(): void {
     fixture = TestBed.createComponent(ExtrasDisplayComponent);
@@ -38,10 +44,11 @@ describe('ExtrasDisplayComponent', () => {
     overlayContainer.ngOnDestroy();
   });
 
-  it('renders the section header as Notes', () => {
-    const title = fixture.nativeElement.querySelector('.right-sidenav__extras-title');
-    expect(title.textContent!.trim()).toBe('Notes');
-    expect(title.classList.contains('font-fantasy')).toBe(true);
+  it('exposes the section title as a heading for assistive tech', () => {
+    const heading = fixture.nativeElement.querySelector('[role="heading"]') as HTMLElement;
+    expect(heading).not.toBeNull();
+    expect(heading.getAttribute('aria-level')).toBe('2');
+    expect(heading.textContent!.trim()).toBe('Notes');
   });
 
   it('shows the notes placeholder when there are no notes', () => {
@@ -71,8 +78,14 @@ describe('ExtrasDisplayComponent', () => {
     subscription.unsubscribe();
   });
 
-  it('annotates the notes icon with the author notes tooltip', () => {
-    const icon = fixture.nativeElement.querySelector('ng-icon[name="phosphorNote"]');
-    expect(icon.getAttribute('tooltiptext')).toBe('Author notes about this build');
+  it('describes the notes icon with the author-notes tooltip', async () => {
+    const icon = fixture.nativeElement.querySelector('ng-icon[name="phosphorNote"]') as HTMLElement;
+    icon.dispatchEvent(new MouseEvent('mouseenter'));
+    await settle();
+
+    const tooltip = tooltipEl();
+    expect(tooltip).toBeTruthy();
+    expect(tooltip?.textContent).toContain('Author notes about this build');
+    expect(icon.getAttribute('aria-describedby')).toBe(tooltip?.id);
   });
 });

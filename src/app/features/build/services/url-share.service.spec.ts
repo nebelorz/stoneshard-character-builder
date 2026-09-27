@@ -1,9 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { BuildState, BonusSlot } from '@models';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { QuestDataService, ToastService } from '@shared/services';
-import { BuildStore } from './build-store';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
+import { ToastService } from '@shared/services';
+import { BuildStore } from '@core/state';
 import { UrlShareService } from './url-share.service';
 
 const ERROR_MESSAGE = 'Could not restore build from URL, starting fresh';

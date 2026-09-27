@@ -2,10 +2,9 @@ import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { AiPromptService } from './ai-prompt.service';
-import { BuildStore } from './build-store';
-import { CharacterDataService } from '@features/character/services';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { QuestDataService, ToastService } from '@shared/services';
+import { BuildStore } from '@core/state';
+import { CharacterDataService, AbilityDataService, QuestDataService } from '@core/data';
+import { ToastService } from '@shared/services';
 import { Ability, AbilityTree, BonusSlot } from '@models';
 
 const MOCK_TEMPLATE = `# Stoneshard Build Analyst

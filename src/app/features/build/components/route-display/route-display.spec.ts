@@ -1,9 +1,9 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { RouteDisplayComponent } from './route-display';
-import { AbilityDataService, AbilityHoverService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
+import { AbilityDataService, CharacterDataService } from '@core/data';
+import { AbilityHoverService } from '@shared/services';
+import { BuildStore } from '@core/state';
 import { Ability, BuildState } from '@models';
 
 function getReadyState(store: BuildStore): BuildState {
