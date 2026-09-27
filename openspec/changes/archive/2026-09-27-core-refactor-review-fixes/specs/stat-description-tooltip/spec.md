@@ -1,19 +1,4 @@
-# stat-description-tooltip Specification
-
-## Purpose
-
-Lets users learn what each character stat (STR, AGI, PER, VIT, WIL) means directly from the stat list in the left sidenav, rendered as an enriched tooltip behind each stat's info icon.
-
-## Requirements
-
-### Requirement: Stat description availability
-
-The system SHALL provide a structured description for each of the five stat keys, covering the stat's intro, per-point effects, milestone-tier effects (at 15/20/25/30 points), and cap.
-
-#### Scenario: Every stat has full description content
-
-- **WHEN** the stat list is rendered
-- **THEN** each of the five stats has intro, per-point, milestone, and cap content available to display
+## MODIFIED Requirements
 
 ### Requirement: Stat description tooltip
 

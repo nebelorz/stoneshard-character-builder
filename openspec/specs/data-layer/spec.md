@@ -83,7 +83,7 @@ The system SHALL parse ability requirement strings into structured groups where 
 
 ### Requirement: Single fetch per data file
 
-The system SHALL issue exactly one network request per data file (characters.json, trees.json, abilities.json) per load lifecycle.
+The system SHALL issue exactly one network request per data file (characters.json, trees.json, abilities.json, quests.json) per load lifecycle.
 
 #### Scenario: No duplicate fetches
 
@@ -103,3 +103,8 @@ The system SHALL validate loaded data against the corresponding data model befor
 
 - **WHEN** trees.json or abilities.json is parsed
 - **THEN** the result is validated to be an array of tree-shaped / ability-shaped records before use
+
+#### Scenario: Quest data validated
+
+- **WHEN** quests.json is parsed
+- **THEN** the result is validated to be an array of quest-shaped records before use
