@@ -1,6 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { CharacterSelectorComponent } from './character-selector';
 import { AbilityDataService, CharacterDataService } from '@core/data';
 import { BuildStore } from '@core/state';
@@ -75,7 +74,6 @@ describe('CharacterSelectorComponent', () => {
     TestBed.configureTestingModule({
       imports: [CharacterSelectorComponent],
       providers: [
-        provideNoopAnimations(),
         BuildStore,
         {
           provide: AbilityDataService,

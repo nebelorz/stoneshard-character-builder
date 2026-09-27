@@ -1,6 +1,5 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { provideAnimations } from '@angular/platform-browser/animations';
 import { AppComponent } from './app';
 import { AbilityDataService, CharacterDataService, QuestDataService } from '@core/data';
 import { BuildStore } from '@core/state';
@@ -50,7 +49,7 @@ describe('AppComponent', () => {
   it('should create the app', async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [provideAnimations(), provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     const fixture = TestBed.createComponent(AppComponent);
@@ -67,7 +66,6 @@ describe('Startup failure handling', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -126,7 +124,6 @@ describe('Loading state', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -176,7 +173,6 @@ describe('Loading state', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         {
@@ -235,7 +231,6 @@ describe('Quest data failure handling', () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
-        provideAnimations(),
         provideHttpClient(),
         provideHttpClientTesting(),
         { provide: CharacterDataService, useValue: { characters: readyResource() } },

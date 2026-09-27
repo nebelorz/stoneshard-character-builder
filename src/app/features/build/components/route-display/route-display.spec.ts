@@ -1,5 +1,4 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { RouteDisplayComponent } from './route-display';
 import { AbilityDataService, CharacterDataService } from '@core/data';
 import { AbilityHoverService } from '@shared/services';
@@ -59,7 +58,6 @@ describe('RouteDisplayComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouteDisplayComponent],
       providers: [
-        provideNoopAnimations(),
         BuildStore,
         {
           provide: AbilityDataService,
