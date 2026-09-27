@@ -1,4 +1,5 @@
 export * from './ability.model';
+export * from './ability-description.model';
 export * from './ability-tree.model';
 export * from './bonus.model';
 export * from './build-state.model';

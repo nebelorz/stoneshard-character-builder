@@ -1,7 +1,8 @@
 import { Character, TraitGain, TraitGainAp, TraitGainSp } from './character.model';
 import { AbilityTree } from './ability-tree.model';
-import { Ability } from './ability.model';
+import { RawAbility } from './ability.model';
 import { Quest } from './quest.model';
+import { DescriptionNode, tokenizeDescription } from './ability-description.model';
 
 const RACES = new Set([
   'Human (Skadian)',
@@ -103,7 +104,7 @@ export function isAbilityTree(value: unknown): value is AbilityTree {
   );
 }
 
-export function isAbility(value: unknown): value is Ability {
+export function isAbility(value: unknown): value is RawAbility {
   if (!isRecord(value)) return false;
   return (
     typeof value['id'] === 'string' &&
@@ -120,7 +121,46 @@ export function isAbility(value: unknown): value is Ability {
     Array.isArray(value['requires']) &&
     Array.isArray(value['unlockConditions']) &&
     typeof value['description'] === 'string' &&
+    isCanonicalDescription(value['description']) &&
+    isOptionalDescriptionLines(value['descriptionLines']) &&
     Array.isArray(value['requiredBy'])
+  );
+}
+
+function isCanonicalDescription(description: string): boolean {
+  try {
+    tokenizeDescription(description);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isOptionalDescriptionLines(value: unknown): boolean {
+  if (value === undefined) return true;
+  if (!Array.isArray(value)) return false;
+  return value.every((line) => isDescriptionLine(line));
+}
+
+function isDescriptionNode(value: unknown): value is DescriptionNode {
+  if (!isRecord(value)) return false;
+  if (value['kind'] === 'text') return typeof value['text'] === 'string';
+  if (value['kind'] === 'effect') return typeof value['name'] === 'string';
+  if (value['kind'] === 'modifier') {
+    return (
+      typeof value['expression'] === 'string' &&
+      (value['sign'] === 'pos' || value['sign'] === 'neg' || value['sign'] === 'neutral')
+    );
+  }
+  return false;
+}
+
+function isDescriptionLine(value: unknown): boolean {
+  return (
+    isRecord(value) &&
+    (value['kind'] === 'paragraph' || value['kind'] === 'bullet') &&
+    Array.isArray(value['nodes']) &&
+    value['nodes'].every((node) => isDescriptionNode(node))
   );
 }
 
@@ -160,7 +200,7 @@ export function assertQuestArray(data: unknown): Quest[] {
   return data as Quest[];
 }
 
-export function assertAbilityArray(data: unknown): Ability[] {
+export function assertAbilityArray(data: unknown): RawAbility[] {
   if (!Array.isArray(data)) {
     throw new Error('Expected an array of abilities');
   }
@@ -169,5 +209,5 @@ export function assertAbilityArray(data: unknown): Ability[] {
       throw new Error(`Invalid ability at index ${i}`);
     }
   }
-  return data as Ability[];
+  return data as RawAbility[];
 }

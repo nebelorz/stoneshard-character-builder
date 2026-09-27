@@ -1,3 +1,5 @@
+import { DescriptionLine } from './ability-description.model';
+
 export interface Ability {
   readonly id: string;
   readonly name: string;
@@ -13,7 +15,10 @@ export interface Ability {
   readonly requires: string[];
   readonly unlockConditions: string[];
   readonly description: string;
+  readonly descriptionLines: readonly DescriptionLine[];
   readonly requiredBy: string[];
 }
+
+export type RawAbility = Omit<Ability, 'descriptionLines'>;
 
 export const DEFAULT_ABILITY_IDS: readonly string[] = ['survival-1'];
