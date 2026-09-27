@@ -1,8 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { AbilityTreeComponent } from './ability-tree';
-import { AbilityDataService } from '@features/ability-trees/services';
-import { BuildStore } from '@features/build/services';
-import { CharacterDataService } from '@features/character/services';
+import { AbilityDataService, CharacterDataService } from '@core/data';
+import { BuildStore } from '@core/state';
 import { AbilityTree, Ability, BuildState } from '@models';
 
 function getReadyState(store: BuildStore): BuildState {
