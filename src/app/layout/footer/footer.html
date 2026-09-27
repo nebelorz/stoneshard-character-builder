@@ -2,7 +2,7 @@
   <span class="footer__version">{{ version }}</span>
   <div class="footer__links">
     <a
-      class="footer__link"
+      class="footer__link ss-icon-hover"
       [href]="discordUrl"
       target="_blank"
       rel="noopener noreferrer"
@@ -10,15 +10,12 @@
       [tooltipText]="'Discord'"
       tooltipPlacement="top"
       aria-label="Discord profile"
-      [@iconHover]="discordHovered ? 'active' : 'idle'"
-      (mouseenter)="discordHovered = true"
-      (mouseleave)="discordHovered = false"
     >
       <ng-icon name="phosphorDiscordLogo" />
     </a>
 
     <a
-      class="footer__link"
+      class="footer__link ss-icon-hover"
       [href]="githubUrl"
       target="_blank"
       rel="noopener noreferrer"
@@ -26,29 +23,23 @@
       [tooltipText]="'GitHub'"
       tooltipPlacement="top"
       aria-label="GitHub repository"
-      [@iconHover]="githubHovered ? 'active' : 'idle'"
-      (mouseenter)="githubHovered = true"
-      (mouseleave)="githubHovered = false"
     >
       <ng-icon name="phosphorGithubLogo" />
     </a>
 
     <span
-      class="footer__info"
+      class="footer__info ss-icon-hover"
       appTooltip
       [tooltipText]="stoneshardDataVersion"
       tooltipPlacement="top"
       aria-label="Stoneshard game data version"
       role="img"
-      [@iconHover]="infoHovered ? 'active' : 'idle'"
-      (mouseenter)="infoHovered = true"
-      (mouseleave)="infoHovered = false"
     >
       <ng-icon name="phosphorInfo" />
     </span>
 
     <a
-      class="footer__link__thanksTo"
+      class="footer__link__thanksTo ss-icon-hover"
       [href]="nstratosUrl"
       target="_blank"
       rel="noopener noreferrer"
@@ -56,9 +47,6 @@
       [tooltipText]="nstratosThanksTo"
       tooltipPlacement="top"
       aria-label="Thanks to Nstratos for his previous work <3"
-      [@iconHover]="heartHovered ? 'active' : 'idle'"
-      (mouseenter)="heartHovered = true"
-      (mouseleave)="heartHovered = false"
     >
       <ng-icon name="phosphorHeart" />
     </a>

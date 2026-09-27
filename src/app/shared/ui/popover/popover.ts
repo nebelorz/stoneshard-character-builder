@@ -12,7 +12,6 @@ import {
 import { Overlay, OverlayRef, ConnectedPosition } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { CdkTrapFocus } from '@angular/cdk/a11y';
-import { fadeInOutFast } from '@shared/animations/fade';
 
 const POPOVER_POSITIONS: ConnectedPosition[] = [
   { originX: 'center', originY: 'top', overlayX: 'center', overlayY: 'bottom', offsetY: -8 },
@@ -21,13 +20,12 @@ const POPOVER_POSITIONS: ConnectedPosition[] = [
 @Component({
   selector: 'app-popover',
   imports: [CdkTrapFocus],
-  animations: [fadeInOutFast],
   template: `
     <ng-template #popoverContent>
       @if (isOpen()) {
         <div
           class="popover font-ui"
-          @fadeInOutFast
+          animate.enter="ss-fade-in-fast"
           [attr.role]="role()"
           aria-modal="true"
           [attr.aria-labelledby]="ariaLabelledby()"
@@ -42,6 +40,7 @@ const POPOVER_POSITIONS: ConnectedPosition[] = [
   `,
   styles: `
     @use 'variables' as *;
+    @use 'animations' as *;
 
     :host {
       display: contents;

@@ -19,7 +19,6 @@ import { TemplatePortal } from '@angular/cdk/portal';
 import { BuildStore } from '@core/state';
 import { CharacterDataService } from '@core/data';
 import { Character } from '@models';
-import { fadeInOut } from '@shared/animations/fade';
 import { EnrichedTooltipDirective } from '@shared/directives/tooltip/enriched-tooltip';
 import { TraitTooltipContent } from '@models';
 
@@ -40,7 +39,6 @@ const DROPDOWN_POSITIONS: ConnectedPosition[] = [
   host: { '(document:click)': 'onDocumentClick($event)' },
   templateUrl: './character-selector.html',
   styleUrl: './character-selector.scss',
-  animations: [fadeInOut],
   imports: [EnrichedTooltipDirective],
 })
 export class CharacterSelectorComponent implements OnInit, OnDestroy {

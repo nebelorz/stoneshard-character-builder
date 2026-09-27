@@ -14,7 +14,6 @@ import { copyWithFeedback } from '@shared/utils/clipboard';
 import { BuildStore } from '@core/state';
 import { UrlShareService, AiPromptService } from '@features/build/services';
 import { AbilityDataService, CharacterDataService, QuestDataService } from '@core/data';
-import { fadeInOut } from '@shared/animations/fade';
 import { BuildNotes } from '@models';
 
 @Component({
@@ -31,7 +30,6 @@ import { BuildNotes } from '@models';
   selector: 'app-root',
   styleUrl: './app.scss',
   templateUrl: './app.html',
-  animations: [fadeInOut],
   host: {
     '(document:click)': 'onDocumentClick($event)',
     '(document:keydown.escape)': 'onEscape()',
