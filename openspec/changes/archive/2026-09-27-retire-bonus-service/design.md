@@ -63,3 +63,49 @@ The aliases do not prevent a real collision (bare identifiers resolve to module 
 4. Run `npm run lint`, `ng build`, and `npm test`.
 
 Rollback: revert the commits; `BonusService` is restored intact and no persisted state changes.
+
+## Spike Findings
+
+### Consumer to pure-function mapping (task 1.1)
+
+Every `BonusService` method forwards 1:1 to an existing `@models` pure function; the only added
+value is the injected quest list. Verified mapping:
+
+| Consumer            | `BonusService` usage            | Pure replacement                                          | Needs quests |
+| ------------------- | ------------------------------- | --------------------------------------------------------- | ------------ |
+| `quests-section`    | `quests()`                      | `QuestDataService.questList`                              | yes          |
+| `quests-section`    | `slotsForSource(state, id)`     | `bonusSlotsForSource(state, id)`                          | no           |
+| `trait-section`     | `traitSpGains(character)`       | `traitSpGains(character)`                                 | no           |
+| `trait-section`     | `slotsForSource(state, id)`     | `bonusSlotsForSource(state, id)`                          | no           |
+| `build-store`       | `derivedAp(...)`                | `derivedTraitAp(...)`                                     | no           |
+| `build-store`       | `derivedFloor(...)`             | `derivedTraitApFloor(...)`                                | no           |
+| `build-store`       | `clearTraitSlots(state)`        | `clearTraitSlots(state, id => isQuestSource(quests, id))` | yes          |
+| `build-store`       | `allocateSlot(...)`             | `allocateBonusSlot(..., quests)`                          | yes          |
+| `build-store`       | `deallocateSlot(...)`           | `deallocateBonusSlot(...)`                                | no           |
+| `build-store`       | `addBossRow(...)`               | `addBossRow(..., quests)`                                 | yes          |
+| `build-store`       | `removeBossRow(...)`            | `removeBossRow(..., quests)`                              | yes          |
+| `build-store`       | `canAddBossRow(...)`            | `canAddBossRow(..., quests)`                              | yes          |
+| `build-store`       | `bossRowCount(...)`             | `bossRowCount(..., quests)`                               | yes          |
+| `build-store`       | `bonusCount(...)`               | `bonusCount(...)`                                         | no           |
+| `ai-prompt.service` | `bonusCount(state, stat)`       | `bonusCount(state, stat)`                                 | no           |
+| `ai-prompt.service` | `findQuest(sourceId)`           | `findQuest(quests, sourceId)`                             | yes          |
+| `ai-prompt.service` | `findTraitGain(character, id)`  | `findTraitGain(character, id)`                            | no           |
+| `url-share.service` | `sanitizeBonusSlots(raw, char)` | `sanitizeBonusSlots(raw, char, quests)`                   | yes          |
+| `url-share.service` | `derivedFloor(...)`             | `derivedTraitApFloor(...)`                                | no           |
+
+### Spike result (task 1.2)
+
+Migrating `quests-section` replaced the `BonusService` injection with `QuestDataService` plus
+`bonusSlotsForSource`: four lines changed, zero test changes, `quests-section.spec.ts` stayed at
+5/5 passing. The component read quests via `questData.quests.value() ?? []`, confirming that the
+only shared thing the service hid is the `?? []` fallback.
+
+### Decision (task 1.3): GO - remove `BonusService`
+
+- Diff size: small and purely mechanical (each service method maps 1:1 to a pure function).
+- Test churn: only the shared `questList` accessor (task 2.1) changes the `QuestDataService`
+  mocks; the spike itself needed none.
+- Shared quests accessor: needed by `build-store`, `ai-prompt.service`, `url-share.service`, and
+  `quests-section`; centralizing it in `QuestDataService.questList` (D3) is the one real thing the
+  service provided, so it moves there rather than being repeated.
+- No runtime behavior change. Path 2 (removal) is taken; path 3 (fallback) is not.
