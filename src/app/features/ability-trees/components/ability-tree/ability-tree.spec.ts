@@ -224,6 +224,7 @@ describe('AbilityTreeComponent', () => {
       'app-ability-icon .ability-icon',
     ) as HTMLElement;
     firstIcon.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    vi.advanceTimersByTime(120);
     fixture.detectChanges();
     const tooltip = document.body.querySelector('.ability-tooltip') as HTMLElement;
     expect(tooltip).toBeTruthy();

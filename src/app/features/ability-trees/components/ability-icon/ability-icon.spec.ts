@@ -170,9 +170,25 @@ describe('AbilityIconComponent', () => {
   }
 
   function hoverIcon(abilityId: string): void {
+    vi.useFakeTimers();
     getIcon().dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    vi.advanceTimersByTime(120);
     fixture!.detectChanges();
     expect(getTooltip(abilityId).classList.contains('ability-tooltip--visible')).toBe(true);
+  }
+
+  function makeScrollable(body: HTMLElement, scrollHeight: number, clientHeight: number): void {
+    let scrollTop = 0;
+    Object.defineProperty(body, 'scrollHeight', { value: scrollHeight, configurable: true });
+    Object.defineProperty(body, 'clientHeight', { value: clientHeight, configurable: true });
+    Object.defineProperty(body, 'scrollTop', {
+      get: () => scrollTop,
+      set: (value: number) => {
+        const max = scrollHeight - clientHeight;
+        scrollTop = Math.min(Math.max(value, 0), max);
+      },
+      configurable: true,
+    });
   }
 
   it('renders a default active ability as obtained with no level badge and no lock overlay', () => {
@@ -280,21 +296,59 @@ describe('AbilityIconComponent', () => {
     expect(tooltip.querySelectorAll('.ability-description__line--bullet')).toHaveLength(1);
   });
 
-  it('keeps the card visible while the pointer moves onto it and hides after the delay', () => {
+  it('shows the card only after the hover delay', () => {
+    vi.useFakeTimers();
+    setup('survival-attack');
+    const tooltip = getTooltip('survival-attack');
+    getIcon().dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+
+    vi.advanceTimersByTime(119);
+    fixture!.detectChanges();
+    expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(false);
+
+    vi.advanceTimersByTime(1);
+    fixture!.detectChanges();
+    expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(true);
+  });
+
+  it('shows the card immediately on keyboard focus', () => {
+    vi.useFakeTimers();
+    setup('survival-attack');
+    const tooltip = getTooltip('survival-attack');
+
+    getIcon().dispatchEvent(new FocusEvent('focus'));
+    fixture!.detectChanges();
+
+    expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(true);
+  });
+
+  it('hides the card after the hide delay when the pointer leaves', () => {
     vi.useFakeTimers();
     setup('survival-attack');
     hoverIcon('survival-attack');
     const tooltip = getTooltip('survival-attack');
-    const icon = getIcon();
 
-    icon.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-    tooltip.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
-    vi.advanceTimersByTime(400);
+    getIcon().dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+    vi.advanceTimersByTime(59);
     fixture!.detectChanges();
     expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(true);
 
-    tooltip.dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
-    vi.advanceTimersByTime(400);
+    vi.advanceTimersByTime(1);
+    fixture!.detectChanges();
+    expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(false);
+  });
+
+  it('does not keep the card alive when the pointer moves onto it', () => {
+    vi.useFakeTimers();
+    setup('survival-attack');
+    hoverIcon('survival-attack');
+    const tooltip = getTooltip('survival-attack');
+
+    getIcon().dispatchEvent(new MouseEvent('mouseleave', { bubbles: true }));
+    tooltip.dispatchEvent(new MouseEvent('mouseenter', { bubbles: true }));
+    tooltip.dispatchEvent(new MouseEvent('mousemove', { bubbles: true }));
+
+    vi.advanceTimersByTime(70);
     fixture!.detectChanges();
     expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(false);
   });
@@ -328,6 +382,32 @@ describe('AbilityIconComponent', () => {
     expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(false);
   });
 
+  it('keeps the card visible when an unlocked ability is obtained', () => {
+    setup('survival-4');
+    hoverIcon('survival-4');
+    const tooltip = getTooltip('survival-4');
+
+    getIcon().dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    buildStore.obtainAbility('survival-4');
+    fixture!.detectChanges();
+
+    expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(true);
+  });
+
+  it('keeps the card visible when an obtained ability is refunded', () => {
+    setup('survival-4');
+    buildStore.obtainAbility('survival-4');
+    fixture!.detectChanges();
+    hoverIcon('survival-4');
+    const tooltip = getTooltip('survival-4');
+
+    getIcon().dispatchEvent(new MouseEvent('contextmenu', { bubbles: true, cancelable: true }));
+    buildStore.refundAbility('survival-4');
+    fixture!.detectChanges();
+
+    expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(true);
+  });
+
   it('makes the overflow region focusable and dismisses the card on Escape', () => {
     setup('survival-attack');
     hoverIcon('survival-attack');
@@ -343,6 +423,60 @@ describe('AbilityIconComponent', () => {
     body.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
     fixture!.detectChanges();
     expect(tooltip.classList.contains('ability-tooltip--visible')).toBe(false);
+  });
+
+  it('scrolls the card body with the wheel while it overflows', () => {
+    setup('survival-attack');
+    hoverIcon('survival-attack');
+    const tooltip = getTooltip('survival-attack');
+    const body = tooltip.querySelector('.ability-tooltip__body') as HTMLElement;
+    makeScrollable(body, 600, 200);
+
+    const event = new WheelEvent('wheel', { deltaY: 120, bubbles: true, cancelable: true });
+    getIcon().dispatchEvent(event);
+    fixture!.detectChanges();
+
+    expect(body.scrollTop).toBe(120);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it('blocks page scroll instead of scrolling past the bottom edge', () => {
+    setup('survival-attack');
+    hoverIcon('survival-attack');
+    const tooltip = getTooltip('survival-attack');
+    const body = tooltip.querySelector('.ability-tooltip__body') as HTMLElement;
+    makeScrollable(body, 600, 200);
+    body.scrollTop = 400;
+
+    const event = new WheelEvent('wheel', { deltaY: 120, bubbles: true, cancelable: true });
+    getIcon().dispatchEvent(event);
+    fixture!.detectChanges();
+
+    expect(body.scrollTop).toBe(400);
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it('blocks page scroll when the card does not overflow', () => {
+    setup('survival-attack');
+    hoverIcon('survival-attack');
+    const tooltip = getTooltip('survival-attack');
+    const body = tooltip.querySelector('.ability-tooltip__body') as HTMLElement;
+    makeScrollable(body, 200, 200);
+
+    const event = new WheelEvent('wheel', { deltaY: 120, bubbles: true, cancelable: true });
+    getIcon().dispatchEvent(event);
+    fixture!.detectChanges();
+
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it('lets the page scroll when no card is visible', () => {
+    setup('survival-attack');
+    const event = new WheelEvent('wheel', { deltaY: 120, bubbles: true, cancelable: true });
+    getIcon().dispatchEvent(event);
+    fixture!.detectChanges();
+
+    expect(event.defaultPrevented).toBe(false);
   });
 
   it('flips the card to the left of the icon near the right viewport edge', () => {
