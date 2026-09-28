@@ -19,8 +19,9 @@
   (mouseenter)="onMouseEnter()"
   (mousemove)="onMouseMove()"
   (mouseleave)="onMouseLeave()"
-  (focus)="onMouseEnter()"
+  (focus)="onFocus()"
   (blur)="onMouseLeave()"
+  (wheel)="onWheel($event)"
 >
   <img class="ability-icon__img" [src]="iconPath" [alt]="ability().name" draggable="false" />
   @if (isLocked()) {
@@ -47,10 +48,8 @@
   [class.ability-tooltip--left]="tooltipPosition() === 'left'"
   [style.left.px]="tooltipX()"
   [style.top.px]="tooltipY()"
-  (mouseenter)="onTooltipEnter()"
-  (mouseleave)="onTooltipLeave()"
-  (focusin)="onTooltipEnter()"
-  (focusout)="onTooltipLeave()"
+  (focusin)="onTooltipFocusIn()"
+  (focusout)="onTooltipFocusOut()"
   (keydown.escape)="onEscape()"
 >
   <div class="ability-tooltip__header">

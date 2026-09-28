@@ -131,8 +131,10 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
   private allAbilities: Ability[] = [];
   private tooltipAttachedToBody = false;
   private rafId: number | null = null;
+  private showTimer: number | null = null;
   private hideTimer: number | null = null;
-  private readonly hideDelay = 150;
+  private readonly showDelay = 120;
+  private readonly hideDelay = 60;
 
   private readonly buildStore = inject(BuildStore);
   private readonly abilityData = inject(AbilityDataService);
@@ -178,6 +180,7 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
     if (this.rafId !== null) {
       cancelAnimationFrame(this.rafId);
     }
+    this.cancelShow();
     this.cancelHide();
     if (this.hoverService.activeTooltipId() === this.ability().id) {
       this.hoverService.setActiveTooltip(null);
@@ -192,10 +195,19 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
   onMouseEnter(): void {
     this.cancelHide();
     this.hoverService.setActiveTooltip(this.ability().id);
-    this.tooltipVisible.set(true);
-    this.moveTooltipToBody();
-    this.updateTooltipPosition();
-    this.refreshOverflowState();
+    if (this.tooltipVisible()) {
+      this.moveTooltipToBody();
+      this.updateTooltipPosition();
+      this.refreshOverflowState();
+      return;
+    }
+    this.scheduleShow();
+  }
+
+  onFocus(): void {
+    this.cancelHide();
+    this.hoverService.setActiveTooltip(this.ability().id);
+    this.showNow();
   }
 
   onMouseMove(): void {
@@ -208,14 +220,15 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
   }
 
   onMouseLeave(): void {
+    this.cancelShow();
     this.scheduleHide();
   }
 
-  onTooltipEnter(): void {
+  onTooltipFocusIn(): void {
     this.cancelHide();
   }
 
-  onTooltipLeave(): void {
+  onTooltipFocusOut(): void {
     this.scheduleHide();
   }
 
@@ -241,6 +254,17 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
     }
   }
 
+  onWheel(event: WheelEvent): void {
+    if (!this.tooltipVisible()) {
+      return;
+    }
+    const body = this.tooltipBodyRef?.nativeElement;
+    if (body && body.scrollHeight > body.clientHeight + 1) {
+      body.scrollTop += event.deltaY;
+    }
+    event.preventDefault();
+  }
+
   buildIconPath(ability: Ability, treeId: string): string {
     const iconFileName = ability.name.replace(/ /g, '_');
     return `assets/icons/${treeId}/${iconFileName}.png`;
@@ -262,6 +286,31 @@ export class AbilityIconComponent implements OnDestroy, AfterViewInit {
     const tooltipEl = this.tooltipRef.nativeElement;
     tooltipEl.remove();
     this.tooltipAttachedToBody = false;
+  }
+
+  private scheduleShow(): void {
+    this.cancelShow();
+    this.showTimer = window.setTimeout(() => {
+      this.showTimer = null;
+      if (this.hoverService.activeTooltipId() === this.ability().id) {
+        this.showNow();
+      }
+    }, this.showDelay);
+  }
+
+  private cancelShow(): void {
+    if (this.showTimer !== null) {
+      window.clearTimeout(this.showTimer);
+      this.showTimer = null;
+    }
+  }
+
+  private showNow(): void {
+    this.cancelShow();
+    this.tooltipVisible.set(true);
+    this.moveTooltipToBody();
+    this.updateTooltipPosition();
+    this.refreshOverflowState();
   }
 
   private scheduleHide(): void {
