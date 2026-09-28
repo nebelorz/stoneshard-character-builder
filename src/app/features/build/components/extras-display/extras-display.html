@@ -8,7 +8,7 @@
     <div class="right-sidenav__extras-row--notes" (click)="openNotes.emit()">
       @if (notesPreview(); as preview) {
         <span class="right-sidenav__extras-notes-title"
-          >▸ Name {{ preview.buildName || '--' }}</span
+          >▸ Name: {{ preview.buildName || '--' }}</span
         >
         <span class="right-sidenav__extras-notes-author"
           >▸ Author: {{ preview.author || '--' }}</span
