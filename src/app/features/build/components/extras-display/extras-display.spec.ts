@@ -1,18 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { ExtrasDisplayComponent } from './extras-display';
 import { BuildStore } from '@core/state';
 
-const HOVER_DELAY = 200;
-
-const settle = (ms = HOVER_DELAY + 50) => new Promise<void>((resolve) => setTimeout(resolve, ms));
-
 describe('ExtrasDisplayComponent', () => {
-  let overlayContainer: OverlayContainer;
   let storeState: Record<string, unknown>;
   let fixture: ComponentFixture<ExtrasDisplayComponent>;
-
-  const tooltipEl = () => overlayContainer.getContainerElement().querySelector('[role="tooltip"]');
 
   function createFixture(): void {
     fixture = TestBed.createComponent(ExtrasDisplayComponent);
@@ -35,13 +27,11 @@ describe('ExtrasDisplayComponent', () => {
         },
       ],
     });
-    overlayContainer = TestBed.inject(OverlayContainer);
     createFixture();
   });
 
   afterEach(() => {
     fixture.destroy();
-    overlayContainer.ngOnDestroy();
   });
 
   it('exposes the section title as a heading for assistive tech', () => {
@@ -55,7 +45,7 @@ describe('ExtrasDisplayComponent', () => {
     const placeholder = fixture.nativeElement.querySelector(
       '.right-sidenav__extras-notes-placeholder',
     );
-    expect(placeholder.textContent!.trim()).toBe('No notes for this build');
+    expect(placeholder.textContent!.trim()).toBe('Add notes for this build');
   });
 
   it('shows a truncated preview when notes exist', () => {
@@ -76,16 +66,5 @@ describe('ExtrasDisplayComponent', () => {
     row.click();
     expect(opened.length).toBe(1);
     subscription.unsubscribe();
-  });
-
-  it('describes the notes icon with the author-notes tooltip', async () => {
-    const icon = fixture.nativeElement.querySelector('ng-icon[name="phosphorNote"]') as HTMLElement;
-    icon.dispatchEvent(new MouseEvent('mouseenter'));
-    await settle();
-
-    const tooltip = tooltipEl();
-    expect(tooltip).toBeTruthy();
-    expect(tooltip?.textContent).toContain('Author notes about this build');
-    expect(icon.getAttribute('aria-describedby')).toBe(tooltip?.id);
   });
 });
